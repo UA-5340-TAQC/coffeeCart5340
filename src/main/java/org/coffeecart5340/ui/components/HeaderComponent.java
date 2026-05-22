@@ -13,7 +13,7 @@ public class HeaderComponent extends BaseComponent {
     protected WebElement menuButton;
 
     @FindBy(xpath = ".//a[@aria-label='Cart page']")
-    protected WebElement cardButton;
+    protected WebElement cartButton;
 
     @FindBy(xpath = ".//a[@aria-label='GitHub page']")
     protected WebElement githubButton;
@@ -29,7 +29,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public CartPage clickCardButton() {
-        waitAndClickElement(cardButton);
+        waitAndClickElement(cartButton);
         return new CartPage(driver);
     }
 
@@ -37,6 +37,4 @@ public class HeaderComponent extends BaseComponent {
         waitAndClickElement(githubButton);
         return new GitHubPage(driver);
     }
-
-
 }

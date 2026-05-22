@@ -1,0 +1,41 @@
+package org.coffeecart5340.ui.components;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class CartPreviewComponent extends BaseComponent {
+
+    @FindBy(xpath = ".//span[1]")
+    private WebElement itemName;
+
+    @FindBy(xpath = ".//span[@class='unit-desc']")
+    private WebElement itemAmount;
+
+    @FindBy(xpath = ".//button[text()='+']")
+    private WebElement plusButton;
+
+    @FindBy(xpath = ".//button[text()='-']")
+    private WebElement minusButton;
+
+    public CartPreviewComponent(WebElement rootElement) {
+        super(rootElement);
+    }
+
+    public String getItemName() {
+        return itemName.getText();
+    }
+
+    public String getItemAmount() {
+        return itemAmount.getText();
+    }
+
+    public CartPreviewComponent clickPlus() {
+        waitAndClickElement(plusButton);
+        return this;
+    }
+
+    public CartPreviewComponent clickMinus() {
+        waitAndClickElement(minusButton);
+        return this;
+    }
+}
