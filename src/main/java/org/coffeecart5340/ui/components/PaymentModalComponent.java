@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import lombok.NonNull;
 
 @Getter
 public class PaymentModalComponent extends BaseComponent{
@@ -28,15 +29,15 @@ public class PaymentModalComponent extends BaseComponent{
         super(driver, rootElement);
     }
 
-    @Step("Enter name: {0}")
-    public PaymentModalComponent enterName(String name) {
+    @Step("Enter name")
+    public PaymentModalComponent enterName(@NonNull String name) {
         nameInput.clear();
         nameInput.sendKeys(name);
         return this;
     }
 
-    @Step("Enter email: {0}")
-    public PaymentModalComponent enterEmail(String email) {
+    @Step("Enter email")
+    public PaymentModalComponent enterEmail(@NonNull String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
         return this;
@@ -45,7 +46,7 @@ public class PaymentModalComponent extends BaseComponent{
     @Step("Check promotional messages box")
     public PaymentModalComponent checkPromo() {
         if (!promoCheckbox.isSelected()) {
-            promoCheckbox.click();
+            waitAndClickElement(promoCheckbox);
         }
         return this;
     }
@@ -53,23 +54,23 @@ public class PaymentModalComponent extends BaseComponent{
     @Step("Uncheck promotional messages box")
     public PaymentModalComponent uncheckPromo() {
         if (promoCheckbox.isSelected()) {
-            promoCheckbox.click();
+            waitAndClickElement(promoCheckbox);
         }
         return this;
     }
 
     @Step("Click Submit button")
     public void clickSubmit() {
-        submitButton.click();
+        waitAndClickElement(submitButton);
     }
 
     @Step("Click Close icon")
     public void clickClose() {
-        closeIcon.click();
+        waitAndClickElement(closeIcon);
     }
 
-    @Step("Fill payment details - Name: {0}, Email: {1}, Promo: {2}")
-    public void fillPaymentDetailsAndSubmit(String name, String email, boolean acceptPromo) {
+    @Step("Fill payment details (Accept promo: {2})")
+    public void fillPaymentDetailsAndSubmit(@NonNull String name, @NonNull String email, boolean acceptPromo) {
         enterName(name);
         enterEmail(email);
 
