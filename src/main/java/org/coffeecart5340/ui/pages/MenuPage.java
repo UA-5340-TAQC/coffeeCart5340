@@ -7,16 +7,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuPage extends BasePage {
 
+    private final By menuItemsLocator = By.xpath("//div[@class='cup']");
+    private final By totalButtonLocator = By.cssSelector("button[data-test='checkout']");
+    private final By cartListLocator = By.cssSelector("li.list-item");
     @FindBy(css = "ul.cart-preview li.list-item")
-
     private List<WebElement> cartPreviewElements;
 
     public MenuPage(WebDriver driver) {
@@ -24,14 +23,8 @@ public class MenuPage extends BasePage {
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
-        return cartPreviewElements.stream().map(
-                element -> new CartPreviewComponent(element)
-        ).toList();
+        return cartPreviewElements.stream().map(element -> new CartPreviewComponent(element)).toList();
     }
-
-    private final By menuItemsLocator = By.xpath("//div[@class='cup']");
-    private final By totalButtonLocator = By.cssSelector("button[data-test='checkout']");
-    private final By cartListLocator = By.cssSelector("li.list-item");
 
     public void addFirstItemToCart() {
         List<WebElement> items = driver.findElements(menuItemsLocator);
@@ -41,7 +34,7 @@ public class MenuPage extends BasePage {
         }
     }
 
-    public List<ListItemComponent> getCardItems(){
+    public List<ListItemComponent> getCardItems() {
         WebElement totalButton = driver.findElement(totalButtonLocator);
         actions.moveToElement(totalButton).perform();
 
@@ -50,10 +43,8 @@ public class MenuPage extends BasePage {
         List<ListItemComponent> items = new ArrayList<>();
         List<WebElement> elements = driver.findElements(cartListLocator);
         for (WebElement element : elements) {
-            items.add(new ListItemComponent(driver, element));
+            items.add(new ListItemComponent(element));
         }
         return items;
     }
-
-
 }

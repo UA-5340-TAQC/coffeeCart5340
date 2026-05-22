@@ -18,8 +18,8 @@ public class ListItemComponent extends BaseComponent{
 //    @FindBy(xpath = ".//button[contains(@aria-label, 'Remove one')]")
 //    protected WebElement minusButton;
 
-    public ListItemComponent(WebDriver driver, WebElement rootElement) {
-        super(driver, rootElement);
+    public ListItemComponent(WebElement rootElement) {
+        super(rootElement);
     }
 
 //    public String getRawText() {
