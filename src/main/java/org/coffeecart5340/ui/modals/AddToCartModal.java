@@ -1,6 +1,7 @@
 ﻿package org.coffeecart5340.ui.modals;
 
 import lombok.Getter;
+import org.coffeecart5340.ui.pages.MenuPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,20 +20,24 @@ public class AddToCartModal extends BaseModal {
     @FindBy(xpath = ".//p/strong")
     private WebElement coffeeName;
 
-    @Getter
     @FindBy(xpath = ".//p")
     private WebElement description;
 
-    public AddToCartModal(WebDriver driver, WebElement rootElement) {
-        super(driver, rootElement);
+    @FindBy(xpath = "//dialog[@data-cy='add-to-cart-modal']")
+    private WebElement rootElement;
+
+    public AddToCartModal(WebElement rootElement) {
+        super(rootElement);
     }
 
-    public void ClickYesButton(){
+    public MenuPage clickYesButton(){
         waitAndClickElement(yesButton);
+        return new MenuPage(driver);
     }
 
-    public void ClickNoButton(){
+    public MenuPage clickNoButton(){
         waitAndClickElement(noButton);
+        return new MenuPage(driver);
     }
 
     public String getName(){
@@ -41,6 +46,11 @@ public class AddToCartModal extends BaseModal {
 
     public String getDescription(){
         return description.getText();
+    }
+
+    @Override
+    public WebElement getRootElement(){
+        return rootElement;
     }
 
 

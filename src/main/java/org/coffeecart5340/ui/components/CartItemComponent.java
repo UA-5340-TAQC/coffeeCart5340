@@ -2,7 +2,6 @@
 
 import lombok.Getter;
 import org.coffeecart5340.ui.pages.CartPage;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -38,40 +37,27 @@ public class CartItemComponent extends BaseComponent {
         super(rootElement);
     }
 
-    public Double getTotalPrice(){
-        return Double.parseDouble(priceText.getText().replace("$", "").trim());
+    public Float getTotalPrice(){
+        return Float.parseFloat(priceText.getText().replace("$", "").trim());
     }
 
-    public CartItemComponent clickDeleteButton(String name){
-        if(itemName.getText().equals(name)) {
-            waitAndClickElement(deleteButton);
-        }
+    public CartItemComponent clickDeleteButton(){
+        waitAndClickElement(deleteButton);
         return this;
     }
 
-    public CartItemComponent clickPlusButton(int quantity, String name){
-        if(itemName.getText().equals(name)) {
-            for (int i = 1; i <= quantity; i++) {
-                waitAndClickElement(plusButton);
-            }
-        }
+    public CartItemComponent clickPlusButton(){
+        waitAndClickElement(plusButton);
         return this;
     }
 
-    public CartPage clickMinusButton(int quantity, String name){
-        if(quantity == 0 || quantity > getQuantity())
-            throw new IllegalArgumentException("Quantity must be greater than 0 and less than or equal to current quantity");
-
-        if(itemName.getText().equals(name)) {
-            for (int i = 1; i <= quantity; i++) {
-                waitAndClickElement(minusButton);
-            }
-        }
-        return new CartPage(driver);
+    public CartItemComponent clickMinusButton(){
+        waitAndClickElement(minusButton);
+        return this;
     }
 
-    public Double getOneItemPrice(){
-        return Double.parseDouble(Arrays.stream(getUnitDescText().split("x")).toList()
+    public Float getOneItemPrice(){
+        return Float.parseFloat(Arrays.stream(getUnitDescText().split("x")).toList()
                 .getFirst()
                 .replace("$", "")
                 .trim());
@@ -87,7 +73,7 @@ public class CartItemComponent extends BaseComponent {
         return itemName.getText();
     }
 
-    private String getUnitDescText(){
+    public String getUnitDescText(){
         return unitDesc.getText();
     }
 

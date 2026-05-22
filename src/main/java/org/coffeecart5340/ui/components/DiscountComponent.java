@@ -26,9 +26,9 @@ public class DiscountComponent extends BaseComponent{
     @Getter
     private final CupComponent cupComponent;
 
-    public DiscountComponent(WebDriver driver, WebElement rootElement) {
-        super(driver, rootElement);
-        this.cupComponent = new CupComponent(driver, cupRootElement);
+    public DiscountComponent(WebElement rootElement) {
+        super(rootElement);
+        this.cupComponent = new CupComponent(cupRootElement);
     }
 
     public String getDiscountText(){
@@ -45,7 +45,7 @@ public class DiscountComponent extends BaseComponent{
         return new MenuPage(driver);
     }
 
-    private void hoverOverNoButton(){
+    public void hoverOverNoButton(){
         hoverOverElement(noButton);
     }
 }
