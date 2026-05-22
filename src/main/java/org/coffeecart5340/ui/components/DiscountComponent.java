@@ -20,7 +20,7 @@ public class DiscountComponent extends BaseComponent{
     private WebElement discountText;
 
     @Getter
-    @FindBy(xpath = "//div[contains(@class, 'cup-body')]")
+    @FindBy(xpath = ".//div[contains(@class, 'cup-body')]")
     private WebElement cupRootElement;
 
     @Getter

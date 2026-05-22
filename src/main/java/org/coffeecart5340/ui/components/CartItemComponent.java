@@ -34,31 +34,28 @@ public class CartItemComponent extends BaseComponent {
     private WebElement deleteButton;
 
 
-    public CartItemComponent(WebDriver driver, WebElement rootElement) {
-        super(driver, rootElement);
+    public CartItemComponent(WebElement rootElement) {
+        super(rootElement);
     }
 
     public Double getTotalPrice(){
         return Double.parseDouble(priceText.getText().replace("$", "").trim());
     }
 
-    public CartPage clickDeleteButton(String name){
+    public CartItemComponent clickDeleteButton(String name){
         if(itemName.getText().equals(name)) {
             waitAndClickElement(deleteButton);
         }
-        return new CartPage(driver);
+        return this;
     }
 
-    public CartPage clickPlusButton(int quantity, String name){
-        if(quantity == 0)
-            throw new IllegalArgumentException("Quantity must be greater than 0");
-
+    public CartItemComponent clickPlusButton(int quantity, String name){
         if(itemName.getText().equals(name)) {
             for (int i = 1; i <= quantity; i++) {
                 waitAndClickElement(plusButton);
             }
         }
-        return new CartPage(driver);
+        return this;
     }
 
     public CartPage clickMinusButton(int quantity, String name){
