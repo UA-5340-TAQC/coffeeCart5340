@@ -37,6 +37,4 @@ public class HeaderComponent extends BaseComponent {
         waitAndClickElement(githubButton);
         return new GitHubPage(driver);
     }
-
-
 }

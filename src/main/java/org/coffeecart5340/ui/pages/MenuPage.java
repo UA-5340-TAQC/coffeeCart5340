@@ -9,18 +9,17 @@ import java.util.List;
 
 public class MenuPage extends BasePage {
 
-    public MenuPage(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(css = "ul.cart-preview li.list-item")
 
     private List<WebElement> cartPreviewElements;
 
+    public MenuPage(WebDriver driver) {
+        super(driver);
+    }
 
     public List<CartPreviewComponent> getCartPreviews() {
-        return cartPreviewElements.stream()
-    .map(element -> new CartPreviewComponent(driver, element))
-    .toList();
+        return cartPreviewElements.stream().map(
+                element -> new CartPreviewComponent(element)
+        ).toList();
     }
 }
