@@ -1,16 +1,32 @@
 package org.coffeecart5340.ui.pages;
 
+import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.components.ListItemComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuPage extends BasePage {
+
+    @FindBy(css = "ul.cart-preview li.list-item")
+
+    private List<WebElement> cartPreviewElements;
+
     public MenuPage(WebDriver driver) {
         super(driver);
+    }
+
+    public List<CartPreviewComponent> getCartPreviews() {
+        return cartPreviewElements.stream().map(
+                element -> new CartPreviewComponent(element)
+        ).toList();
     }
 
     private final By menuItemsLocator = By.xpath("//div[@class='cup']");
