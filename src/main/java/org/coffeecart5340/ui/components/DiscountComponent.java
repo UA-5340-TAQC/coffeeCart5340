@@ -1,4 +1,4 @@
-﻿package org.coffeecart5340.ui.components;
+package org.coffeecart5340.ui.components;
 
 import lombok.Getter;
 import org.coffeecart5340.ui.pages.MenuPage;

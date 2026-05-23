@@ -1,4 +1,4 @@
-﻿package org.coffeecart5340.ui.modals;
+package org.coffeecart5340.ui.modals;
 
 import lombok.Getter;
 import org.coffeecart5340.ui.pages.MenuPage;
@@ -7,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AddToCartModal extends BaseModal {
+
+    @FindBy(xpath = "//dialog[@data-cy='add-to-cart-modal']")
+    private WebElement rootElement;
 
     @Getter
     @FindBy(xpath = ".//button[text()='Yes']")
@@ -23,11 +26,13 @@ public class AddToCartModal extends BaseModal {
     @FindBy(xpath = ".//p")
     private WebElement description;
 
-    @FindBy(xpath = "//dialog[@data-cy='add-to-cart-modal']")
-    private WebElement rootElement;
+    public AddToCartModal(WebDriver driver) {
+        super(driver);
+    }
 
-    public AddToCartModal(WebElement rootElement) {
-        super(rootElement);
+    @Override
+    public WebElement getRootElement(){
+        return rootElement;
     }
 
     public MenuPage clickYesButton(){
@@ -47,12 +52,5 @@ public class AddToCartModal extends BaseModal {
     public String getDescription(){
         return description.getText();
     }
-
-    @Override
-    public WebElement getRootElement(){
-        return rootElement;
-    }
-
-
 
 }

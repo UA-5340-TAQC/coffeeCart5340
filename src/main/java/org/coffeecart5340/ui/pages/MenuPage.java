@@ -22,4 +22,14 @@ public class MenuPage extends BasePage {
                 element -> new CartPreviewComponent(element)
         ).toList();
     }
+
+    public GitHubPage goToGitHubPage(){
+        getHeader().clickGitHubButton();
+        return new GitHubPage(driver);
+    }
+
+    public CartPage goToCartPage(){
+        getHeader().clickCardButton();
+        return new CartPage(driver);
+    }
 }

@@ -53,16 +53,24 @@ public class CartPage extends BasePage {
         return new CartPage(driver);
     }
 
+    public CartPage clickPlusButtonByName(String name){
+        getCartItemByName(name).clickPlusButton();
+        return new CartPage(driver);
+    }
+
+    public CartPage clickMinusButtonByName(String name){
+        getCartItemByName(name).clickMinusButton();
+        return new CartPage(driver);
+    }
+
     public GitHubPage goToGitHubPage(){
-        return getHeader().clickGitHubButton();
+        getHeader().clickGitHubButton();
+        return new GitHubPage(driver);
     }
 
     public MenuPage goToMenuPage(){
-        return getHeader().clickMenuButton();
+        getHeader().clickMenuButton();
+        return new MenuPage(driver);
     }
-
-
-
-
 
 }
