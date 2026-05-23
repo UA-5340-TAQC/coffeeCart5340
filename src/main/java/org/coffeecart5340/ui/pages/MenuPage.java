@@ -26,13 +26,11 @@ public class MenuPage extends BasePage {
 
     @Step("Navigating to GitHub page")
     public GitHubPage goToGitHubPage(){
-        getHeader().clickGitHubButton();
-        return new GitHubPage(driver);
+        return getHeader().clickGitHubButton();
     }
 
     @Step("Navigating to cart page")
     public CartPage goToCartPage(){
-        getHeader().clickCardButton();
-        return new CartPage(driver);
+        return getHeader().clickCardButton();
     }
 }

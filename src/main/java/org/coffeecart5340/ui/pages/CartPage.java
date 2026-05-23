@@ -71,14 +71,12 @@ public class CartPage extends BasePage {
 
     @Step("Navigating to git hub page")
     public GitHubPage goToGitHubPage(){
-        getHeader().clickGitHubButton();
-        return new GitHubPage(driver);
+        return getHeader().clickGitHubButton();
     }
 
     @Step("Navigating to menu page")
     public MenuPage goToMenuPage(){
-        getHeader().clickMenuButton();
-        return new MenuPage(driver);
+        return getHeader().clickMenuButton();
     }
 
 }
