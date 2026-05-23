@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui.modals;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.openqa.selenium.WebDriver;
@@ -35,11 +36,13 @@ public class AddToCartModal extends BaseModal {
         return rootElement;
     }
 
+    @Step("Clicking yes button")
     public MenuPage clickYesButton(){
         waitAndClickElement(yesButton);
         return new MenuPage(driver);
     }
 
+    @Step("Clicking no button")
     public MenuPage clickNoButton(){
         waitAndClickElement(noButton);
         return new MenuPage(driver);

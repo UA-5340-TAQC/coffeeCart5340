@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui.pages;
 
+import io.qameta.allure.Step;
 import org.coffeecart5340.ui.components.CartItemComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,6 +35,7 @@ public class CartPage extends BasePage {
                         new RuntimeException("Item not found: " + name ));
     }
 
+    @Step("Clicking plus button {quantity} times for item: {name}")
     public CartPage clickPlusButtonMultiply(int quantity, String name){
         for(int iii = 1; iii <= quantity; iii++) {
             getCartItemByName(name).clickPlusButton();
@@ -41,6 +43,7 @@ public class CartPage extends BasePage {
         return new CartPage(driver);
     }
 
+    @Step("Clicking minus button {quantity} times for item: {name}")
     public CartPage clickMinusButtonMultiply(int quantity, String name){
         for(int iii = 1; iii <= quantity; iii++){
             getCartItemByName(name).clickMinusButton();
@@ -48,26 +51,31 @@ public class CartPage extends BasePage {
         return new CartPage(driver);
     }
 
+    @Step("Clicking total delete button for item: {name}")
     public CartPage clickDeleteButton(String name){
         getCartItemByName(name).clickDeleteButton();
         return new CartPage(driver);
     }
 
+    @Step("Clicking plus button for item: {name}")
     public CartPage clickPlusButtonByName(String name){
         getCartItemByName(name).clickPlusButton();
         return new CartPage(driver);
     }
 
+    @Step("Clicking minus button for item: {name}")
     public CartPage clickMinusButtonByName(String name){
         getCartItemByName(name).clickMinusButton();
         return new CartPage(driver);
     }
 
+    @Step("Navigating to git hub page")
     public GitHubPage goToGitHubPage(){
         getHeader().clickGitHubButton();
         return new GitHubPage(driver);
     }
 
+    @Step("Navigating to menu page")
     public MenuPage goToMenuPage(){
         getHeader().clickMenuButton();
         return new MenuPage(driver);
