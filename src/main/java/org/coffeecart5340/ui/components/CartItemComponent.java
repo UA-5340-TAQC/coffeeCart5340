@@ -77,10 +77,9 @@ public class CartItemComponent extends BaseComponent {
         return unitDesc.getText();
     }
 
-    public CartItemComponent hoverOverDeleteButton(){
+    public void hoverOverDeleteButton(){
         waitUntilElementIsVisible(deleteButton);
         hoverOverElement(deleteButton);
-        return this;
     }
 
     public String getDeleteButtonHoverColor(){

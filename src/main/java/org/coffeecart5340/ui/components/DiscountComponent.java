@@ -56,10 +56,12 @@ public class DiscountComponent extends BaseComponent{
         return yesButton.getCssValue("background-color");
     }
 
+    @Step("Hovering over no button")
     public void hoverOverNoButton(){
         hoverOverElement(noButton);
     }
 
+    @Step("Hovering over yes button")
     public void hoverOverYesButton(){
         hoverOverElement(yesButton);
     }
