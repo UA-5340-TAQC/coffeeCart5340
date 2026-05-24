@@ -48,6 +48,31 @@ public class AddToCartModal extends BaseModal {
         return new MenuPage(driver);
     }
 
+    @Step("Hovering over no button")
+    public void hoverOverNoButton(){
+        hoverOverElement(noButton);
+    }
+
+    @Step("Hovering over yes button")
+    public void hoverOverYesButton(){
+        hoverOverElement(yesButton);
+    }
+
+    public String getNoButtonStyle(){
+        return noButton.getCssValue("color");
+    }
+
+    public String getYesButtonStyle(){
+        return yesButton.getCssValue("color");
+    }
+
+    public String getYesButtonBorderColor(){
+        return yesButton.getCssValue("border-color");
+    }
+     public String getNoButtonBorderColor(){
+        return noButton.getCssValue("border-color");
+    }
+
     public String getName(){
         return coffeeName.getText();
     }

@@ -77,4 +77,18 @@ public class CartItemComponent extends BaseComponent {
         return unitDesc.getText();
     }
 
+    public CartItemComponent hoverOverDeleteButton(){
+        waitUntilElementIsVisible(deleteButton);
+        hoverOverElement(deleteButton);
+        return this;
+    }
+
+    public String getDeleteButtonHoverColor(){
+        return deleteButton.getCssValue("color");
+    }
+
+    public String getDeleteButtonHoverBackgroundColor(){
+        return deleteButton.getCssValue("background-color");
+    }
+
 }

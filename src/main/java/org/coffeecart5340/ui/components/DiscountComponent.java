@@ -48,7 +48,19 @@ public class DiscountComponent extends BaseComponent{
         return new MenuPage(driver);
     }
 
+    public String getNoButtonStyle(){
+        return noButton.getCssValue("background-color");
+    }
+
+    public String getYesButtonStyle(){
+        return yesButton.getCssValue("background-color");
+    }
+
     public void hoverOverNoButton(){
         hoverOverElement(noButton);
+    }
+
+    public void hoverOverYesButton(){
+        hoverOverElement(yesButton);
     }
 }
