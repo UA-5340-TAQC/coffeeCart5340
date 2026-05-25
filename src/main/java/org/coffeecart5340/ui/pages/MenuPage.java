@@ -39,7 +39,7 @@ public class MenuPage extends BasePage {
 
     // --- Component Getters ---
     public TotalButtonComponent getTotalButton() {
-        return new TotalButtonComponent(driver, payContainerRoot);
+        return new TotalButtonComponent(payContainerRoot);
     }
 
     public DiscountComponent getDiscountModal() {
