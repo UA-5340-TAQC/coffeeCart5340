@@ -3,6 +3,7 @@ package org.coffeecart5340.ui.pages;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.components.CupCardComponent;
 import org.openqa.selenium.NoSuchElementException;
+import org.coffeecart5340.ui.components.TotalButtonMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,9 @@ public class MenuPage extends BasePage {
 
     @FindBy(xpath = "//li[.//div[contains(@class, 'cup-body')]]")
     private List<WebElement> cupCards;
+
+    @FindBy(css = ".pay-container")
+    private WebElement totalButtonContainer;
 
     public MenuPage(WebDriver driver) {
         super(driver);
@@ -33,5 +37,9 @@ public class MenuPage extends BasePage {
                 .filter(card -> card.getCupName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Cup card not found: " + name));
+    }
+
+    public TotalButtonMenuComponent getTotalButtonMenuComponent() {
+        return new TotalButtonMenuComponent(driver, totalButtonContainer);
     }
 }
