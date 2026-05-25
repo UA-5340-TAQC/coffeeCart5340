@@ -5,7 +5,8 @@ language: "en" # Language for CodeRabbit review comments and discussions
 
 reviews:
   profile: "assertive" # Strict and detailed architecture-focused code analysis
-  request_changes_workflow: true
+  high_level_summary: true
+  collapse_walkthrough: false
 
   tools:
     github_review:

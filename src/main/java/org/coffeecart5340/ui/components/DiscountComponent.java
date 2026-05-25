@@ -1,67 +1,63 @@
 package org.coffeecart5340.ui.components;
 
+import io.qameta.allure.Step;
+import lombok.Getter;
 import org.coffeecart5340.ui.pages.MenuPage;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import io.qameta.allure.Step;
-import lombok.Getter;
+public class DiscountComponent extends BaseComponent {
 
-public class DiscountComponent extends BaseComponent{
-
+    @Getter
+    private final CupComponent cupComponent;
     @Getter
     @FindBy(xpath = ".//button[@class='yes']")
     private WebElement yesButton;
-
     @Getter
     @FindBy(xpath = ".//button[contains(text(), 'Nah')]")
     private WebElement noButton;
-
     @FindBy(xpath = ".//span")
     private WebElement discountText;
-
     @Getter
     @FindBy(xpath = ".//div[contains(@class, 'cup-body')]")
     private WebElement cupRootElement;
 
-    @Getter
-    private final CupComponent cupComponent;
-
-    public DiscountComponent(WebDriver driver, WebElement rootElement) {
-        super(driver, rootElement);
-        this.cupComponent = new CupComponent(driver, cupRootElement); 
+    public DiscountComponent(WebElement rootElement) {
+        super(rootElement);
+        this.cupComponent = new CupComponent(cupRootElement);
     }
 
-    public String getDiscountText(){
+    public String getDiscountText() {
         return discountText.getText();
     }
 
     @Step("Clicking yes button")
-    public MenuPage clickYesButton(){
+    public MenuPage clickYesButton() {
         waitAndClickElement(yesButton);
         return new MenuPage(driver);
     }
 
     @Step("Clicking nah button")
-    public MenuPage clickNoButton(){
+    public MenuPage clickNoButton() {
         waitAndClickElement(noButton);
         return new MenuPage(driver);
     }
 
-    public String getNoButtonStyle(){
+    public String getNoButtonStyle() {
         return noButton.getCssValue("background-color");
     }
 
-    public String getYesButtonStyle(){
+    public String getYesButtonStyle() {
         return yesButton.getCssValue("background-color");
     }
 
-    public void hoverOverNoButton(){
+    @Step("Hovering over no button")
+    public void hoverOverNoButton() {
         hoverOverElement(noButton);
     }
 
-    public void hoverOverYesButton(){
+    @Step("Hovering over yes button")
+    public void hoverOverYesButton() {
         hoverOverElement(yesButton);
     }
 }

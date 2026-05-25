@@ -1,6 +1,6 @@
 package org.coffeecart5340.ui.components;
 
-import org.coffeecart5340.ui.pages.CardPage;
+import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.GitHubPage;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.openqa.selenium.WebDriver;
@@ -28,13 +28,17 @@ public class HeaderComponent extends BaseComponent {
         return new MenuPage(driver);
     }
 
-    public CardPage clickCardButton() {
+    public CartPage clickCardButton() {
         waitAndClickElement(cartButton);
-        return new CardPage(driver);
+        return new CartPage(driver);
     }
 
     public GitHubPage clickGitHubButton() {
         waitAndClickElement(githubButton);
         return new GitHubPage(driver);
+    }
+
+    public String getCartText() {
+        return cartButton.getText();
     }
 }

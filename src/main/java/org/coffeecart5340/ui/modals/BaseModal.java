@@ -6,13 +6,13 @@ import org.openqa.selenium.WebElement;
 
 public abstract class BaseModal extends Base {
 
-    protected abstract WebElement getRootElement();
-
     public BaseModal(WebDriver driver) {
         super(driver);
     }
 
-    public boolean isDisplayed(){
+    protected abstract WebElement getRootElement();
+
+    public boolean isDisplayed() {
         return getRootElement().isDisplayed();
     }
 }
