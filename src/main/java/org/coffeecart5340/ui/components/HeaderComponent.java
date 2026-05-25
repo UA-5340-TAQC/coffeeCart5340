@@ -37,4 +37,8 @@ public class HeaderComponent extends BaseComponent {
         waitAndClickElement(githubButton);
         return new GitHubPage(driver);
     }
+
+    public String getCartText() {
+        return cartButton.getText();
+    }
 }

@@ -9,12 +9,12 @@ public class GitHubPage extends BasePage {
     }
 
     @Step("Navigating to menu page")
-    public MenuPage navigateToMenuPage(){
+    public MenuPage navigateToMenuPage() {
         return getHeader().clickMenuButton();
     }
 
     @Step("Navigating to cart page")
-    public CartPage navigateToCartPage(){
+    public CartPage navigateToCartPage() {
         return getHeader().clickCardButton();
     }
 }

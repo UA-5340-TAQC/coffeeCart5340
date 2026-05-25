@@ -1,7 +1,6 @@
 package org.coffeecart5340.ui.components;
 
 import lombok.Getter;
-import org.coffeecart5340.ui.pages.CartPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -37,56 +36,58 @@ public class CartItemComponent extends BaseComponent {
         super(rootElement);
     }
 
-    public Float getTotalPrice(){
+    public Float getTotalPrice() {
         return Float.parseFloat(priceText.getText().replace("$", "").trim());
     }
 
-    public CartItemComponent clickDeleteButton(){
+    public CartItemComponent clickDeleteButton() {
         waitAndClickElement(deleteButton);
         return this;
     }
 
-    public CartItemComponent clickPlusButton(){
+    public CartItemComponent clickPlusButton() {
         waitAndClickElement(plusButton);
         return this;
     }
 
-    public CartItemComponent clickMinusButton(){
+    public CartItemComponent clickMinusButton() {
         waitAndClickElement(minusButton);
         return this;
     }
 
-    public Float getOneItemPrice(){
-        return Float.parseFloat(Arrays.stream(getUnitDescText().split("x")).toList()
-                .getFirst()
+    public Float getOneItemPrice() {
+        return Float.parseFloat(Arrays.stream(getUnitDescText().split("x"))
+                .toList().
+                getFirst()
                 .replace("$", "")
                 .trim());
     }
 
-    public int getQuantity(){
-        return Integer.parseInt(Arrays.stream(getUnitDescText()
-                        .split("x"))
-                .toList().getLast().trim());
+    public int getQuantity() {
+        return Integer.parseInt(Arrays.stream(getUnitDescText().split("x"))
+                .toList()
+                .getLast()
+                .trim());
     }
 
-    public String getItemName(){
+    public String getItemName() {
         return itemName.getText();
     }
 
-    public String getUnitDescText(){
+    public String getUnitDescText() {
         return unitDesc.getText();
     }
 
-    public void hoverOverDeleteButton(){
+    public void hoverOverDeleteButton() {
         waitUntilElementIsVisible(deleteButton);
         hoverOverElement(deleteButton);
     }
 
-    public String getDeleteButtonHoverColor(){
+    public String getDeleteButtonHoverColor() {
         return deleteButton.getCssValue("color");
     }
 
-    public String getDeleteButtonHoverBackgroundColor(){
+    public String getDeleteButtonHoverBackgroundColor() {
         return deleteButton.getCssValue("background-color");
     }
 
