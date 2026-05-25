@@ -13,7 +13,6 @@ public abstract class BaseModal extends Base{
 
     public BaseModal(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public boolean isDisplayed(){
