@@ -11,15 +11,15 @@ import static org.testng.Assert.*;
 
 public class TestExample extends BaseUiTestRunner {
 
-    @Test
-    public void headerTest() {
-        MenuPage menuPage = new MenuPage(driver);
-        menuPage.getHeader()
-                .clickCardButton()
-                .getHeader()
-                .clickGitHubButton()
-                .getHeader()
-                .clickMenuButton();
+        @Test
+        public void headerTest() {
+            MenuPage menuPage = new MenuPage(driver);
+            menuPage.getHeader()
+                    .clickCardButton()
+                    .getHeader()
+                    .clickGitHubButton()
+                    .getHeader()
+                    .clickMenuButton();
 
     }
 
@@ -75,3 +75,4 @@ public class TestExample extends BaseUiTestRunner {
                 String.format("Item: %s, Quantity: %d", productName, initialQty));
     }
 }
+

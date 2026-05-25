@@ -1,50 +1,56 @@
 package org.coffeecart5340.ui.pages;
 
+import io.qameta.allure.Step;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
-import org.coffeecart5340.ui.components.ListItemComponent;
-import org.openqa.selenium.By;
+import org.coffeecart5340.ui.components.CupCardComponent;
+import org.openqa.selenium.NoSuchElementException;
+import org.coffeecart5340.ui.components.TotalButtonMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MenuPage extends BasePage {
 
-    private final By menuItemsLocator = By.xpath("//div[@class='cup']");
-    private final By totalButtonLocator = By.cssSelector("button[data-test='checkout']");
-    private final By cartListLocator = By.cssSelector("li.list-item");
     @FindBy(css = "ul.cart-preview li.list-item")
     private List<WebElement> cartPreviewElements;
+
+    @FindBy(xpath = "//li[.//div[contains(@class, 'cup-body')]]")
+    private List<WebElement> cupCards;
+
+    @FindBy(css = ".pay-container")
+    private WebElement totalButtonContainer;
 
     public MenuPage(WebDriver driver) {
         super(driver);
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
-        return cartPreviewElements.stream().map(element -> new CartPreviewComponent(element)).toList();
+        return cartPreviewElements.stream()
+                .map(CartPreviewComponent::new)
+                .toList();
     }
 
-    public void addFirstItemToCart() {
-        List<WebElement> items = driver.findElements(menuItemsLocator);
-        if (!items.isEmpty()) {
-            WebElement firstItem = items.getFirst();
-            waitAndClickElement(firstItem);
-        }
+    public CupCardComponent getCupCardByName(String name) {
+        return cupCards.stream()
+                .map(CupCardComponent::new)
+                .filter(card -> card.getCupName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Cup card not found: " + name));
     }
 
-    public List<ListItemComponent> getCardItems() {
-        WebElement totalButton = driver.findElement(totalButtonLocator);
-        actions.moveToElement(totalButton).perform();
+    public TotalButtonMenuComponent getTotalButtonMenuComponent() {
+        return new TotalButtonMenuComponent(driver, totalButtonContainer);
+    }
 
-        wait.until(d -> !driver.findElements(cartListLocator).isEmpty());
+    @Step("Navigating to GitHub page")
+    public GitHubPage goToGitHubPage(){
+        return getHeader().clickGitHubButton();
+    }
 
-        List<ListItemComponent> items = new ArrayList<>();
-        List<WebElement> elements = driver.findElements(cartListLocator);
-        for (WebElement element : elements) {
-            items.add(new ListItemComponent(element));
-        }
-        return items;
+    @Step("Navigating to cart page")
+    public CartPage goToCartPage(){
+        return getHeader().clickCardButton();
     }
 }

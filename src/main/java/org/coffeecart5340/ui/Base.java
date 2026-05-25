@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class Base {
 
@@ -35,5 +37,31 @@ public abstract class Base {
     protected void waitAndClickElement(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
+    }
+
+    @Step("Hover over element: {element}")
+    protected void hoverOverElement(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        actions.moveToElement(element).perform();
+    }
+    protected void waitAndSendKeys(WebElement element, String text){
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.clear();
+        element.sendKeys(text);
+    }
+    protected void waitUntilElementIsVisible(WebElement element){
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    protected void waitUntilElementIsStale(WebElement element){
+        wait.until(ExpectedConditions.stalenessOf(element));
+    }
+    protected void scrollToElement(WebElement element){
+        actions.moveToElement(element).perform();
+    }
+    protected void waitUntilElementsAreVisible(List<WebElement> elements){
+        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+    }
+    protected void scrollToElement(int x, int y){
+        js.executeScript("window.scrollTo(arguments[0], arguments[1]);", x, y);
     }
 }
