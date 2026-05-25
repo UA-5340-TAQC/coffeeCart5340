@@ -55,11 +55,10 @@ public class MenuPage extends BasePage {
     @Step("Adding {coffeeName} to cart")
     public MenuPage clickCoffeeCup(String coffeeName) {
         // The app replaces spaces with hyphens in the data-cy attribute (e.g., "Cafe Breve" -> "Cafe-Breve")
-        String formattedName = coffeeName.replace(" ", "-");
-        By cupLocator = By.cssSelector("div[data-cy='" + formattedName + "']");
+        String formattedName = coffeeName.trim().replace(" ", "-");
+        By cupLocator = By.cssSelector("div[data-cy=\"" + formattedName + "\"]");
         
-        WebElement cupElement = driver.findElement(cupLocator);
-        cupElement.click(); 
+        waitAndClickElement(cupLocator);
         return this;
     }
 

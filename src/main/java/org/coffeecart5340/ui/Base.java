@@ -1,6 +1,8 @@
 package org.coffeecart5340.ui;
 
 import lombok.Getter;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,6 +39,10 @@ public abstract class Base {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
+    protected void waitAndClickElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        element.click();
+    }
     protected void waitAndSendKeys(WebElement element, String text){
         wait.until(ExpectedConditions.visibilityOf(element));
         element.clear();
@@ -44,6 +50,9 @@ public abstract class Base {
     }
     protected void waitUntilElementIsVisible(WebElement element){
         wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    protected void waitUntilElementIsInvisible(WebElement element){
+        wait.until(ExpectedConditions.invisibilityOf(element));
     }
     protected void waitUntilElementIsStale(WebElement element){
         wait.until(ExpectedConditions.stalenessOf(element));

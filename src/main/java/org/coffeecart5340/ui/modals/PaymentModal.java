@@ -41,13 +41,13 @@ public class PaymentModal extends BaseModal {
         return rootElement;
     }
 
-        @Step("Entering name: {name} in Payment Modal")
+        @Step("Entering name in Payment Modal")
     public PaymentModal enterName(String name) {
         waitAndSendKeys(nameInput, name);
         return this;
     }
 
-    @Step("Entering email: {email} in Payment Modal")
+    @Step("Entering email in Payment Modal")
     public PaymentModal enterEmail(String email) {
         waitAndSendKeys(emailInput, email);
         return this;
@@ -62,7 +62,7 @@ public class PaymentModal extends BaseModal {
     @Step("Clicking Submit Payment button")
     public MenuPage clickSubmitButton() {
         waitAndClickElement(submitButton);
-        // Assuming successful payment keeps us on/returns us to MenuPage
+        waitUntilElementIsInvisible(rootElement);
         return new MenuPage(driver);
     }
 

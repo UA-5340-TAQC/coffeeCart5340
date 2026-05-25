@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 public class TotalButtonComponent extends BaseComponent {
 
     @Getter
@@ -18,10 +20,14 @@ public class TotalButtonComponent extends BaseComponent {
     }
 
     @Step("Getting total price from the checkout button")
-    public Float getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         // We need to remove "Total: $" and parse it.
         String text = checkoutButton.getText();
-        return Float.parseFloat(text.replace("Total: $", "").trim());
+        String normalized = text
+                .replaceFirst("^\\s*Total:\\s*\\$", "")
+                .replace(",", "")
+                .trim();
+        return new BigDecimal(normalized);
     }
 
     @Step("Hovering over the pay container to reveal cart preview")
