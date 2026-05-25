@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import lombok.NonNull;
 
 @Getter
-public class PaymentModalComponent extends BaseComponent{
+public class PaymentModalComponent extends BaseComponent {
 
     @FindBy(id = "name")
     private WebElement nameInput;
