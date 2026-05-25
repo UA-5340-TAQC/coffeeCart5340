@@ -2,6 +2,8 @@ package org.coffeecart5340.ui;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,29 +41,44 @@ public abstract class Base {
         element.click();
     }
 
+    protected void waitAndClickElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        element.click();
+    }
+
     @Step("Hover over element: {element}")
     protected void hoverOverElement(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
         actions.moveToElement(element).perform();
     }
-    protected void waitAndSendKeys(WebElement element, String text){
+
+    protected void waitAndSendKeys(WebElement element, String text) {
         wait.until(ExpectedConditions.visibilityOf(element));
         element.clear();
         element.sendKeys(text);
     }
-    protected void waitUntilElementIsVisible(WebElement element){
+
+    protected void waitUntilElementIsVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-    protected void waitUntilElementIsStale(WebElement element){
+
+    protected void waitUntilElementIsInvisible(WebElement element) {
+        wait.until(ExpectedConditions.invisibilityOf(element));
+    }
+
+    protected void waitUntilElementIsStale(WebElement element) {
         wait.until(ExpectedConditions.stalenessOf(element));
     }
-    protected void scrollToElement(WebElement element){
+
+    protected void scrollToElement(WebElement element) {
         actions.moveToElement(element).perform();
     }
-    protected void waitUntilElementsAreVisible(List<WebElement> elements){
+
+    protected void waitUntilElementsAreVisible(List<WebElement> elements) {
         wait.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
-    protected void scrollToElement(int x, int y){
+
+    protected void scrollToElement(int x, int y) {
         js.executeScript("window.scrollTo(arguments[0], arguments[1]);", x, y);
     }
 }
