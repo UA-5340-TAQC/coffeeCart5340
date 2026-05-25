@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui.pages;
 
+import io.qameta.allure.Step;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.components.CupCardComponent;
 import org.openqa.selenium.NoSuchElementException;
@@ -41,5 +42,15 @@ public class MenuPage extends BasePage {
 
     public TotalButtonMenuComponent getTotalButtonMenuComponent() {
         return new TotalButtonMenuComponent(driver, totalButtonContainer);
+    }
+
+    @Step("Navigating to GitHub page")
+    public GitHubPage goToGitHubPage(){
+        return getHeader().clickGitHubButton();
+    }
+
+    @Step("Navigating to cart page")
+    public CartPage goToCartPage(){
+        return getHeader().clickCardButton();
     }
 }
