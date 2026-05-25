@@ -1,6 +1,8 @@
 package org.coffeecart5340.ui.pages;
 
 import org.coffeecart5340.ui.components.CartPreviewComponent;
+import org.coffeecart5340.ui.components.CupCardComponent;
+import org.openqa.selenium.NoSuchElementException;
 import org.coffeecart5340.ui.components.TotalButtonMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +13,10 @@ import java.util.List;
 public class MenuPage extends BasePage {
 
     @FindBy(css = "ul.cart-preview li.list-item")
-
     private List<WebElement> cartPreviewElements;
+
+    @FindBy(xpath = "//li[.//div[contains(@class, 'cup-body')]]")
+    private List<WebElement> cupCards;
 
     @FindBy(css = ".pay-container")
     private WebElement totalButtonContainer;
@@ -22,9 +26,17 @@ public class MenuPage extends BasePage {
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
-        return cartPreviewElements.stream().map(
-                element -> new CartPreviewComponent(element)
-        ).toList();
+        return cartPreviewElements.stream()
+                .map(CartPreviewComponent::new)
+                .toList();
+    }
+
+    public CupCardComponent getCupCardByName(String name) {
+        return cupCards.stream()
+                .map(CupCardComponent::new)
+                .filter(card -> card.getCupName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Cup card not found: " + name));
     }
 
     public TotalButtonMenuComponent getTotalButtonMenuComponent() {

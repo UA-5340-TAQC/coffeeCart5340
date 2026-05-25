@@ -1,6 +1,7 @@
 package org.coffeecart5340.ui.components;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,7 +32,7 @@ public class TotalButtonMenuComponent extends BaseComponent {
     public boolean isCartPreviewVisible() {
         try {
             return cartPreview.isDisplayed();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
