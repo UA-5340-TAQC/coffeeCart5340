@@ -57,8 +57,8 @@ public abstract class Base {
     protected void waitUntilElementIsStale(WebElement element){
         wait.until(ExpectedConditions.stalenessOf(element));
     }
-        protected void scrollToElement(WebElement element){
-        hoverOverElement(element);
+    protected void scrollToElement(WebElement element){
+        js.executeScript("arguments[0].scrollIntoView({block: 'nearest', inline: 'nearest'});", element);
     }
     protected void waitUntilElementsAreVisible(List<WebElement> elements){
         wait.until(ExpectedConditions.visibilityOfAllElements(elements));

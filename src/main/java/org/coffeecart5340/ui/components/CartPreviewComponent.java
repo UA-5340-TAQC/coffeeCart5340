@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui.components;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -17,8 +18,8 @@ public class CartPreviewComponent extends BaseComponent {
     @FindBy(xpath = ".//button[text()='-']")
     private WebElement minusButton;
 
-    public CartPreviewComponent(WebElement rootElement) {
-        super(rootElement);
+    public CartPreviewComponent(WebDriver driver, WebElement rootElement) {
+        super(driver, rootElement);
     }
 
     public String getItemName() {

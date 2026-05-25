@@ -41,7 +41,7 @@ public class PaymentModal extends BaseModal {
         return rootElement;
     }
 
-        @Step("Entering name in Payment Modal")
+    @Step("Entering name in Payment Modal")
     public PaymentModal enterName(String name) {
         waitAndSendKeys(nameInput, name);
         return this;
@@ -69,6 +69,7 @@ public class PaymentModal extends BaseModal {
     @Step("Clicking close (x) button on Payment Modal")
     public MenuPage clickCloseButton() {
         waitAndClickElement(closeButton);
+        waitUntilElementIsInvisible(rootElement);
         return new MenuPage(driver);
     }
 }

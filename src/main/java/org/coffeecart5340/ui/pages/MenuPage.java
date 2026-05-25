@@ -36,16 +36,16 @@ public class MenuPage extends BasePage {
 
     // --- Component Getters ---
     public TotalButtonComponent getTotalButton() {
-        return new TotalButtonComponent(payContainerRoot);
+        return new TotalButtonComponent(driver, payContainerRoot);
     }
 
     public DiscountComponent getDiscountModal() {
-        return new DiscountComponent(discountModalRoot);
+        return new DiscountComponent(driver, discountModalRoot);
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
         return cartPreviewElements.stream().map(
-                element -> new CartPreviewComponent(element)
+                element -> new CartPreviewComponent(driver, element)
         ).toList();
     }
 

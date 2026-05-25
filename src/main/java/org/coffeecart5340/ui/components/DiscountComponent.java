@@ -1,6 +1,7 @@
 package org.coffeecart5340.ui.components;
 
 import org.coffeecart5340.ui.pages.MenuPage;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -27,9 +28,9 @@ public class DiscountComponent extends BaseComponent{
     @Getter
     private final CupComponent cupComponent;
 
-    public DiscountComponent(WebElement rootElement) {
-        super(rootElement);
-        this.cupComponent = new CupComponent(cupRootElement);
+    public DiscountComponent(WebDriver driver, WebElement rootElement) {
+        super(driver, rootElement);
+        this.cupComponent = new CupComponent(driver, cupRootElement); 
     }
 
     public String getDiscountText(){
