@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -35,5 +36,11 @@ public abstract class Base {
     protected void waitAndClickElement(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
+    }
+
+    @Step("Hover over element: {element}")
+    protected void hoverOverElement(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        actions.moveToElement(element).perform();
     }
 }
