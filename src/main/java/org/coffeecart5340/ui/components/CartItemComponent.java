@@ -20,7 +20,7 @@ public class CartItemComponent extends BaseComponent {
     private WebElement minusButton;
 
     @Getter
-    @FindBy(xpath = ".//li[@class='list-item']/child::*[1]")
+    @FindBy(xpath = "./child::*[1]")
     private WebElement itemName;
 
     @Getter
