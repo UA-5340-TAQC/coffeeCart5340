@@ -1,10 +1,10 @@
 package org.coffeecart5340.ui.components;
 
-import org.openqa.selenium.WebDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ListItemComponent extends BaseComponent{
+public class ListItemComponent extends BaseComponent {
 
     @FindBy(xpath = ".//span[not(@class)]")
     protected WebElement itemNameSpan;
@@ -15,21 +15,19 @@ public class ListItemComponent extends BaseComponent{
     @FindBy(xpath = ".//button[contains(@aria-label, 'Add one')]")
     protected WebElement plusButton;
 
-//    @FindBy(xpath = ".//button[contains(@aria-label, 'Remove one')]")
-//    protected WebElement minusButton;
+    @FindBy(xpath = ".//button[contains(@aria-label, 'Remove one')]")
+    protected WebElement minusButton;
 
     public ListItemComponent(WebElement rootElement) {
         super(rootElement);
     }
 
-//    public String getRawText() {
-//        return rootElement.getText().trim();
-//    }
-
+    @Step("Get item name")
     public String getItemName() {
         return itemNameSpan.getText().trim();
     }
 
+    @Step("Get item quantity")
     public int getQuantity() {
         try {
             String number = quantitySpan.getText().replaceAll("[^0-9]", "");
@@ -39,17 +37,59 @@ public class ListItemComponent extends BaseComponent{
         }
     }
 
-    public void increment(){
+    @Step("Increment item quantity")
+    public void increment() {
         waitAndClickElement(plusButton);
     }
 
-//    public void decrement(){
-//        waitAndClickElement(minusButton);
-//    }
+    @Step("Decrement item quantity")
+    public void decrement() {
+        waitAndClickElement(minusButton);
+    }
 
+    @Step("Wait for quantity to be {expectedQuantity}")
     public void waitForQuantity(int expectedQuantity) {
         wait.until(driver -> getQuantity() == expectedQuantity);
     }
 
+    @Step("Add {count} items")
+    public void addItems(int count) {
+        if (count < 1) {
+            throw new IllegalArgumentException("Count must be greater than 0");
+        }
+        for (int i = 0; i < count; i++) {
+            increment();
+        }
+    }
+
+    @Step("Remove {count} items")
+    public void removeItems(int count) {
+        if (count < 1) {
+            throw new IllegalArgumentException("Count must be greater than 0");
+        }
+        for (int i = 0; i < count; i++) {
+            decrement();
+        }
+    }
+
+    @Step("Set item quantity to {targetQuantity}")
+    public void setQuantity(int targetQuantity) {
+        if (targetQuantity < 0) {
+            throw new IllegalArgumentException("Target quantity cannot be negative");
+        }
+        int currentQuantity = getQuantity();
+        if (currentQuantity < targetQuantity) {
+            addItems(targetQuantity - currentQuantity);
+        } else if (currentQuantity > targetQuantity) {
+            removeItems(currentQuantity - targetQuantity);
+        }
+    }
+
+    @Step("Get full item info: name and quantity")
+    public String getItemInfo() {
+        return String.format("Item: %s, Quantity: %d", getItemName(), getQuantity());
+    }
 
 }
+
+

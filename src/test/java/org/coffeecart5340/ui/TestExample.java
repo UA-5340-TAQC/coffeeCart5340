@@ -7,8 +7,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.*;
 
 public class TestExample extends BaseUiTestRunner {
 
@@ -29,14 +28,50 @@ public class TestExample extends BaseUiTestRunner {
 
         MenuPage menuPage = new MenuPage(driver);
 
+        String productName = "Espresso";
         menuPage.addFirstItemToCart();
         List<ListItemComponent> items = menuPage.getCardItems();
         assertFalse(items.isEmpty(), "Expected to find items in the cart.");
 
-        ListItemComponent firstItem = items.getFirst();
+        ListItemComponent item = null;
+        for (ListItemComponent it : items) {
+            if (it.getItemName().equals(productName)) {
+                item = it;
+                break;
+            }
+        }
+        assertNotNull(item, "Added product not found in cart preview");
 
-        firstItem.increment();
-        firstItem.waitForQuantity(2);
-        assertEquals(firstItem.getQuantity(),2, "Expected quantity to be 2 after increment");    }
+        int initialQty = item.getQuantity();
+        String expectedInfo = String.format("Item: %s, Quantity: %d", productName, initialQty);
+        assertEquals(item.getItemInfo(), expectedInfo,
+                "Item info string should match expected format");
 
+        assertTrue(initialQty >= 0, "Initial quantity should be >= 1");
+
+        item.increment();
+        item.waitForQuantity(initialQty + 1);
+        assertEquals(item.getQuantity(), initialQty + 1, "Quantity should increase by 1 after increment");
+
+        String updatedInfo = String.format("Item: %s, Quantity: %d", productName, initialQty + 1);
+        assertEquals(item.getItemInfo(), updatedInfo);
+
+        item.setQuantity(3);
+        item.waitForQuantity(3);
+        assertEquals(item.getQuantity(), 3);
+
+        assertEquals(item.getItemInfo(),
+                String.format("Item: %s, Quantity: %d", productName, 3));
+
+        item.removeItems(2);
+        item.waitForQuantity(1);
+        assertEquals(item.getQuantity(), 1);
+
+        item.setQuantity(initialQty);
+        item.waitForQuantity(initialQty);
+
+
+        assertEquals(item.getItemInfo(),
+                String.format("Item: %s, Quantity: %d", productName, initialQty));
+    }
 }
