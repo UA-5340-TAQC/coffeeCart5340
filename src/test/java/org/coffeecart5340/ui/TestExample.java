@@ -1,8 +1,10 @@
 package org.coffeecart5340.ui;
 
-import org.coffeecart5340.ui.components.ListItemComponent;
+import org.coffeecart5340.ui.components.ListItemMenuComponent;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -29,12 +31,13 @@ public class TestExample extends BaseUiTestRunner {
         MenuPage menuPage = new MenuPage(driver);
 
         String productName = "Espresso";
-        menuPage.addFirstItemToCart();
-        List<ListItemComponent> items = menuPage.getCardItems();
+        menuPage.getCupCardByName(productName).clickCup();
+        List<WebElement> rawItems = driver.findElements(By.cssSelector("ul.cart-preview li.list-item"));
+        List<ListItemMenuComponent> items = rawItems.stream().map(ListItemMenuComponent::new).toList();
         assertFalse(items.isEmpty(), "Expected to find items in the cart.");
 
-        ListItemComponent item = null;
-        for (ListItemComponent it : items) {
+        ListItemMenuComponent item = null;
+        for (ListItemMenuComponent it : items) {
             if (it.getItemName().equals(productName)) {
                 item = it;
                 break;
@@ -47,7 +50,7 @@ public class TestExample extends BaseUiTestRunner {
         assertEquals(item.getItemInfo(), expectedInfo,
                 "Item info string should match expected format");
 
-        assertTrue(initialQty >= 0, "Initial quantity should be >= 1");
+        assertTrue(initialQty >= 0, "Initial quantity should be >= 0");
 
         item.increment();
         item.waitForQuantity(initialQty + 1);

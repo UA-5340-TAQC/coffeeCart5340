@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ListItemComponent extends BaseComponent {
+public class ListItemMenuComponent extends BaseComponent {
 
     @FindBy(xpath = ".//span[not(@class)]")
     protected WebElement itemNameSpan;
@@ -18,7 +18,7 @@ public class ListItemComponent extends BaseComponent {
     @FindBy(xpath = ".//button[contains(@aria-label, 'Remove one')]")
     protected WebElement minusButton;
 
-    public ListItemComponent(WebElement rootElement) {
+    public ListItemMenuComponent(WebElement rootElement) {
         super(rootElement);
     }
 
