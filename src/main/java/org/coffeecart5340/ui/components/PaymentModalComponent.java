@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import lombok.NonNull;
 
-@Getter
 public class PaymentModalComponent extends BaseComponent {
 
     @FindBy(id = "name")
@@ -19,9 +18,11 @@ public class PaymentModalComponent extends BaseComponent {
     @FindBy(id = "promotion")
     private WebElement promoCheckbox;
 
+    @Getter
     @FindBy(id = "submit-payment")
     private WebElement submitButton;
 
+    @Getter
     @FindBy(css = ".close")
     private WebElement closeIcon;
 
@@ -29,14 +30,14 @@ public class PaymentModalComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    @Step("Enter name")
+    @Step("Enter name: {0}")
     public PaymentModalComponent enterName(@NonNull String name) {
         nameInput.clear();
         nameInput.sendKeys(name);
         return this;
     }
 
-    @Step("Enter email")
+    @Step("Enter email: {0}")
     public PaymentModalComponent enterEmail(@NonNull String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
@@ -69,7 +70,7 @@ public class PaymentModalComponent extends BaseComponent {
         waitAndClickElement(closeIcon);
     }
 
-    @Step("Fill payment details (Accept promo: {2})")
+    @Step("Fill payment details - Name: {0}, Email: {1}, Promo: {2}")
     public void fillPaymentDetailsAndSubmit(@NonNull String name, @NonNull String email, boolean acceptPromo) {
         enterName(name);
         enterEmail(email);
