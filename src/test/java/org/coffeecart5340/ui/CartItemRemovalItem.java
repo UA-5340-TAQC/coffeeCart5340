@@ -8,8 +8,8 @@ import org.testng.annotations.Test;
 public class CartItemRemovalItem extends BaseUiTestRunner {
 
     private MenuPage menuPage;
-    @Test(priority = 4)
-    public void VerifyRemovingItemFromTheCartUpdatesTheTotalAndCartState(){
+    @Test(priority = 1)
+    public void verifyRemovingItemFromTheCartUpdatesTheTotalAndCartState(){
         menuPage = new MenuPage(driver);
         CartPage cartPage = menuPage.clickCoffeeCup("Espresso")
                 .goToCartPage()

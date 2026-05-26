@@ -10,13 +10,13 @@ public class DiscountAfterThreeCupsTest extends BaseUiTestRunner {
     private MenuPage menuPage;
 
     @Test(priority = 1)
-    public void VerifyDiscountAppearsAfterThreeCupsOnTheCartPage() {
+    public void verifyDiscountAppearsAfterThreeCupsOnTheCartPage() {
         menuPage = new MenuPage(driver);
         CartPage cartPage = menuPage.clickCoffeeCup("Espresso")
                 .goToCartPage()
                 .clickPlusButtonMultiply(2, "Espresso");
 
-        softAssert.assertTrue(menuPage.getDiscountModal().isDiscountMenuVisible(), "The discount component is not displayed after adding 3 cups of coffee to the cart");
+        softAssert.assertTrue(cartPage.getDiscount().isDiscountMenuVisible(), "The discount component is not displayed after adding 3 cups of coffee to the cart");
         softAssert.assertAll();
     }
 

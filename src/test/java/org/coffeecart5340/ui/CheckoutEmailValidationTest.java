@@ -32,8 +32,8 @@ public class CheckoutEmailValidationTest extends BaseUiTestRunner {
                 .goToCartPage();
     }
 
-    @Test(priority = 2, dataProvider = "invalidEmailProvider")
-    public void VerifyValidationMessageForInvalidEmailDuringCheckout(String name, String email){
+    @Test(priority = 1, dataProvider = "invalidEmailProvider")
+    public void verifyValidationMessageForInvalidEmailDuringCheckout(String name, String email){
 
         cartPage.getTotalButton()
                 .clickCheckoutButton()

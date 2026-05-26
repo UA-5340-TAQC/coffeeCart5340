@@ -17,8 +17,8 @@ public class PaymentModalPrefilledFieldsTest extends BaseUiTestRunner {
                 {"Americano", "Test", "TestEmail4"}
         };
     }
-    @Test(priority = 3, dataProvider = "PrefilledData")
-    public void VerifyThatAllDetailFieldsRemainPreFilledAfterClosingThePaymentModal(String coffeeName, String name, String email){
+    @Test(priority = 1, dataProvider = "PrefilledData")
+    public void verifyThatAllDetailFieldsRemainPreFilledAfterClosingThePaymentModal(String coffeeName, String name, String email){
         menuPage = new MenuPage(driver);
         menuPage.clickCoffeeCup(coffeeName)
                 .getTotalButton()
