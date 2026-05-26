@@ -6,21 +6,28 @@ import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @Feature("Payment Modal validations and submission")
 public class PaymentModalCheckoutTest extends BaseUiTestRunner {
 
-    @Test(description = "Verify payment form validation and successful submission without promo")
-    public void testPaymentFormValidations() {
-        MenuPage menuPage = new MenuPage(driver);
+    private static final String SUCCESS_MESSAGE = "Thanks for your purchase. Please check your email for payment.";
 
+    private MenuPage menuPage;
+    private PaymentModalComponent paymentModal;
+
+    @BeforeMethod
+    public void setupCartAndOpenModal() {
+        menuPage = new MenuPage(driver);
         menuPage.clickCoffeeCup("Espresso");
         menuPage.goToCartPage();
         menuPage.getTotalButton().clickCheckoutButton();
+        paymentModal = menuPage.getPaymentModal();
+    }
 
-        PaymentModalComponent paymentModal = menuPage.getPaymentModal();
-
+    @Test(description = "Verify payment form validation and successful submission without promo")
+    public void testPaymentFormValidations() {
         paymentModal.clickSubmit();
         Assert.assertFalse(paymentModal.getNameValidationMessage().isEmpty(),
                 "Expected browser validation error on empty Name field.");
@@ -30,7 +37,6 @@ public class PaymentModalCheckoutTest extends BaseUiTestRunner {
         Assert.assertFalse(paymentModal.getEmailValidationMessage().isEmpty(),
                 "Expected browser validation error on empty Email field.");
 
-        paymentModal.enterName("John Doe");
         paymentModal.enterEmail("invalid-email");
         paymentModal.clickSubmit();
         Assert.assertFalse(paymentModal.getEmailValidationMessage().isEmpty(),
@@ -38,24 +44,16 @@ public class PaymentModalCheckoutTest extends BaseUiTestRunner {
 
         paymentModal.fillPaymentDetailsAndSubmit("John Doe", "john@example.com", false);
         String snackbarText = menuPage.getSnackbarText();
-        Assert.assertTrue(snackbarText.contains("Thanks for your purchase. Please check your email for payment."),
+        Assert.assertTrue(snackbarText.contains(SUCCESS_MESSAGE),
                 "Expected success snackbar message to appear after valid checkout.");
     }
 
     @Test(description = "Verify successful checkout with promotional checkbox selected")
     public void testPaymentFormWithPromoCheckbox() {
-        MenuPage menuPage = new MenuPage(driver);
-        menuPage.clickCoffeeCup("Espresso");
-        menuPage.goToCartPage();
-
-        menuPage.getTotalButton().clickCheckoutButton();
-
-        PaymentModalComponent paymentModal = menuPage.getPaymentModal();
-
         paymentModal.fillPaymentDetailsAndSubmit("Jane Doe", "jane@example.com", true);
 
         String snackbarText = menuPage.getSnackbarText();
-        Assert.assertTrue(snackbarText.contains("Thanks for your purchase. Please check your email for payment."),
+        Assert.assertTrue(snackbarText.contains(SUCCESS_MESSAGE),
                 "Expected success snackbar message to appear after valid checkout with promo.");
     }
 }
