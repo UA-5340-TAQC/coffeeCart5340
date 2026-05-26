@@ -91,5 +91,3 @@ public class ListItemMenuComponent extends BaseComponent {
     }
 
 }
-
-
