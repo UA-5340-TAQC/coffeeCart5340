@@ -3,13 +3,14 @@ package org.coffeecart5340.ui.components;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import org.coffeecart5340.ui.pages.MenuPage;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class DiscountComponent extends BaseComponent {
 
-    @Getter
-    private final CupComponent cupComponent;
+    private CupComponent cupComponent;
     @Getter
     @FindBy(xpath = ".//button[@class='yes']")
     private WebElement yesButton;
@@ -24,7 +25,17 @@ public class DiscountComponent extends BaseComponent {
 
     public DiscountComponent(WebElement rootElement) {
         super(rootElement);
-        this.cupComponent = new CupComponent(cupRootElement);
+    }
+
+    public DiscountComponent(WebDriver driver, WebElement rootElement) {
+        super(driver, rootElement);
+    }
+
+    public CupComponent getCupComponent() {
+        if(cupComponent == null){
+            return new CupComponent(driver, cupRootElement);
+        }
+        return cupComponent;
     }
 
     public String getDiscountText() {
@@ -60,4 +71,13 @@ public class DiscountComponent extends BaseComponent {
     public void hoverOverYesButton() {
         hoverOverElement(yesButton);
     }
+
+    public boolean isDiscountMenuVisible(){
+        try{
+            return discountText.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
 }

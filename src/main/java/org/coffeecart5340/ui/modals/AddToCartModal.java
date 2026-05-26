@@ -77,8 +77,7 @@ public class AddToCartModal extends BaseModal {
         return coffeeName.getText();
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description.getText();
     }
-
 }

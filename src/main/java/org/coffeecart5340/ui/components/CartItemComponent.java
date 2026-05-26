@@ -3,6 +3,7 @@ package org.coffeecart5340.ui.components;
 import lombok.Getter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Arrays;
 
@@ -20,7 +21,7 @@ public class CartItemComponent extends BaseComponent {
     private WebElement minusButton;
 
     @Getter
-    @FindBy(xpath = ".//li[@class='list-item']/child::*[1]")
+    @FindBy(xpath = ".//div[not(@class)][1]")
     private WebElement itemName;
 
     @Getter
@@ -45,14 +46,12 @@ public class CartItemComponent extends BaseComponent {
         return this;
     }
 
-    public CartItemComponent clickPlusButton() {
+    public void clickPlusButton() {
         waitAndClickElement(plusButton);
-        return this;
     }
 
-    public CartItemComponent clickMinusButton() {
+    public void clickMinusButton() {
         waitAndClickElement(minusButton);
-        return this;
     }
 
     public Float getOneItemPrice() {
@@ -90,5 +89,4 @@ public class CartItemComponent extends BaseComponent {
     public String getDeleteButtonHoverBackgroundColor() {
         return deleteButton.getCssValue("background-color");
     }
-
 }
