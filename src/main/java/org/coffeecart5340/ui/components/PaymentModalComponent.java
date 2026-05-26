@@ -70,6 +70,14 @@ public class PaymentModalComponent extends BaseComponent {
         waitAndClickElement(closeIcon);
     }
 
+    public String getNameValidationMessage() {
+        return nameInput.getAttribute("validationMessage");
+    }
+
+    public String getEmailValidationMessage() {
+        return emailInput.getAttribute("validationMessage");
+    }
+
     @Step("Fill payment details - Name: {0}, Email: {1}, Promo: {2}")
     public void fillPaymentDetailsAndSubmit(@NonNull String name, @NonNull String email, boolean acceptPromo) {
         enterName(name);

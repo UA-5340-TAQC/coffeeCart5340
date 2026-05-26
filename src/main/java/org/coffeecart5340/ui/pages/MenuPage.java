@@ -21,14 +21,8 @@ public class MenuPage extends BasePage {
     @FindBy(css = ".pay-container")
     private WebElement totalButtonContainer;
 
-    @FindBy(className = "pay-container")
-    private WebElement payContainerRoot;
-
     @FindBy(className = "snackbar")
     private WebElement snackbar;
-
-    @FindBy(className = "promo")
-    private WebElement discountModalRoot;
 
 
     // --- Constructor ---
@@ -39,11 +33,13 @@ public class MenuPage extends BasePage {
 
     // --- Component Getters ---
     public TotalButtonComponent getTotalButton() {
+        WebElement payContainerRoot = driver.findElement(By.className("pay-container"));
         return new TotalButtonComponent(payContainerRoot);
     }
 
     public DiscountComponent getDiscountModal() {
-        return new DiscountComponent(discountModalRoot);
+        WebElement root = driver.findElement(By.className("promo"));
+        return new DiscountComponent(root);
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
@@ -59,6 +55,11 @@ public class MenuPage extends BasePage {
 
     public TotalButtonMenuComponent getTotalButtonMenuComponent() {
         return new TotalButtonMenuComponent(driver, totalButtonContainer);
+    }
+
+    public PaymentModalComponent getPaymentModal() {
+        WebElement modalRoot = driver.findElement(By.tagName("body"));
+        return new PaymentModalComponent(driver, modalRoot);
     }
 
     @Step("Navigating to GitHub page")
