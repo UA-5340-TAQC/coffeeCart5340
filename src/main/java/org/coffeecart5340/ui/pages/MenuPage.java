@@ -58,7 +58,7 @@ public class MenuPage extends BasePage {
     }
 
     public PaymentModalComponent getPaymentModal() {
-        WebElement modalRoot = driver.findElement(By.tagName("body"));
+        WebElement modalRoot = driver.findElement(By.cssSelector("form[aria-label='Payment form']"));
         return new PaymentModalComponent(driver, modalRoot);
     }
 
