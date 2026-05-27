@@ -13,22 +13,10 @@ public class TC01_AddCoffeeToCartTest extends BaseUiTestRunner {
 
     private MenuPage menuPage;
 
-    @DataProvider(name = "CoffeeCartData")
-    public static Object[][] coffeeCartData() {
-        return new Object[][]{
-                {"Espresso", "x 1", "$10.00 x 1", 10.0f, 1, 10.0f}
-        };
-    }
+    private static final String COFFEE_NAME = "Espresso";
 
-
-    @Test(priority = 1, dataProvider = "CoffeeCartData")
-    public void verifyAddCoffeeToCart(
-            String coffeeName,
-            String expectedPreviewAmount,
-            String expectedUnitDesc,
-            float expectedUnitPrice,
-            int expectedQuantity,
-            float expectedTotal) {
+    @Test(priority = 1)
+    public void verifyAddCoffeeToCart() {
 
         menuPage = new MenuPage(driver);
 
@@ -38,12 +26,12 @@ public class TC01_AddCoffeeToCartTest extends BaseUiTestRunner {
                 "Cart counter should show 'cart (0)' before adding any item"
         );
 
-        menuPage.clickCoffeeCup(coffeeName);
+        menuPage.clickCoffeeCup(COFFEE_NAME);
 
         softAssert.assertEquals(
                 menuPage.getHeader().getCartText(),
                 "cart (1)",
-                "Cart counter should show 'cart (1)' after adding: " + coffeeName
+                "Cart counter should show 'cart (1)' after adding: " + COFFEE_NAME
         );
 
         TotalButtonMenuComponent totalButtonMenu = menuPage.getTotalButtonMenuComponent();
@@ -58,15 +46,15 @@ public class TC01_AddCoffeeToCartTest extends BaseUiTestRunner {
                 "Cart preview should contain exactly 1 item"
         );
 
-        CartPreviewComponent previewItem = menuPage.getCartPreviewItemByName(coffeeName);
+        CartPreviewComponent previewItem = menuPage.getCartPreviewItemByName(COFFEE_NAME);
 
         softAssert.assertEquals(
-            previewItem.getItemName(), coffeeName,
-            "Cart preview item name should be: " + coffeeName
+            previewItem.getItemName(), COFFEE_NAME,
+            "Cart preview item name should be: " + COFFEE_NAME
         );
         softAssert.assertEquals(
-                previewItem.getItemAmount(), expectedPreviewAmount,
-                "Cart preview item amount should be: " + expectedPreviewAmount
+                previewItem.getItemAmount(), "x 1",
+                "Cart preview item amount should be: x 1"
         );
 
         CartPage cartPage = menuPage.goToCartPage();
@@ -76,39 +64,39 @@ public class TC01_AddCoffeeToCartTest extends BaseUiTestRunner {
             "Should navigate to /cart, but was: " + driver.getCurrentUrl()
         );
 
-        CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(coffeeName);
+        CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(COFFEE_NAME);
 
         softAssert.assertEquals(
-                cartItem.getItemName(), coffeeName,
-                "Cart item name should be: " + coffeeName
+                cartItem.getItemName(), COFFEE_NAME,
+                "Cart item name should be: " + COFFEE_NAME
         );
         softAssert.assertEquals(
-                cartItem.getUnitDescText(), expectedUnitDesc,
-                "Cart item unit price should be: " + expectedUnitDesc
+                cartItem.getUnitDescText(), "$10.00 x 1",
+                "Cart item unit price should be: $10.00 x 1"
         );
         softAssert.assertEquals(
-                cartItem.getOneItemPrice(), expectedUnitPrice,
-                "Cart total should be: " + expectedUnitPrice
+                cartItem.getOneItemPrice(), 10.0f,
+                "Cart total should be: 10.0"
         );
         softAssert.assertEquals(
-                cartItem.getQuantity(),expectedQuantity,
-                "Increment (+) button should be visible for: " + expectedQuantity
+                cartItem.getQuantity(), 1,
+                "Cart item quantity should be: 1"
         );
         softAssert.assertEquals(
-                cartItem.getTotalPrice(), expectedTotal,
-                "Decrement (-) button should be visible for: " + expectedTotal
+                cartItem.getTotalPrice(), 10.0f,
+                "Cart item total price should be: 10.0"
         );
         softAssert.assertTrue(
                 cartItem.getPlusButton().isDisplayed(),
-                "Increment (+) button should be visible for: " + coffeeName
+                "Increment (+) button should be visible for: " + COFFEE_NAME
         );
         softAssert.assertTrue(
                 cartItem.getMinusButton().isDisplayed(),
-                "Decrement (-) button should be visible for: " + coffeeName
+                "Decrement (-) button should be visible for: " + COFFEE_NAME
         );
         softAssert.assertTrue(
                 cartItem.getDeleteButton().isDisplayed(),
-                "Delete (x) button should be visible for: " + coffeeName
+                "Delete (x) button should be visible for: " + COFFEE_NAME
         );
 
         softAssert.assertAll();
