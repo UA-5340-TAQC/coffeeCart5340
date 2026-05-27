@@ -8,6 +8,7 @@ import org.coffeecart5340.ui.modals.PaymentModal;
 import org.coffeecart5340.ui.components.CartItemListComponent;
 import org.openqa.selenium.NoSuchElementException;
 import org.coffeecart5340.ui.components.TotalButtonComponent;
+import org.coffeecart5340.ui.components.PaymentModalComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,6 +34,10 @@ public class CartPage extends BasePage {
     private TotalButtonComponent totalButton;
     private DiscountComponent discountComponent;
     private PaymentModal paymentModal;
+
+    private static final By MODAL = By.cssSelector("div.modal");
+    private static final By MODAL_TITLE = By.cssSelector("div.modal h1");
+    private static final By MODAL_CLOSE = By.cssSelector("div.modal button.close");
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -124,5 +129,20 @@ public class CartPage extends BasePage {
         return new TotalButtonComponent(driver.findElement(By.className("pay-container")));
     }
 
+    public boolean isPaymentModalDisplayed() {
+        return driver.findElement(MODAL).isDisplayed();
+    }
+
+    public String getPaymentModalTitle() {
+        return driver.findElement(MODAL_TITLE).getText();
+    }
+
+    public boolean isPaymentModalCloseButtonDisplayed() {
+        return driver.findElement(MODAL_CLOSE).isDisplayed();
+    }
+
+    public void clickPaymentModalCloseButton() {
+        driver.findElement(MODAL_CLOSE).click();
+    }
 
 }
