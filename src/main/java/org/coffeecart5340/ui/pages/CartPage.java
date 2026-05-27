@@ -7,6 +7,8 @@ import org.coffeecart5340.ui.components.TotalButtonComponent;
 import org.coffeecart5340.ui.modals.PaymentModal;
 import org.coffeecart5340.ui.components.CartItemListComponent;
 import org.openqa.selenium.NoSuchElementException;
+import org.coffeecart5340.ui.components.TotalButtonComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -117,5 +119,10 @@ public class CartPage extends BasePage {
         waitUntilElementIsVisible(noItemText);
         return noItemText.getText();
     }
+
+    public TotalButtonComponent getTotalButton() {
+        return new TotalButtonComponent(driver.findElement(By.className("pay-container")));
+    }
+
 
 }
