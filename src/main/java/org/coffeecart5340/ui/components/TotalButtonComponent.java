@@ -16,8 +16,8 @@ public class TotalButtonComponent extends BaseComponent {
     @FindBy(css = "button[data-test='checkout']")
     private WebElement checkoutButton;
 
-    public TotalButtonComponent(WebElement rootElement) {
-        super(rootElement);
+    public TotalButtonComponent(WebDriver driver ,WebElement rootElement) {
+        super(driver, rootElement);
     }
 
     @Step("Getting total price from the checkout button")
@@ -41,5 +41,9 @@ public class TotalButtonComponent extends BaseComponent {
     public PaymentModal clickCheckoutButton() {
         waitAndClickElement(checkoutButton);
         return new PaymentModal(driver);
+    }
+
+    public boolean isTotalButtonEnabled() {
+        return checkoutButton.isEnabled();
     }
 }

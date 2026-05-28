@@ -18,9 +18,7 @@ public class CartItemListComponent extends BaseComponent {
 
     public List<CartItemComponent> getAllItems() {
         return itemElements.stream()
-                .filter(WebElement::isDisplayed)
-                .map(CartItemComponent::new)
-                .collect(Collectors.toList());
+                .map(element ->  new CartItemComponent(driver, element)).toList();
     }
 
     public CartItemComponent getItemByName(String expectedName) {
@@ -33,7 +31,7 @@ public class CartItemListComponent extends BaseComponent {
     public List<String> getAllItemNames() {
         return getAllItems().stream()
                 .map(CartItemComponent::getItemName)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public double getCalculatedTotalPrice() {

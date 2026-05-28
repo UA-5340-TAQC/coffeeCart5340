@@ -2,6 +2,7 @@ package org.coffeecart5340.ui.pages;
 
 import io.qameta.allure.Step;
 import org.coffeecart5340.ui.components.*;
+import org.coffeecart5340.ui.modals.PaymentModal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +31,10 @@ public class MenuPage extends BasePage {
     @FindBy(className = "promo")
     private WebElement discountModalRoot;
 
+    private DiscountComponent discountComponent;
+    private TotalButtonComponent totalButton;
+    private PaymentModal paymentModal;
+
 
     // --- Constructor ---
     public MenuPage(WebDriver driver) {
@@ -39,19 +44,29 @@ public class MenuPage extends BasePage {
 
     // --- Component Getters ---
     public TotalButtonComponent getTotalButton() {
-        return new TotalButtonComponent(payContainerRoot);
+        return new TotalButtonComponent(driver, payContainerRoot);
     }
 
     public DiscountComponent getDiscountModal() {
-        return new DiscountComponent(discountModalRoot);
+        if(discountComponent == null){
+            return new DiscountComponent(driver, discountModalRoot);
+        }
+        return discountComponent;
+    }
+
+    public PaymentModal getPaymentModal() {
+        if(paymentModal == null){
+            return new PaymentModal(driver);
+        }
+        return paymentModal;
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
-        return cartPreviewElements.stream().map(CartPreviewComponent::new).toList();
+        return cartPreviewElements.stream().map(element -> new CartPreviewComponent(driver, element)).toList();
     }
 
     public CupCardComponent getCupCardByName(String name) {
-        return cupCards.stream().map(CupCardComponent::new)
+        return cupCards.stream().map(element -> new CupCardComponent(driver, element))
                 .filter(card -> card.getCupName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Cup card not found: " + name));
@@ -76,11 +91,7 @@ public class MenuPage extends BasePage {
 
     @Step("Adding {coffeeName} to cart")
     public MenuPage clickCoffeeCup(String coffeeName) {
-        // The app replaces spaces with hyphens in the data-cy attribute (e.g., "Cafe Breve" -> "Cafe-Breve")
-        String formattedName = coffeeName.trim().replace(" ", "-");
-        By cupLocator = By.cssSelector("div[data-cy=\"" + formattedName + "\"]");
-
-        waitAndClickElement(cupLocator);
+        getCupCardByName(coffeeName).clickCup();
         return this;
     }
 
@@ -95,5 +106,12 @@ public class MenuPage extends BasePage {
     public String getSnackbarText() {
         waitUntilElementIsVisible(snackbar);
         return snackbar.getText();
+    }
+
+    public MenuPage clickCupMultiply(String name, int times) {
+        for(int iii = 1; iii <= times; iii++) {
+            getCupCardByName(name).clickCup();
+        }
+        return this;
     }
 }

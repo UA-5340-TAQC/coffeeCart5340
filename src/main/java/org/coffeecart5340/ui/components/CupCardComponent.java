@@ -1,6 +1,7 @@
 package org.coffeecart5340.ui.components;
 
 import lombok.Getter;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -18,9 +19,10 @@ public class CupCardComponent extends BaseComponent {
     @FindBy(xpath = ".//div[contains(@class, 'cup-body')]")
     private WebElement cupBody;
 
-    public CupCardComponent(WebElement rootElement) {
-        super(rootElement);
+    public CupCardComponent(WebDriver driver, WebElement rootElement) {
+        super(driver, rootElement);
     }
+
 
     public CupCardComponent clickCup() {
         waitAndClickElement(cupBody);
