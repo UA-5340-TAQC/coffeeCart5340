@@ -1,10 +1,9 @@
 package org.coffeecart5340.ui;
 
 import io.qameta.allure.*;
-import org.coffeecart5340.ui.components.PaymentModalComponent;
+import org.coffeecart5340.ui.modals.PaymentModal;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,7 +14,7 @@ public class PaymentModalCheckoutTest extends BaseUiTestRunner {
     private static final String SUCCESS_MESSAGE = "Thanks for your purchase. Please check your email for payment.";
 
     private MenuPage menuPage;
-    private PaymentModalComponent paymentModal;
+    private PaymentModal paymentModal;
 
     @BeforeMethod
     public void setupCartAndOpenModal() {
@@ -29,7 +28,7 @@ public class PaymentModalCheckoutTest extends BaseUiTestRunner {
     @Test(description = "Verify payment form validation and successful submission without promo")
     public void testPaymentFormValidations() {
         paymentModal.clickSubmit();
-        Assert.assertFalse(paymentModal.getNameValidationMessage().isEmpty(),
+        Assert.assertFalse(paymentModal.getNameValue().isEmpty(),
                 "Expected browser validation error on empty Name field.");
 
         paymentModal.enterName("John Doe");

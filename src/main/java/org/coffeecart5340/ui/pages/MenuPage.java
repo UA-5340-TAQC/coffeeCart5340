@@ -76,11 +76,6 @@ public class MenuPage extends BasePage {
         return new TotalButtonMenuComponent(driver, totalButtonContainer);
     }
 
-    public PaymentModalComponent getPaymentModal() {
-        WebElement modalRoot = driver.findElement(By.cssSelector(".modal-content"));
-        return new PaymentModalComponent(driver, modalRoot);
-    }
-
     @Step("Navigating to GitHub page")
     public GitHubPage goToGitHubPage() {
         return getHeader().clickGitHubButton();

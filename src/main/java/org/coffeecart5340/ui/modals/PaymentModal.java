@@ -2,6 +2,7 @@ package org.coffeecart5340.ui.modals;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
+import lombok.NonNull;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -71,20 +72,61 @@ public class PaymentModal extends BaseModal {
         waitAndClickElement(closeButton);
         return new MenuPage(driver);
     }
+
     public boolean isPromotionCheckboxChecked() {
         return promotionCheckbox.isSelected();
     }
 
-    public String getNameValue(){
+    public String getNameValue() {
         return nameInput.getAttribute("value");
     }
 
-    public String getEmailValue(){
+    public String getEmailValue() {
         return emailInput.getAttribute("value");
     }
 
     public String getEmailValidationMessage() {
-        return (String) ((JavascriptExecutor) driver)
-                .executeScript("return arguments[0].validationMessage;", emailInput);
+        return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].validationMessage;", emailInput);
+    }
+
+
+    @Step("Check promotional messages box")
+    public PaymentModal checkPromo() {
+        if (!promotionCheckbox.isSelected()) {
+            waitAndClickElement(promotionCheckbox);
+        }
+        return this;
+    }
+
+    @Step("Uncheck promotional messages box")
+    public PaymentModal uncheckPromo() {
+        if (promotionCheckbox.isSelected()) {
+            waitAndClickElement(promotionCheckbox);
+        }
+        return this;
+    }
+
+    @Step("Click Submit button")
+    public void clickSubmit() {
+        waitAndClickElement(submitButton);
+    }
+
+    @Step("Click Close icon")
+    public void clickClose() {
+        waitAndClickElement(closeButton);
+    }
+
+    @Step("Fill payment details - Name: {name}, Email: {email}, Promo: {acceptPromo}")
+    public void fillPaymentDetailsAndSubmit(@NonNull String name, @NonNull String email, boolean acceptPromo) {
+        enterName(name);
+        enterEmail(email);
+
+        if (acceptPromo) {
+            checkPromo();
+        } else {
+            uncheckPromo();
+        }
+
+        clickSubmit();
     }
 }
