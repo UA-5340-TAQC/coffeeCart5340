@@ -5,6 +5,7 @@ import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class PaymentModalPrefilledFieldsTest extends BaseUiTestRunner {
     private MenuPage menuPage;
@@ -33,6 +34,8 @@ public class PaymentModalPrefilledFieldsTest extends BaseUiTestRunner {
         softAssert.assertEquals(menuPage.getPaymentModal().getNameValue(), name, "The name field is not pre-filled with the previously entered value");
         softAssert.assertEquals(menuPage.getPaymentModal().getEmailValue(), email, "The email field is not pre-filled with the previously entered value");
         softAssert.assertTrue(menuPage.getPaymentModal().isPromotionCheckboxChecked(), "The promotional messages checkbox is not checked as previously selected");
+        softAssert.assertAll();
+        softAssert =  new SoftAssert();
 
         menuPage.getPaymentModal().clickCloseButton();
         driver.navigate().refresh();
