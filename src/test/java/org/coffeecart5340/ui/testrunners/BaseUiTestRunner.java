@@ -1,16 +1,16 @@
 package org.coffeecart5340.ui.testrunners;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.coffeecart5340.utils.BaseAllureListener;
 import org.coffeecart5340.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
+
+@Listeners(BaseAllureListener.class)
 public class BaseUiTestRunner {
     protected static TestValueProvider testValueProvider;
     protected WebDriver driver;
