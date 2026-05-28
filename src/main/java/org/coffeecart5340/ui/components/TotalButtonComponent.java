@@ -16,10 +16,6 @@ public class TotalButtonComponent extends BaseComponent {
     @FindBy(css = "button[data-test='checkout']")
     private WebElement checkoutButton;
 
-    public TotalButtonComponent(WebElement rootElement) {
-        super(rootElement);
-    }
-
     public TotalButtonComponent(WebDriver driver ,WebElement rootElement) {
         super(driver, rootElement);
     }

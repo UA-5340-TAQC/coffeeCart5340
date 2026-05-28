@@ -62,11 +62,11 @@ public class MenuPage extends BasePage {
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
-        return cartPreviewElements.stream().map(CartPreviewComponent::new).toList();
+        return cartPreviewElements.stream().map(element -> new CartPreviewComponent(driver, element)).toList();
     }
 
     public CupCardComponent getCupCardByName(String name) {
-        return cupCards.stream().map(CupCardComponent::new)
+        return cupCards.stream().map(element -> new CupCardComponent(driver, element))
                 .filter(card -> card.getCupName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Cup card not found: " + name));

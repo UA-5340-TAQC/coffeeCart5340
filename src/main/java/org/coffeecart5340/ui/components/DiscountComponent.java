@@ -23,9 +23,6 @@ public class DiscountComponent extends BaseComponent {
     @FindBy(xpath = ".//div[contains(@class, 'cup-body')]")
     private WebElement cupRootElement;
 
-    public DiscountComponent(WebElement rootElement) {
-        super(rootElement);
-    }
 
     public DiscountComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);

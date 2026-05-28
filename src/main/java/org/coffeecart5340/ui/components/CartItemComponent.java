@@ -1,6 +1,7 @@
 package org.coffeecart5340.ui.components;
 
 import lombok.Getter;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,10 +33,10 @@ public class CartItemComponent extends BaseComponent {
     @FindBy(xpath = ".//button[@class='delete']")
     private WebElement deleteButton;
 
-
-    public CartItemComponent(WebElement rootElement) {
-        super(rootElement);
+    public CartItemComponent(WebDriver driver, WebElement rootElement) {
+        super(driver, rootElement);
     }
+
 
     public Float getTotalPrice() {
         return Float.parseFloat(priceText.getText().replace("$", "").trim());

@@ -25,6 +25,13 @@ public class BaseUiTestRunner {
     public WebDriver initChromeDriver() {
         ChromeOptions options = new ChromeOptions();
 
+        if (testValueProvider.isHeadless()) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=2560,1440");
+        }
+
         WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(5));
