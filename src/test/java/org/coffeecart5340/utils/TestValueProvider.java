@@ -24,7 +24,7 @@ public class TestValueProvider {
             System.out.println("[properties] baseUrl: " + baseUrl);
             return baseUrl;
         }
-        baseUrl = System.getProperty("baseUrl");
+        baseUrl = System.getProperty("BASE_URL");
         System.out.println("[System] baseUrl: " + baseUrl);
         return baseUrl;
     }
