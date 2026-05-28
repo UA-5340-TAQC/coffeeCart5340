@@ -20,10 +20,6 @@ public class TotalButtonComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    public TotalButtonComponent(WebDriver driver ,WebElement rootElement) {
-        super(driver, rootElement);
-    }
-
     @Step("Getting total price from the checkout button")
     public BigDecimal getTotalPrice() {
         // We need to remove "Total: $" and parse it.

@@ -48,7 +48,7 @@ public class MenuPage extends BasePage {
     }
 
     public DiscountComponent getDiscountModal() {
-        return new DiscountComponent(discountModalRoot);
+        return new DiscountComponent(driver,discountModalRoot);
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
