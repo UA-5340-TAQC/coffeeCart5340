@@ -24,8 +24,8 @@ public class TestValueProvider {
             System.out.println("[properties] baseUrl: " + baseUrl);
             return baseUrl;
         }
-        baseUrl = System.getProperty("BASE_URL");
-        System.out.println("[System] baseUrl: " + baseUrl);
+        baseUrl = System.getenv("BASE_URL");
+        System.out.println("[System] baseUrl (BASE_URL): " + baseUrl);
         return baseUrl;
     }
 
@@ -33,7 +33,7 @@ public class TestValueProvider {
         if (properties != null) {
             return Boolean.parseBoolean(properties.getProperty("headless",  "true"));
         }
-        return Boolean.parseBoolean(System.getProperty("HEADLESS", "true"));
+        return Boolean.parseBoolean(System.getenv("HEADLESS"));
     }
 
 }
