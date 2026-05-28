@@ -57,9 +57,11 @@ public class ListItemMenuComponent extends BaseComponent {
         if (count < 1) {
             throw new IllegalArgumentException("Count must be greater than 0");
         }
+        int target = getQuantity() + count;
         for (int i = 0; i < count; i++) {
             increment();
         }
+        waitForQuantity(target);
     }
 
     @Step("Remove {count} items")
@@ -67,15 +69,18 @@ public class ListItemMenuComponent extends BaseComponent {
         if (count < 1) {
             throw new IllegalArgumentException("Count must be greater than 0");
         }
+        int target = getQuantity() - count;
         for (int i = 0; i < count; i++) {
             decrement();
         }
+        waitForQuantity(target);
     }
 
     @Step("Set item quantity to {targetQuantity}")
     public void setQuantity(int targetQuantity) {
-        if (targetQuantity < 0) {
-            throw new IllegalArgumentException("Target quantity cannot be negative");
+        if (targetQuantity < 0) throw new IllegalArgumentException("Target quantity cannot be negative");
+        if (targetQuantity == 0) {
+            throw new IllegalArgumentException("Use delete button to remove item completely");
         }
         int currentQuantity = getQuantity();
         if (currentQuantity < targetQuantity) {
