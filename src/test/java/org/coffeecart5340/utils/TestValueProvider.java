@@ -18,20 +18,15 @@ public class TestValueProvider {
     }
 
     public String getBaseUrl() {
-        String baseUrl;
         if (properties != null) {
-            baseUrl = properties.getProperty("baseUrl");
-            System.out.println("[properties] baseUrl: " + baseUrl);
-            return baseUrl;
+            return properties.getProperty("baseUrl");
         }
-        baseUrl = System.getenv("BASE_URL");
-        System.out.println("[System] baseUrl (BASE_URL): " + baseUrl);
-        return baseUrl;
+        return System.getenv("BASE_URL");
     }
 
     public Boolean isHeadless() {
         if (properties != null) {
-            return Boolean.parseBoolean(properties.getProperty("headless",  "true"));
+            return Boolean.parseBoolean(properties.getProperty("headless", "true"));
         }
         return Boolean.parseBoolean(System.getenv("HEADLESS"));
     }
