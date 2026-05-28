@@ -18,11 +18,17 @@ public class TestValueProvider {
     }
 
     public String getBaseUrl() {
-        return properties.getProperty("baseUrl");
+        if (properties != null) {
+            return properties.getProperty("baseUrl");
+        }
+        return System.getenv("BASE_URL");
     }
 
     public Boolean isHeadless() {
-        return Boolean.parseBoolean(properties.getProperty("headless",  "true"));
+        if (properties != null) {
+            return Boolean.parseBoolean(properties.getProperty("headless", "true"));
+        }
+        return Boolean.parseBoolean(System.getenv("HEADLESS"));
     }
 
 }

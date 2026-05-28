@@ -2,6 +2,9 @@
 
 UI automation framework for the [coffee-cart.app](https://coffee-cart.app) site using Java, Selenium, TestNG, and Allure.
 
+
+**[allure:report](https://ua-5340-taqc.github.io/coffeeCart5340/main)**
+
 ## Tech Stack
 
 - Java 21
