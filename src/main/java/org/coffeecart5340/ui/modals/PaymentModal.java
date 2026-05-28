@@ -3,6 +3,7 @@ package org.coffeecart5340.ui.modals;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import org.coffeecart5340.ui.pages.MenuPage;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -62,14 +63,28 @@ public class PaymentModal extends BaseModal {
     @Step("Clicking Submit Payment button")
     public MenuPage clickSubmitButton() {
         waitAndClickElement(submitButton);
-        waitUntilElementIsInvisible(rootElement);
         return new MenuPage(driver);
     }
 
     @Step("Clicking close (x) button on Payment Modal")
     public MenuPage clickCloseButton() {
         waitAndClickElement(closeButton);
-        waitUntilElementIsInvisible(rootElement);
         return new MenuPage(driver);
+    }
+    public boolean isPromotionCheckboxChecked() {
+        return promotionCheckbox.isSelected();
+    }
+
+    public String getNameValue(){
+        return nameInput.getAttribute("value");
+    }
+
+    public String getEmailValue(){
+        return emailInput.getAttribute("value");
+    }
+
+    public String getEmailValidationMessage() {
+        return (String) ((JavascriptExecutor) driver)
+                .executeScript("return arguments[0].validationMessage;", emailInput);
     }
 }

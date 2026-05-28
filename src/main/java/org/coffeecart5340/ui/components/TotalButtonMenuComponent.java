@@ -40,7 +40,7 @@ public class TotalButtonMenuComponent extends BaseComponent {
     @Step("Get list of cart preview items")
     public List<CartPreviewComponent> getCartPreviewItems() {
         return cartPreviewItems.stream()
-                .map(CartPreviewComponent::new)
+                .map(itemElement -> new CartPreviewComponent(driver, itemElement))
                 .toList();
     }
 

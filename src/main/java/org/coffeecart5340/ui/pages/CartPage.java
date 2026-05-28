@@ -2,6 +2,10 @@ package org.coffeecart5340.ui.pages;
 
 import io.qameta.allure.Step;
 import org.coffeecart5340.ui.components.CartItemComponent;
+import org.coffeecart5340.ui.components.DiscountComponent;
+import org.coffeecart5340.ui.components.TotalButtonComponent;
+import org.coffeecart5340.ui.components.TotalButtonMenuComponent;
+import org.coffeecart5340.ui.modals.PaymentModal;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,14 +18,48 @@ public class CartPage extends BasePage {
     @FindBy(xpath = ".//li[@class='list-header']/following-sibling::li")
     private List<WebElement> cartItemsRoot;
 
+    @FindBy(className = "promo")
+    private WebElement discountModalRoot;
+
+    @FindBy(css = ".pay-container")
+    private WebElement totalButtonContainer;
+
+    @FindBy(xpath = "//p")
+    private WebElement noItemText;
+
+    private TotalButtonComponent totalButton;
+    private DiscountComponent discountComponent;
+    private PaymentModal paymentModal;
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
 
-    private List<CartItemComponent> getCartItems(){
+    public TotalButtonComponent getTotalButton() {
+        if(totalButton == null){
+            return new TotalButtonComponent(driver, totalButtonContainer);
+        }
+        return totalButton;
+    }
+
+    public PaymentModal getPaymentModal() {
+        if(paymentModal == null){
+            return new PaymentModal(driver);
+        }
+        return paymentModal;
+    }
+
+    public DiscountComponent getDiscount() {
+        if(discountComponent == null){
+            return new DiscountComponent(driver, discountModalRoot);
+        }
+        return discountComponent;
+    }
+
+    public List<CartItemComponent> getCartItems(){
         List<CartItemComponent> cartItems = new ArrayList<>();
         for(WebElement cartItemRoot : cartItemsRoot) {
-            cartItems.add(new CartItemComponent(cartItemRoot));
+            cartItems.add(new CartItemComponent(driver, cartItemRoot));
         }
         return cartItems;
     }
@@ -79,4 +117,10 @@ public class CartPage extends BasePage {
         return getHeader().clickMenuButton();
     }
 
+    public String getNoItemText(){
+        waitUntilElementIsVisible(noItemText);
+        return noItemText.getText();
+    }
+
 }
+//

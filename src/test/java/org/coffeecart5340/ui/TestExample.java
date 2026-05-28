@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui;
 
+import org.coffeecart5340.ui.components.CupCardComponent;
 import org.coffeecart5340.ui.components.ListItemMenuComponent;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
@@ -33,7 +34,7 @@ public class TestExample extends BaseUiTestRunner {
         String productName = "Espresso";
         menuPage.getCupCardByName(productName).clickCup();
         List<WebElement> rawItems = driver.findElements(By.cssSelector("ul.cart-preview li.list-item"));
-        List<ListItemMenuComponent> items = rawItems.stream().map(ListItemMenuComponent::new).toList();
+        List<ListItemMenuComponent> items = rawItems.stream().map(element -> new ListItemMenuComponent(driver, element)).toList();
         assertFalse(items.isEmpty(), "Expected to find items in the cart.");
 
         ListItemMenuComponent item = null;
