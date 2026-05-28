@@ -37,7 +37,6 @@ public class CartItemComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-
     public Float getTotalPrice() {
         return Float.parseFloat(priceText.getText().replace("$", "").trim());
     }
