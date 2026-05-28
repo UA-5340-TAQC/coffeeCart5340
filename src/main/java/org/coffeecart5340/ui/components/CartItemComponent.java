@@ -30,7 +30,7 @@ public class CartItemComponent extends BaseComponent {
     private WebElement unitDesc;
 
     @Getter
-    @FindBy(xpath = ".//button[@class='delete']")
+    @FindBy(xpath = ".//button[contains(@aria-label,'Remove one')]")
     private WebElement deleteButton;
 
     public CartItemComponent(WebDriver driver, WebElement rootElement) {

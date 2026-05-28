@@ -1,6 +1,7 @@
 package org.coffeecart5340.ui;
 
 import org.coffeecart5340.ui.components.CartItemComponent;
+import org.coffeecart5340.ui.components.CartItemListComponent;
 import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
@@ -31,9 +32,19 @@ public class EmptyCartPageTest extends BaseUiTestRunner {
 
         Assert.assertEquals(countItems, 2, "The count of items must be 2");
 
-        CartPage cartPage= menuPage.goToCartPage();
-        List<CartItemComponent> itemList= cartPage.getCartItemList();
+        CartPage cartPage = menuPage.goToCartPage();
+        CartItemListComponent itemList = cartPage.getCartItemList();
+        var names = itemList.getAllItemNames();
 
+        Assert.assertTrue(names.get(1).equals("Espresso"),"the second element must be Espresso");
+        Assert.assertTrue(names.get(0).equals("Cappuccino"),"the first element must be Cappuccino");
+
+        var itemsAll = itemList.getAllItems();
+        for (CartItemComponent item : itemsAll)
+        {
+            item.clickMinusButton();
+        }
+        Assert.assertTrue(cartPage.getNoItemText().equals("No coffee, go add some."), "the message must be : No coffee, go add some.");
 
     }
 }
