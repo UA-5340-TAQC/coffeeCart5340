@@ -9,10 +9,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.asserts.SoftAssert;
 
 public class BaseUiTestRunner {
     protected static TestValueProvider testValueProvider;
     protected WebDriver driver;
+    protected SoftAssert softAssert;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
@@ -22,6 +24,13 @@ public class BaseUiTestRunner {
 
     public WebDriver initChromeDriver() {
         ChromeOptions options = new ChromeOptions();
+
+        if (testValueProvider.isHeadless()) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=2560,1440");
+        }
 
         WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
@@ -33,6 +42,7 @@ public class BaseUiTestRunner {
     public void beforeMethod() {
         driver = initChromeDriver();
         driver.get(testValueProvider.getBaseUrl());
+        softAssert = new SoftAssert();
     }
 
     @AfterMethod(alwaysRun = true)

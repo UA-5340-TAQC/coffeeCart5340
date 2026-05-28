@@ -21,5 +21,8 @@ public class TestValueProvider {
         return properties.getProperty("baseUrl");
     }
 
+    public Boolean isHeadless() {
+        return Boolean.parseBoolean(properties.getProperty("headless",  "true"));
+    }
 
 }
