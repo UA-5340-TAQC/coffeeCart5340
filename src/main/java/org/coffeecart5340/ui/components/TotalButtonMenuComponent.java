@@ -31,7 +31,7 @@ public class TotalButtonMenuComponent extends BaseComponent {
     @Step("Check if cart preview is visible")
     public boolean isCartPreviewVisible() {
         try {
-            return cartPreview.isEnabled();
+            return cartPreview.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
