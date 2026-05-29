@@ -6,8 +6,6 @@ import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.pages.MenuPage;
-import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
-import org.openqa.selenium.remote.NewSessionPayload;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
