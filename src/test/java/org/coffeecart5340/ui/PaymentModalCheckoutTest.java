@@ -28,7 +28,7 @@ public class PaymentModalCheckoutTest extends BaseUiTestRunner {
     @Test(description = "Verify payment form validation and successful submission without promo")
     public void testPaymentFormValidations() {
         paymentModal.clickSubmit();
-        Assert.assertFalse(paymentModal.getNameValue().isEmpty(),
+        Assert.assertFalse(paymentModal.getNamelValidationMessage().isEmpty(),
                 "Expected browser validation error on empty Name field.");
 
         paymentModal.enterName("John Doe");
