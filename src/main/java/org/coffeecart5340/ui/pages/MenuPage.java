@@ -48,7 +48,17 @@ public class MenuPage extends BasePage {
     }
 
     public DiscountComponent getDiscountModal() {
-        return new DiscountComponent(driver,discountModalRoot);
+        if(discountComponent == null){
+            return new DiscountComponent(driver, discountModalRoot);
+        }
+        return discountComponent;
+    }
+
+    public PaymentModal getPaymentModal() {
+        if(paymentModal == null){
+            return new PaymentModal(driver);
+        }
+        return paymentModal;
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
