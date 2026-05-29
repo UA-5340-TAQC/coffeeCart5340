@@ -85,7 +85,7 @@ public class PaymentModal extends BaseModal {
         return emailInput.getAttribute("value");
     }
 
-    public String getNamelValidationMessage() {
+    public String getNameValidationMessage() {
         return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].validationMessage;", nameInput);
     }
 
