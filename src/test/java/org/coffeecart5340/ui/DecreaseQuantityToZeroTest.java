@@ -5,9 +5,11 @@ import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.math.BigDecimal;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class DecreaseQuantityToZeroTest extends BaseUiTestRunner {
 
@@ -21,27 +23,27 @@ public class DecreaseQuantityToZeroTest extends BaseUiTestRunner {
     public void verifyItemRemovalAndTotalRecalculationWhenDecreasingQuantityToZero() {
         
         MenuPage menuPage = new MenuPage(driver);
-
+        
         // Step 1: Click on any coffee cup on the Menu page
         menuPage.clickCoffeeCup(COFFEE_NAME);
         
         BigDecimal actualInitialTotal = menuPage.getTotalButton().getTotalPrice();
-        softAssert.assertEquals(actualInitialTotal, EXPECTED_INITIAL_TOTAL, 
-                "The cart total is not updated to $18.00 on the Menu page");
+        assertEquals(actualInitialTotal, EXPECTED_INITIAL_TOTAL, 
+                "Precondition failed: The cart total is not updated to $18.00 on the Menu page");
 
         // Step 2: Navigate to the Cart page
         CartPage cartPage = menuPage.goToCartPage();
         
-        softAssert.assertTrue(cartPage.cartListIsDisplayed(), 
-                "The cart list is not displayed after adding an item to the cart");
+        assertTrue(cartPage.cartListIsDisplayed(), 
+                "Precondition failed: The cart list is not displayed after adding an item to the cart");
         
         int actualQuantity = cartPage.getCartItemList().getItemByName(COFFEE_NAME).getQuantity();
-        softAssert.assertEquals(actualQuantity, 1, 
-                "The selected item is not displayed in the list with quantity 1");
-        
-        softAssert.assertAll(); 
-        softAssert = new SoftAssert();
+        assertEquals(actualQuantity, 1, 
+                "Precondition failed: The selected item is not displayed in the list with quantity 1");
 
+        
+        // --- ACTUAL TEST STEPS (Using inherited SoftAssert to gather all failures) ---
+        
         // Step 3: Click the "-" (minus) button for the added item
         cartPage.clickMinusButtonByName(COFFEE_NAME);
         
@@ -50,6 +52,7 @@ public class DecreaseQuantityToZeroTest extends BaseUiTestRunner {
         softAssert.assertFalse(cartPage.cartListIsDisplayed(), 
                 "The cart list is still displayed after decreasing quantity to zero");
 
+        // Step 4: Verify the Total price
         MenuPage returnedMenuPage = cartPage.goToMenuPage();
         
         BigDecimal actualFinalTotal = returnedMenuPage.getTotalButton().getTotalPrice();
