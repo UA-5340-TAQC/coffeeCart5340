@@ -40,4 +40,8 @@ public class CartPreviewComponent extends BaseComponent {
         waitAndClickElement(minusButton);
         return this;
     }
+
+    public boolean hasQuantity(int quantity) {
+        return getItemAmount().contains(String.valueOf(quantity));
+    }
 }
