@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertFalse;
 
 public class PromoTriggerAfterQuantityDropTest extends BaseUiTestRunner {
 
@@ -30,12 +31,15 @@ public class PromoTriggerAfterQuantityDropTest extends BaseUiTestRunner {
 
         // Step 2: Click "Nah I`ll skip." and navigate to Cart
         menuPage.getDiscountModal().clickNoButton();
+        
+        assertFalse(menuPage.getDiscountModal().isDiscountMenuVisible(), 
+                "Precondition failed: Discount modal did not close after clicking 'No'.");
+
         CartPage cartPage = menuPage.goToCartPage();
         
         int initialQuantity = cartPage.getCartItemList().getItemByName(FIRST_COFFEE_NAME).getQuantity();
         assertEquals(initialQuantity, 3, 
                 "Precondition failed: Cart does not have 3 items after dismissing the promo.");
-
 
         // --- ACTUAL TEST STEPS (Using inherited SoftAssert) ---
 
