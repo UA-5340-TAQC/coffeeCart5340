@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 public class CartPreviewAndPromoTest extends BaseUiTestRunner {
 
@@ -45,7 +46,7 @@ public class CartPreviewAndPromoTest extends BaseUiTestRunner {
         // --- Step 4: Add 2 more cups and verify second promo triggers ---
         menuPage.clickCupMultiply(SECOND_COFFEE_NAME, 2);
         
-        softAssert.assertTrue(menuPage.getDiscountModal().isDiscountMenuVisible(), 
+        assertTrue(menuPage.getDiscountModal().isDiscountMenuVisible(), 
                 "The second promotional pop-up did not appear after adding 2 additional cups (reaching 6 items total).");
 
         // --- Step 5: Verify presence of second batch in cart via preview ---
@@ -81,14 +82,16 @@ public class CartPreviewAndPromoTest extends BaseUiTestRunner {
      * "It's your lucky day! Get an extra cup of Mocha for $4?"
      */
     private String extractCoffeeNameFromPromo(String promoText) {
-        Pattern pattern = Pattern.compile("extra (.*?) for");
+        Pattern pattern = Pattern.compile("extra (.*?) for", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(promoText);
         
         if (matcher.find()) {
             String extractedName = matcher.group(1).trim();
             return extractedName.replace("cup of ", "").trim();
         }
-        throw new RuntimeException("Could not extract coffee name from promotional text: " + promoText);
+        
+        fail("Could not extract coffee name from promotional text: " + promoText);
+        return null;
     }
     
     /**
