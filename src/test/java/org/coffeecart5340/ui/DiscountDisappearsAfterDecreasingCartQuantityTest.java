@@ -21,8 +21,9 @@ public class DiscountDisappearsAfterDecreasingCartQuantityTest extends BaseUiTes
                 "Discount should appear after adding 3 Espresso cups"
         );
 
-        softAssert.assertTrue(
-                menuPage.getHeader().getCartText().contains("3"),
+        softAssert.assertEquals(
+                menuPage.getHeader().getCartText(),
+                "cart (3)",
                 "Cart quantity should be 3 after adding Espresso three times"
         );
 
@@ -41,14 +42,15 @@ public class DiscountDisappearsAfterDecreasingCartQuantityTest extends BaseUiTes
                 .orElseThrow(() -> new RuntimeException("Cart preview item not found: " + productName));
 
         softAssert.assertTrue(
-                item.getItemAmount().contains("3"),
+                item.hasQuantity(3),
                 "Espresso quantity should be 3 in cart preview"
         );
 
         item.clickMinus();
 
-        softAssert.assertTrue(
-                menuPage.getHeader().getCartText().contains("2"),
+        softAssert.assertEquals(
+                menuPage.getHeader().getCartText(),
+                "cart (2)",
                 "Cart quantity should be decreased to 2"
         );
 

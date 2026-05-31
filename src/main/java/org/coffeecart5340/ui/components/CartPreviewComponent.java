@@ -42,6 +42,8 @@ public class CartPreviewComponent extends BaseComponent {
     }
 
     public boolean hasQuantity(int quantity) {
-        return getItemAmount().contains(String.valueOf(quantity));
+        String[] parts = getItemAmount().split("x");
+        int actualQuantity = Integer.parseInt(parts[1].trim());
+        return actualQuantity == quantity;
     }
 }
