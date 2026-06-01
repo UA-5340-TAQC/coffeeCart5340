@@ -10,7 +10,7 @@ Feature: Adding an item to the cart using right-click context menu
     When I right-click on the "Espresso" coffee cup
     Then I verify that the confirmation modal appears with button "Yes", "No"
     When I click on the "Yes" button
-    Then I verify that the quantity increases by 1 next ot the "Cart" button
+    Then I verify that the quantity increases by 1 next to the "Cart" button
     When I hover over the "Yes" button
     Then I verify that the "Yes" button is highlighted
     When I navigate to the "Cart" page

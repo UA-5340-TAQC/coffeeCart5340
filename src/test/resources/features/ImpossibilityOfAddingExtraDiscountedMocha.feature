@@ -1,4 +1,4 @@
-Feature: Imposibility of adding an extra discounted Mocha to the cart
+Feature: Impossibility of adding an extra discounted Mocha to the cart
   As a user, I want to ensure that when I add a discounted Mocha to the cart after adding 3 random items, I cannot add another one at the same discounted price, so that I can only benefit from the discount once per order.
 
   Background:
@@ -13,7 +13,7 @@ Feature: Imposibility of adding an extra discounted Mocha to the cart
         | Cappuccino |
     Then I verify that the lucky modal day appears
     When I click on the "Yes" button
-    Then I verify that the lucky modal dat disapears
+    Then I verify that the lucky modal discount disapears
     When I hover over the total checkout button
     Then I verify that checkout menu appears with added items
     And I verify that the "+" button is disabled for the "Mocha" coffee cup
