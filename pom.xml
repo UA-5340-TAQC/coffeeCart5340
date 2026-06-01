@@ -15,6 +15,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <aspectj.version>1.9.22.1</aspectj.version>
         <allure.version>2.29.0</allure.version>
+        <cucumber.version>7.34.3</cucumber.version>
     </properties>
 
     <dependencies>
@@ -57,6 +58,24 @@
             <artifactId>lombok</artifactId>
             <version>1.18.46</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+            <version>2.29.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
