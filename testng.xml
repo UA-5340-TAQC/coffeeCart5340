@@ -16,6 +16,7 @@
             <class name="org.coffeecart5340.ui.CheckoutWithPromoTest"/>
             <class name="org.coffeecart5340.ui.DecreaseQuantityToZeroTest"/>
             <class name="org.coffeecart5340.ui.DiscountAfterThreeCupsTest"/>
+            <class name="org.coffeecart5340.ui.DiscountedItemIncreaseButtonDisabledTest"/>
             <class name="org.coffeecart5340.ui.DoubleClickTranslatingTest"/>
             <class name="org.coffeecart5340.ui.EmptyCartAfterPurchaseTest"/>
             <class name="org.coffeecart5340.ui.EmptyCartPageTest"/>
