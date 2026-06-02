@@ -78,4 +78,11 @@ public class BaseUiTestRunner {
         }
     }
 
+    public void debugPause(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000L);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }

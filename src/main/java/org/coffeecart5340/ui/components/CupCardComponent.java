@@ -3,6 +3,7 @@ package org.coffeecart5340.ui.components;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class CupCardComponent extends BaseComponent {
@@ -29,8 +30,25 @@ public class CupCardComponent extends BaseComponent {
         return this;
     }
 
+    public CupCardComponent rightClickCup(){
+        Actions actions = new Actions(driver);
+        actions.contextClick(cupBody).perform();
+        return this;
+    }
+
+    public CupCardComponent translateCupTitle(){
+        Actions actions = new Actions(driver);
+        actions.doubleClick(cupTitle).perform();
+        return this;
+    }
+
     public String getCupName() {
         return cupBody.getAttribute("aria-label");
+    }
+
+    public String getCupTitleText() {
+        String fullText = cupTitle.getText();
+        return fullText.split("\n")[0].trim();
     }
 
     public String getCupTestAttribute() {
