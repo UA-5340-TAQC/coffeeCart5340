@@ -69,8 +69,8 @@ public class MenuPageSteps {
 
     }
 
-    @When("I navigate to the {string} page")
-    public void i_navigate_to_the_page(String string) {
+    @When("I navigate to the cart page")
+    public void i_navigate_to_the_page() {
         menuPage.goToCartPage();
     }
 
