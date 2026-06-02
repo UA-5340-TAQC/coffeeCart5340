@@ -43,7 +43,7 @@ public class TC06_AddEspressoToCartTest extends BaseUiTestRunner {
             );
 
             Allure.step("Step 3: Verify cart contains Espresso x1", () -> {
-                CartItemComponent cartItem = cartPage.getCartItemByName(COFFEE_NAME);
+                CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(COFFEE_NAME);
 
                 softAssert.assertEquals(
                         cartItem.getItemName(), COFFEE_NAME,

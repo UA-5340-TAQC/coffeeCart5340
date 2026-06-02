@@ -32,7 +32,7 @@ public class TC02_CartItemQuantityTest extends BaseUiTestRunner {
     public void verifyCartItemQuantity() {
 
         Allure.step("Step 1: Verify initial cart state — Espresso x1, subtotal $10.00", () -> {
-            CartItemComponent cartItem = cartPage.getCartItemByName(COFFEE_NAME);
+            CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(COFFEE_NAME);
 
             softAssert.assertEquals(
                     cartItem.getUnitDescText(), "$10.00 x 1",
@@ -46,7 +46,7 @@ public class TC02_CartItemQuantityTest extends BaseUiTestRunner {
 
         Allure.step("Step 2: Click '+' twice — quantity should become x3, subtotal $30.00", () -> {
             cartPage.clickPlusButtonMultiply(2, COFFEE_NAME);
-            CartItemComponent cartItem = cartPage.getCartItemByName(COFFEE_NAME);
+            CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(COFFEE_NAME);
 
             softAssert.assertEquals(
                     cartItem.getUnitDescText(), "$10.00 x 3",
@@ -67,7 +67,7 @@ public class TC02_CartItemQuantityTest extends BaseUiTestRunner {
 
         Allure.step("Step 4: Click '-' once — quantity should become x2, subtotal $20.00", () -> {
             cartPage.clickMinusButtonByName(COFFEE_NAME);
-            CartItemComponent cartItem = cartPage.getCartItemByName(COFFEE_NAME);
+            CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(COFFEE_NAME);
 
             softAssert.assertEquals(
                     cartItem.getUnitDescText(), "$10.00 x 2",

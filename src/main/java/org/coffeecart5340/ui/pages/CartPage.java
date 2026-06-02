@@ -8,7 +8,7 @@ import org.coffeecart5340.ui.modals.PaymentModal;
 import org.coffeecart5340.ui.components.CartItemListComponent;
 import org.openqa.selenium.NoSuchElementException;
 import org.coffeecart5340.ui.components.TotalButtonComponent;
-import org.coffeecart5340.ui.components.PaymentModalComponent;
+import org.coffeecart5340.ui.modals.PaymentModal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -123,10 +123,6 @@ public class CartPage extends BasePage {
     public String getNoItemText(){
         waitUntilElementIsVisible(noItemText);
         return noItemText.getText();
-    }
-
-    public TotalButtonComponent getTotalButton() {
-        return new TotalButtonComponent(driver.findElement(By.className("pay-container")));
     }
 
     public boolean isPaymentModalDisplayed() {
