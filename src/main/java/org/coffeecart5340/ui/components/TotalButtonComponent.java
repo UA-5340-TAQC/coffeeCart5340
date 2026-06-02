@@ -33,7 +33,7 @@ public class TotalButtonComponent extends BaseComponent {
 
     @Step("Hovering over the pay container to reveal cart preview")
     public TotalButtonComponent hoverOverButton() {
-        hoverOverElement(rootElement);
+        hoverOverElement(checkoutButton);
         return this;
     }
 

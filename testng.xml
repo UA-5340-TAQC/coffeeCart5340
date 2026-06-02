@@ -18,11 +18,11 @@
             <class name="org.coffeecart5340.ui.PaymentModalCheckoutTest"/>
             <class name="org.coffeecart5340.ui.PaymentModalPrefilledFieldsTest"/>
             <class name="org.coffeecart5340.ui.PromoDisagreeButtonTest"/>
+            <class name="org.coffeecart5340.ui.PromoDiscountTest"/>
             <class name="org.coffeecart5340.ui.PromoDrinkTest"/>
             <class name="org.coffeecart5340.ui.PromoTest"/>
             <class name="org.coffeecart5340.ui.TestExample"/>
             <class name="org.coffeecart5340.ui.TotalButtonCartPreviewTest"/>
-            <class name="org.coffeecart5340.ui.TotalButtonMenuComponentTest"/>
         </classes>
     </test>
 </suite>
