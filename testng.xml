@@ -10,6 +10,7 @@
             <class name="org.coffeecart5340.ui.AddingCupRightClickTest"/>
             <class name="org.coffeecart5340.ui.AddingExtraDiscountedMochaTest"/>
             <class name="org.coffeecart5340.ui.CartItemRemovalItem"/>
+            <class name="org.coffeecart5340.ui.CartPreviewAndPromoTest"/>
             <class name="org.coffeecart5340.ui.CartPreviewTest"/>
             <class name="org.coffeecart5340.ui.CheckoutEmailValidationTest"/>
             <class name="org.coffeecart5340.ui.CheckoutWithPromoTest"/>
