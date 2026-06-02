@@ -46,13 +46,13 @@ public class CheckoutWithPromoTest extends BaseUiTestRunner {
         menuPage.getDiscountModal().clickYesButton();
         
         float expectedTotal = coffeeItems.values().stream().reduce(0f, Float::sum) + discountPrice;
-        Assert.assertEquals(menuPage.getTotalButton().getTotalPrice().floatValue(), expectedTotal);
+        Assert.assertEquals(menuPage.getTotalButton().getTotalPrice(), expectedTotal);
 
         menuPage.getTotalButton().hoverOverButton();
 
         float espressoPrice = coffeeItems.get("Espresso");
         menuPage.getCartPreviewItemByName("Espresso").clickMinus();
-        Assert.assertEquals(menuPage.getTotalButton().getTotalPrice().floatValue(), expectedTotal - espressoPrice);
+        Assert.assertEquals(menuPage.getTotalButton().getTotalPrice(), expectedTotal - espressoPrice);
 
         menuPage.getTotalButton().clickCheckoutButton();
 
