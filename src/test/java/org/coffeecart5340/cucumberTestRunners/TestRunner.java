@@ -5,7 +5,10 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue = "org.coffeecart5340.steps",
+        glue ={
+                "org.coffeecart5340.steps",
+                "org.coffeecart5340.hooks"
+        },
         plugin = {
                 "pretty",
                 "html:target/cucumber-report.html",

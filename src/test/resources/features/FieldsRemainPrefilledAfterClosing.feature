@@ -3,7 +3,7 @@ Feature: Prefilled Fields After Closing the payment modal
 
   Background:
     Given I am on the menu page
-    And I have got an empty cart
+    And I have an empty cart
 
   @Smoke @P145 @Regression @Dmytro-Syadro
     Scenario Outline: Verify that all detail fields remain pre-filled after clicking on the close button of the purchase modal

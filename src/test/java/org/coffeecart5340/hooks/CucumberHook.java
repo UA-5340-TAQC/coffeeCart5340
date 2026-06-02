@@ -32,7 +32,6 @@ public class CucumberHook {
         DriverManager.setDriver(driver);
         driver.get(testValueProvider.getBaseUrl());
         scenario.log("Scenario started: " + scenario.getName());
-        softAssert = new SoftAssert();
     }
 
     @After(order = 2)
@@ -79,5 +78,8 @@ public class CucumberHook {
     }
     public WebDriver getDriver(){
         return DriverManager.getDriver();
+    }
+    public SoftAssert getSoftAssert(){
+        return softAssert;
     }
 }

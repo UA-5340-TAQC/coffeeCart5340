@@ -1,17 +1,19 @@
 package org.coffeecart5340.steps;
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.*;
 import org.coffeecart5340.hooks.CucumberHook;
 import org.coffeecart5340.ui.enumData.HighlightedStyles;
 import org.coffeecart5340.ui.modals.AddToCartModal;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 public class ConfirmPurchaseModalSteps {
 
     private final AddToCartModal addToCartModal;
 
-    public ConfirmPurchaseModalSteps(CucumberHook hook) {
-        this.addToCartModal = new AddToCartModal(hook.getDriver());
+    public ConfirmPurchaseModalSteps(CucumberHook cucumberHook) {
+        addToCartModal = new AddToCartModal(cucumberHook.getDriver());
     }
 
     @When("I hover over the Yes button")

@@ -3,7 +3,7 @@ Feature: Impossibility of adding an extra discounted Mocha to the cart
 
   Background:
     Given I am on the menu page
-    And I have got an empty cart
+    And I have an empty cart
 
   @Smoke @P250 @Regression @Dmytro-Syadro
   Scenario: Verify imposibility of adding extra discounted Mocha after adding 3 cups of coffee to the cart
@@ -12,13 +12,13 @@ Feature: Impossibility of adding an extra discounted Mocha to the cart
         | Americano |
         | Cappuccino |
     Then I verify that the lucky modal day appears
-    When I click on the "Yes" button
+    When I click on the Yes button
     Then I verify that the lucky modal discount disapears
     When I hover over the total checkout button
     Then I verify that checkout menu appears with added items
-    And I verify that the "+" button is disabled for the "Mocha" coffee cup
+    And I verify that the + button is disabled for the "Mocha" coffee cup
     And I verify that 3 cups of coffee are added to the cart
-    When I navigate to the "Cart" page
+    When I navigate to the Cart page
     Then I verify that added 4 cups of coffee including discounted Mocha are present in the cart
     And I verify that the total checkout is counted correctly with 50% discount for the Mocha
-    And I verify that the adding feature is disabled for the "Mocha" coffee cup on the "Cart" page
+    And I verify that the adding feature is disabled for the "Mocha" coffee cup on the Cart page
