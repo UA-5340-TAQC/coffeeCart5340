@@ -21,14 +21,14 @@ public class TotalButtonComponent extends BaseComponent {
     }
 
     @Step("Getting total price from the checkout button")
-    public BigDecimal getTotalPrice() {
+    public double getTotalPrice() {
         // We need to remove "Total: $" and parse it.
         String text = checkoutButton.getText();
         String normalized = text
                 .replaceFirst("^\\s*Total:\\s*\\$", "")
                 .replace(",", "")
                 .trim();
-        return new BigDecimal(normalized);
+        return Double.parseDouble(normalized);
     }
 
     @Step("Hovering over the pay container to reveal cart preview")
