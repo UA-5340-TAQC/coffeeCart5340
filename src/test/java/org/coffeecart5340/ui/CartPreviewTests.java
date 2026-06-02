@@ -102,7 +102,7 @@ public class CartPreviewTests extends BaseUiTestRunner {
 
         String expectedCoffee = "Espresso";
         int expectedQuantity = 2;
-        BigDecimal expectedTotal = new BigDecimal("20.00");
+        double expectedTotal = 20.00;
 
         Assert.assertTrue(menuPage.getTotalButtonMenuComponent().isCartPreviewEmpty(), "Cart preview should be empty before adding any items.");
 
