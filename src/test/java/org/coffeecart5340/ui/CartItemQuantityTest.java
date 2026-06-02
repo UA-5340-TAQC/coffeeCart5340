@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 
 @Feature("Cart")
-public class TC02_CartItemQuantityTest extends BaseUiTestRunner {
+public class CartItemQuantityTest extends BaseUiTestRunner {
 
     private static final String COFFEE_NAME = "Espresso";
 

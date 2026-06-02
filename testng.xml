@@ -28,11 +28,11 @@
             <class name="org.coffeecart5340.ui.PromoDiscountTest"/>
             <class name="org.coffeecart5340.ui.PromoDrinkTest"/>
             <class name="org.coffeecart5340.ui.PromoTest"/>
-            <class name="org.coffeecart5340.ui.PromoTriggerAfterQuantityDropTest"/>
-            <class name="org.coffeecart5340.ui.TC01_AddCoffeeToCartTest"/>
-            <class name="org.coffeecart5340.ui.TC02_CartItemQuantityTest"/>
-            <class name="org.coffeecart5340.ui.TC03_PaymentModalOpenCloseTest"/>
-            <class name="org.coffeecart5340.ui.TC06_AddEspressoToCartTest"/>
+            <class name="org.coffeecart5340.ui.PromoDiscountTests"/>
+            <class name="org.coffeecart5340.ui.AddCoffeeToCartTest"/>
+            <class name="org.coffeecart5340.ui.CartItemQuantityTest"/>
+            <class name="org.coffeecart5340.ui.PaymentModalOpenCloseTest"/>
+            <class name="org.coffeecart5340.ui.AddEspressoToCartTest"/>
             <class name="org.coffeecart5340.ui.TestExample"/>
             <class name="org.coffeecart5340.ui.TotalButtonCartPreviewTest"/>
         </classes>

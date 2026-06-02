@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 
 @Feature("Cart")
-public class TC06_AddEspressoToCartTest extends BaseUiTestRunner {
+public class AddEspressoToCartTest extends BaseUiTestRunner {
 
     private static final String COFFEE_NAME    = "Espresso";
     private static final String EXPECTED_TOTAL = "Total: $10.00";

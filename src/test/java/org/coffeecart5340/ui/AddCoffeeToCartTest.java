@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @Feature("Cart")
-public class TC01_AddCoffeeToCartTest extends BaseUiTestRunner {
+public class AddCoffeeToCartTest extends BaseUiTestRunner {
 
     private MenuPage menuPage;
 
