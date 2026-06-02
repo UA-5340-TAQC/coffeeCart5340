@@ -1,29 +1,21 @@
 package org.coffeecart5340.steps;
 
 import io.cucumber.java.en.*;
-import lombok.Getter;
 import org.coffeecart5340.hooks.CucumberHook;
 import org.coffeecart5340.ui.enumData.HighlightedStyles;
 import org.coffeecart5340.ui.modals.AddToCartModal;
-import org.coffeecart5340.ui.pages.MenuPage;
 import org.testng.Assert;
 
 public class ConfirmPurchaseModalSteps {
 
-    private final CucumberHook hook;
-    @Getter
-    private AddToCartModal addToCartModal;
-    @Getter
-    private MenuPage menuPage;
+    private final AddToCartModal addToCartModal;
 
     public ConfirmPurchaseModalSteps(CucumberHook hook) {
-
-        this.hook = hook;
         this.addToCartModal = new AddToCartModal(hook.getDriver());
     }
 
     @When("I hover over the Yes button")
-    public void i_hover_over_the_button() {
+    public void i_hover_over_the_yes_button() {
         addToCartModal.hoverOverYesButton();
     }
 
@@ -39,21 +31,21 @@ public class ConfirmPurchaseModalSteps {
 
     @Then("I verify that the confirmation modal appears with Yes and No buttons")
     public void i_verify_that_the_confirmation_modal_appears_with_yes_and_no_buttons() {
-        Assert.assertTrue(addToCartModal.isButtonNoDisplayed(), "No button is not displayed in the confirmation modal");
-        Assert.assertTrue(addToCartModal.isButtonYesDisplayed(), "Yes button is not displayed in the confirmation modal");
+        Assert.assertTrue(addToCartModal.isButtonYesDisplayed(),
+                "Yes button is not displayed in the confirmation modal");
+        Assert.assertTrue(addToCartModal.isButtonNoDisplayed(),
+                "No button is not displayed in the confirmation modal");
     }
 
     @Then("I verify that the Yes button is highlighted")
     public void i_verify_that_the_yes_button_is_highlighted() {
-       String yesStyle = addToCartModal.getYesButtonStyle();
-       Assert.assertTrue(yesStyle.contains(HighlightedStyles.GOLDEN.getStyle()), "Yes button is not highlighted in the confirmation modal");
+        Assert.assertTrue(addToCartModal.getYesButtonStyle().contains(HighlightedStyles.GOLDEN.getStyle()),
+                "Yes button is not highlighted");
     }
 
     @Then("I verify that the No button is highlighted")
     public void i_verify_that_the_no_button_is_highlighted() {
-        String noStyle = addToCartModal.getNoButtonStyle();
-        Assert.assertTrue(noStyle.contains(HighlightedStyles.GOLDEN.getStyle()), "No button is not highlighted in the confirmation modal");
+        Assert.assertTrue(addToCartModal.getNoButtonStyle().contains(HighlightedStyles.GOLDEN.getStyle()),
+                "No button is not highlighted");
     }
-
-
 }
