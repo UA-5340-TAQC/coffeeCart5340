@@ -1,6 +1,7 @@
 package org.coffeecart5340.ui.components;
 
 import lombok.Getter;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -87,5 +88,13 @@ public class CartItemComponent extends BaseComponent {
 
     public String getDeleteButtonHoverBackgroundColor() {
         return deleteButton.getCssValue("background-color");
+    }
+
+    public boolean isPlusButtonAvailable() {
+        try {
+            return plusButton.isDisplayed() && plusButton.isEnabled();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }

@@ -5,7 +5,10 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class TotalButtonMenuComponent extends BaseComponent {
@@ -26,6 +29,9 @@ public class TotalButtonMenuComponent extends BaseComponent {
     @Step("Hover over Total button to show cart preview")
     public void hoverOverTotalButton() {
         hoverOverElement(totalButton);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(cartPreview));
     }
 
     @Step("Check if cart preview is visible")

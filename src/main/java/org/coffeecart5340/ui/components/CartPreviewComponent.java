@@ -1,5 +1,6 @@
 package org.coffeecart5340.ui.components;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -49,5 +50,13 @@ public class CartPreviewComponent extends BaseComponent {
     public CartPreviewComponent clickMinus() {
         waitAndClickElement(minusButton);
         return this;
+    }
+
+    public boolean isPlusButtonAvailable() {
+        try {
+            return plusButton.isDisplayed() && plusButton.isEnabled();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }
