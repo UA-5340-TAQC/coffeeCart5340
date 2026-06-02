@@ -7,12 +7,16 @@
     -->
     <test name="UI Tests">
         <classes>
-            <class name="org.coffeecart5340.ui.TestExample"/>
             <class name="org.coffeecart5340.ui.CartItemRemovalItem"/>
             <class name="org.coffeecart5340.ui.CheckoutEmailValidationTest"/>
             <class name="org.coffeecart5340.ui.DiscountAfterThreeCupsTest"/>
+            <class name="org.coffeecart5340.ui.HeaderNavigationTest"/>
+            <class name="org.coffeecart5340.ui.ItemQuantityUpdateTest"/>
             <class name="org.coffeecart5340.ui.PaymentModalCheckoutTest"/>
             <class name="org.coffeecart5340.ui.PaymentModalPrefilledFieldsTest"/>
+            <class name="org.coffeecart5340.ui.PromoDrinkTest"/>
+            <class name="org.coffeecart5340.ui.TestExample"/>
+            <class name="org.coffeecart5340.ui.TotalButtonCartPreviewTest"/>
             <class name="org.coffeecart5340.ui.TotalButtonMenuComponentTest"/>
         </classes>
     </test>
