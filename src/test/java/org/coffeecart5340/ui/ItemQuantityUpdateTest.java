@@ -65,12 +65,11 @@ public class ItemQuantityUpdateTest extends BaseUiTestRunner {
                         + expectedTotal + ", Actual: " + actualTotalInCart
         );
 
-        BigDecimal checkoutTotal = cartPage.getTotalButton().getTotalPrice();
-        BigDecimal expectedCheckoutTotal = BigDecimal.valueOf(expectedTotal)
-                .setScale(2, RoundingMode.HALF_UP);
+        Double checkoutTotal = cartPage.getTotalButton().getTotalPrice();
+        Double expectedCheckoutTotal = (double) expectedTotal;
 
         softAssert.assertEquals(
-                checkoutTotal.setScale(2, RoundingMode.HALF_UP),
+                checkoutTotal,
                 expectedCheckoutTotal,
                 "Checkout total button should display correct total price"
         );
