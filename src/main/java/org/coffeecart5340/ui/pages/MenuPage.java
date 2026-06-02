@@ -31,6 +31,7 @@ public class MenuPage extends BasePage {
     @FindBy(className = "promo")
     private WebElement discountModalRoot;
 
+
     private DiscountComponent discountComponent;
     private TotalButtonComponent totalButton;
     private PaymentModal paymentModal;
@@ -72,6 +73,12 @@ public class MenuPage extends BasePage {
                 .orElseThrow(() -> new NoSuchElementException("Cup card not found: " + name));
     }
 
+    public List<CupCardComponent> getAllCupCards() {
+        return cupCards.stream()
+                .map(element -> new CupCardComponent(driver, element))
+                .toList();
+    }
+
     public TotalButtonMenuComponent getTotalButtonMenuComponent() {
         return new TotalButtonMenuComponent(driver, totalButtonContainer);
     }
@@ -95,6 +102,12 @@ public class MenuPage extends BasePage {
         return this;
     }
 
+    @Step("Opening {coffeeName} \"Add to cart\" modal")
+    public MenuPage contextClickCoffeeCup(String coffeeName) {
+        getCupCardByName(coffeeName).rightClickCup();
+        return this;
+    }
+
     public CartPreviewComponent getCartPreviewItemByName(String name) {
         return getCartPreviews().stream()
                 .filter(item -> item.getItemName().equals(name))
@@ -114,4 +127,6 @@ public class MenuPage extends BasePage {
         }
         return this;
     }
+
+
 }
