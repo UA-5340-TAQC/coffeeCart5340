@@ -1,10 +1,10 @@
 package org.coffeecart5340.ui.components;
 
 import lombok.Getter;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Arrays;
 
@@ -30,7 +30,7 @@ public class CartItemComponent extends BaseComponent {
     private WebElement unitDesc;
 
     @Getter
-    @FindBy(xpath = ".//button[@class='delete']")
+    @FindBy(xpath = ".//button[contains(@aria-label,'Remove one')]")
     private WebElement deleteButton;
 
     public CartItemComponent(WebDriver driver, WebElement rootElement) {
@@ -88,5 +88,13 @@ public class CartItemComponent extends BaseComponent {
 
     public String getDeleteButtonHoverBackgroundColor() {
         return deleteButton.getCssValue("background-color");
+    }
+
+    public boolean isPlusButtonAvailable() {
+        try {
+            return plusButton.isDisplayed() && plusButton.isEnabled();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }

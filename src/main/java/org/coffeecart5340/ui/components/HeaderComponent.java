@@ -41,4 +41,16 @@ public class HeaderComponent extends BaseComponent {
     public String getCartText() {
         return cartButton.getText();
     }
+
+    public int getCartCount() {
+        String text = getCartText();
+
+        String numberString = text.replaceAll("[^0-9]", "");
+
+        if (numberString.isEmpty()) {
+            return 0;
+        }
+
+        return Integer.parseInt(numberString);
+    }
 }
