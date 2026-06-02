@@ -27,7 +27,7 @@ public class DecreaseQuantityToZeroTest extends BaseUiTestRunner {
         // Step 1: Click on any coffee cup on the Menu page
         menuPage.clickCoffeeCup(COFFEE_NAME);
         
-        BigDecimal actualInitialTotal = menuPage.getTotalButton().getTotalPrice();
+        Double actualInitialTotal = menuPage.getTotalButton().getTotalPrice();
         assertEquals(actualInitialTotal, EXPECTED_INITIAL_TOTAL, 
                 "Precondition failed: The cart total is not updated to $18.00 on the Menu page");
 
@@ -55,7 +55,7 @@ public class DecreaseQuantityToZeroTest extends BaseUiTestRunner {
         // Step 4: Verify the Total price
         MenuPage returnedMenuPage = cartPage.goToMenuPage();
         
-        BigDecimal actualFinalTotal = returnedMenuPage.getTotalButton().getTotalPrice();
+        Double actualFinalTotal = returnedMenuPage.getTotalButton().getTotalPrice();
         softAssert.assertEquals(actualFinalTotal, EXPECTED_FINAL_TOTAL, 
                 "The Total amount is not updated to $0.00 after decreasing quantity to zero");
 
