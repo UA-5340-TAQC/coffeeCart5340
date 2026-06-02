@@ -42,8 +42,8 @@ public class AddingExtraDiscountedMochaTest extends BaseUiTestRunner {
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Espresso not found in cart preview"));
 
-        softAssert.assertTrue(espressoPreviewItem.getItemAmount().contains("3"), "Espresso quantity should be 3 in preview");
-        softAssert.assertTrue(discountedMochaPreviewItem.getItemAmount().contains("1"), "Mocha quantity should be 1 in preview");
+        softAssert.assertEquals(espressoPreviewItem.getItemAmount(), 3, "Espresso quantity should be 3 in preview");
+        softAssert.assertEquals(discountedMochaPreviewItem.getItemAmount(), 1, "Mocha quantity should be 1 in preview");
 
         menuPage.goToCartPage();
 
