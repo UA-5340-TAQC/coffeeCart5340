@@ -3,7 +3,9 @@
 UI automation framework for the [coffee-cart.app](https://coffee-cart.app) site using Java, Selenium, TestNG, and Allure.
 
 
-**[allure:report](https://ua-5340-taqc.github.io/coffeeCart5340/main)**
+<a href="https://ua-5340-taqc.github.io/coffeeCart5340/main" target="_blank">
+  <img src="https://img.shields.io/badge/Allure_Report-🔗-blue?style=for-the-badge" alt="Allure Report">
+</a>
 
 ## Tech Stack
 
