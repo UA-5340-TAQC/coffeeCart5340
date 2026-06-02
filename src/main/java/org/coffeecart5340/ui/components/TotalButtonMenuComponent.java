@@ -58,4 +58,18 @@ public class TotalButtonMenuComponent extends BaseComponent {
     public boolean isCartPreviewEmpty() {
         return cartPreviewItems.isEmpty();
     }
+
+    @Step("Check if {name} is in the cart preview")
+    public boolean isItemInCartPreview(String name) {
+        return getCartPreviewItems().stream()
+                .anyMatch(item -> item.getItemName().equals(name));
+    }
+
+    public int getItemQuantityByName(String name) {
+        return getCartPreviewItems().stream()
+                .filter(item -> item.getItemName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Cannot get quantity. Item not found in cart preview: " + name))
+                .getQuantity();
+    }
 }
