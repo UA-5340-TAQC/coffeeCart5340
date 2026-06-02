@@ -77,4 +77,7 @@ public class CucumberHook {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return driver;
     }
+    public WebDriver getDriver(){
+        return DriverManager.getDriver();
+    }
 }

@@ -8,12 +8,13 @@ Feature: Adding an item to the cart using right-click context menu
   @Smoke @P220 @Regression @Dmytro-Syadro
   Scenario: Verify adding a cup of coffee to the cart using right-click on the card
     When I right-click on the "Espresso" coffee cup
-    Then I verify that the confirmation modal appears with button "Yes", "No"
-    When I click on the "Yes" button
-    Then I verify that the quantity increases by 1 next to the "Cart" button
-    When I hover over the "Yes" button
-    Then I verify that the "Yes" button is highlighted
+    Then I verify that the confirmation modal appears with Yes and No buttons
+    When I click the Yes button
+    Then I verify that the quantity increases by 1 next to the Cart button
+    When I hover over the Yes button
+    Then I verify that the Yes button is highlighted
     When I navigate to the "Cart" page
     Then I verify that the "Espresso" coffee cup is added to the cart with quantity 1
     And I verify that the total price is updated accordingly
     And I verify that item is present in the list of items in the cart
+
