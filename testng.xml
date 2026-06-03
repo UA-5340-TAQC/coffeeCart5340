@@ -10,6 +10,7 @@
 
             <class name="org.coffeecart5340.ui.CartManagementTests"/>
             <class name="org.coffeecart5340.ui.CartPreviewTests"/>
+            <class name="org.coffeecart5340.ui.CheckoutEmailValidationTest"/>
             <class name="org.coffeecart5340.ui.CheckoutWithPromoTest"/>
             <class name="org.coffeecart5340.ui.DiscountedItemIncreaseButtonDisabledTest"/>
             <class name="org.coffeecart5340.ui.DoubleClickTranslatingTest"/>
