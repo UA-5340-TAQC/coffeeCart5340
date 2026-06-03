@@ -1,8 +1,12 @@
 package org.coffeecart5340.cucumber.steps;
 
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import lombok.Getter;
 import org.coffeecart5340.cucumber.hooks.CucumberHook;
+import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.components.CupCardComponent;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.testng.Assert;
@@ -28,47 +32,45 @@ public class MenuPageSteps {
 
     @Given("I have an empty cart")
     public void i_have_an_empty_cart() {
-        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewEmpty(),
-                "cart preview should be empty before adding any items");
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewEmpty(), "cart preview should be empty before adding any items");
     }
 
     @When("I right-click on the {string} coffee cup")
     public void i_right_click_on_the_coffee_cup(String string) {
-        new MenuPage(cucumberHook.getDriver()).getCupCardByName(string)
-                .rightClickCup();
+        new MenuPage(cucumberHook.getDriver()).getCupCardByName(string).rightClickCup();
     }
 
     @When("I click on the coffee cups:")
     public void i_click_on_the_coffee_cups(List<String> coffeeNames) {
         MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
-        for(String coffeeName : coffeeNames){
+        for (String coffeeName : coffeeNames) {
             menuPage.clickCoffeeCup(coffeeName);
         }
     }
 
     @Then("I verify that the lucky modal day appears")
     public void i_verify_that_the_lucky_modal_day_appears() {
-        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getDiscountModal().isDiscountMenuVisible(),
-                "Lucky day modal should be displayed after right-clicking on a coffee cup");
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getDiscountModal().isDiscountMenuVisible(), "Lucky day modal should be displayed after right-clicking on a coffee cup");
     }
 
     @When("I click on the Yes button")
     public void i_click_on_the_yes_button() {
         new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickYesButton();
     }
+
     @Then("I verify that the lucky modal discount disapears")
     public void i_verify_that_the_lucky_modal_discount_disapears() {
-        Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getDiscountModal().isDiscountMenuVisible(),
-                "Lucky day modal should not be displayed after clicking the Yes button");
+        Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getDiscountModal().isDiscountMenuVisible(), "Lucky day modal should not be displayed after clicking the Yes button");
     }
+
     @When("I hover over the total checkout button")
     public void i_hover_over_the_total_checkout_button() {
         new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().hoverOverTotalButton();
     }
+
     @Then("I verify that checkout menu appears with added items")
     public void i_verify_that_checkout_menu_appears_with_added_items() {
-        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(),
-                "Cart preview should be visible after hovering over the total checkout button");
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "Cart preview should be visible after hovering over the total checkout button");
 
     }
 
@@ -107,11 +109,7 @@ public class MenuPageSteps {
             String originalEnglishName = cup.getCupName();
 
             if (targetCup != null && !originalEnglishName.equals(targetCup.getCupName())) {
-                softAssert.assertEquals(
-                        cup.getCupTitleText(),
-                        originalEnglishName,
-                        "Bug: The coffee '" + originalEnglishName + "' was accidentally translated!"
-                );
+                softAssert.assertEquals(cup.getCupTitleText(), originalEnglishName, "Bug: The coffee '" + originalEnglishName + "' was accidentally translated!");
             }
         }
         softAssert.assertAll();
@@ -137,10 +135,7 @@ public class MenuPageSteps {
 
     @Then("I verify the appearance and contents of the quick cart preview showing added item")
     public void verifyCartPreviewIsVisible() {
-        Assert.assertTrue(
-                new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(),
-                "The cart preview must be visible after hovering!"
-        );
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "The cart preview must be visible after hovering!");
     }
 
     @When("I move the mouse cursor away from the {string} button and the popup area")
@@ -150,10 +145,86 @@ public class MenuPageSteps {
 
     @Then("I verify the quick cart preview popup disappears from the screen")
     public void verifyCartPreviewDisappears() {
-        Assert.assertFalse(
-                new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(),
-                "The cart preview must NOT be visible after moving the cursor away!"
-        );
+        Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "The cart preview must NOT be visible after moving the cursor away!");
+    }
+
+
+    @And("the Cart preview is empty")
+    public void theCartPreviewIsEmptyBefore() {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewEmpty(), "cart preview should be empty before adding any items");
+    }
+
+    @When("I add {int} {string} to the cart")
+    public void AddCuptoTheCart(String coffeeName, int quantity) {
+        new MenuPage(cucumberHook.getDriver()).clickCupMultiply(coffeeName, quantity);
+    }
+
+    @Then("the cart counter should display {int}")
+    public void CountDrink(int expectedCount) {
+        Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getCartPreviewItemCount(), expectedCount, "Cart preview item count does not match expected quantity.");
+    }
+
+    @Then("the promotional banner should be displayed")
+    public void PromoBannerEnabledCheck() {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getDiscountModal().isDiscountMenuVisible(), "the promotional banner should be displayed");
+    }
+
+
+    @Then("the promotional banner should not be displayed")
+    public void PromoBannerNotEnabled() {
+        Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getDiscountModal().isDiscountMenuVisible(), "the promotional banner should not be displayed");
+    }
+
+    @When("I click the {string} button")
+    public void ClickPromoButton(String choice) {
+        if (choice == "Yes, of course!") {
+            new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickYesButton();
+        } else new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickNoButton();
+    }
+
+    @Then("the beverage list should be empty")
+    public void DrinkListEmpty() {
+        Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getCartPreviewItemCount(), 0, "the beverage list should be empty");
+    }
+
+    @When("I remove all {int} non-promotional items from the cart")
+    public void RemoveNonPromotionalItems(int count) {
+        List<CartPreviewComponent> items = new MenuPage(cucumberHook.getDriver()).getCartPreviews();
+        new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().hoverOverTotalButton();
+        for (int i = 0; i < count; i++) {
+            items.get(1).clickMinus();
+        }
+    }
+
+    @Then("I hover over the Total button")
+    public void hoverOverTotalButton() {
+        new MenuPage(cucumberHook.getDriver()).getTotalButton().hoverOverButton();
+    }
+
+    @When("the \"Total: $8.00\" button should be visible")
+    public void TotalButtonCheck() {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButton().isTotalButtonEnabled(), "the \"Total: $8.00\" button should be visible");
+    }
+
+    @Then("the cart preview should be displayed")
+    public void MenuComponentVisible() {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "the cart preview should be displayed");
+    }
+
+    @Then("the quick cart preview should contain {string}")
+    public void PreviewContainsDrink(String coffeeName) {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getCartPreviewItems().contains(coffeeName), "the quick cart preview should contain");
+    }
+
+    @When("I move the cursor away from the Total button and the preview area")
+    public void MoveCursorAwayFromTotalButton() {
+        new MenuPage(cucumberHook.getDriver()).clickCoffeeCup("Espresso");
+    }
+
+    @Then("the cart preview should not be displayed")
+    public void MenuComponentNotVisible() {
+        Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "the cart preview should not be displayed");
+
     }
 
 }
