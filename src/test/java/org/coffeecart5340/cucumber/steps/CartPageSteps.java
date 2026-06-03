@@ -6,6 +6,8 @@ import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.testng.Assert;
 
+import java.math.BigDecimal;
+
 public class CartPageSteps {
 
 
@@ -36,5 +38,52 @@ public class CartPageSteps {
         CartPage cartPage = new CartPage(cucumberHook.getDriver());
         Assert.assertFalse(cartPage.cartListIsDisplayed(), "Cart list should be empty");
         Assert.assertEquals(cartPage.getNoItemText(), "No coffee, go add some.");
+    }
+
+    @Given("the cart preview is empty before adding any items")
+    public void theCartPreviewIsEmptyBeforeAddingItems() {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewEmpty(),
+                "Cart preview should be empty before adding any items.");
+    }
+
+    @When("the user adds {int} {string} cups")
+    public void theUserAddsCups(int quantity, String coffeeName) {
+        new MenuPage(cucumberHook.getDriver()).clickCupMultiply(coffeeName, quantity);
+    }
+
+    @Then("the total price is successfully updated to {string}")
+    public void theTotalPriceIsSuccessfullyUpdated(String expectedTotal) {
+        BigDecimal expectedPrice = new BigDecimal(expectedTotal);
+        Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(), expectedPrice,
+                "Total price did not update correctly after adding items.");
+    }
+
+    @When("the user hovers over the Total button")
+    public void theUserHoversOverTheTotalButton() {
+        new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().hoverOverTotalButton();
+    }
+
+    @Then("the cart preview becomes visible")
+    public void theCartPreviewBecomesVisible() {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(),
+                "Cart preview should be visible after hovering over Total button.");
+    }
+
+    @And("the cart preview is no longer empty")
+    public void theCartPreviewIsNoLongerEmpty() {
+        Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewEmpty(),
+                "Cart preview should not be empty after adding items.");
+    }
+
+    @And("the {string} coffee is displayed in the cart preview")
+    public void theCoffeeIsDisplayedInTheCartPreview(String coffeeName) {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isItemInCartPreview(coffeeName),
+                "Expected coffee item is not displayed in cart preview.");
+    }
+
+    @And("the quantity of {string} in the preview matches the expected quantity of {int}")
+    public void theQuantityMatchesExpected(String coffeeName, int expectedQuantity) {
+        Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getItemQuantityByName(coffeeName), expectedQuantity,
+                "Cart preview item count does not match expected quantity.");
     }
 }
