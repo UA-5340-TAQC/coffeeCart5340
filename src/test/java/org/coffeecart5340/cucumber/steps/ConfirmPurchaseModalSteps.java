@@ -1,6 +1,7 @@
 package org.coffeecart5340.cucumber.steps;
 
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.coffeecart5340.cucumber.hooks.CucumberHook;
 import org.coffeecart5340.ui.enumData.HighlightedStyles;
 import org.coffeecart5340.ui.modals.AddToCartModal;
@@ -8,7 +9,7 @@ import org.testng.Assert;
 
 public class ConfirmPurchaseModalSteps {
 
-//    private final AddToCartModal addToCartModal;
+    //    private final AddToCartModal addToCartModal;
     private final CucumberHook cucumberHook;
 
     public ConfirmPurchaseModalSteps(CucumberHook cucumberHook) {
