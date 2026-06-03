@@ -1,7 +1,11 @@
 package org.coffeecart5340.cucumber.steps;
 
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.coffeecart5340.cucumber.hooks.CucumberHook;
+import org.coffeecart5340.ui.components.CartItemListComponent;
 import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.testng.Assert;
@@ -16,7 +20,6 @@ public class CartPageSteps {
     public CartPageSteps(CucumberHook cucumberHook) {
         this.cucumberHook = cucumberHook;
     }
-
 
 
     @Given("I am on the cart page")
@@ -85,5 +88,29 @@ public class CartPageSteps {
     public void theQuantityMatchesExpected(String coffeeName, int expectedQuantity) {
         Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getItemQuantityByName(coffeeName), expectedQuantity,
                 "Cart preview item count does not match expected quantity.");
+    }
+
+
+    @When("I open the cart page")
+    public void OpenCartPage() {
+        new MenuPage(cucumberHook.getDriver()).goToCartPage();
+    }
+
+    @Then("the cart should contain {string}")
+    public void DrinkInCartPage(String coffeeName) {
+        CartItemListComponent itemList = new CartPage(cucumberHook.getDriver()).getCartItemList();
+        var names = itemList.getAllItemNames();
+
+        Assert.assertTrue(names.contains(coffeeName), "The element must be " + coffeeName);
+    }
+
+    @When("I remove {string} from the cart")
+    public void RemoveItemFromCart(String coffeeName) {
+        new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName(coffeeName).clickMinusButton();
+    }
+
+    @And("the cart should be empty")
+    public void EmptyCartCheck() {
+        Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getNoItemText(), "No coffee, go add some.", "the cart should be empty");
     }
 }

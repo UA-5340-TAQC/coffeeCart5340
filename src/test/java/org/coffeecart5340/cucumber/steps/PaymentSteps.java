@@ -11,7 +11,7 @@ import org.testng.Assert;
 
 public class PaymentSteps {
 
-    private MenuPage menuPage;
+    private final MenuPage menuPage;
     private PaymentModal paymentModal;
 
     public PaymentSteps() {
