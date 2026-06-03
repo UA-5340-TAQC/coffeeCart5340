@@ -56,9 +56,12 @@ public class CartPageSteps {
 
     @Then("the total price is successfully updated to {string}")
     public void theTotalPriceIsSuccessfullyUpdated(String expectedTotal) {
-        BigDecimal expectedPrice = new BigDecimal(expectedTotal);
-        Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(), expectedPrice,
-                "Total price did not update correctly after adding items.");
+        double expectedPrice = Double.parseDouble(expectedTotal);
+        Assert.assertEquals(
+                new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(),
+                expectedPrice,
+                "Total price did not update correctly after adding items."
+        );
     }
 
     @When("the user hovers over the Total button")
@@ -90,7 +93,6 @@ public class CartPageSteps {
                 "Cart preview item count does not match expected quantity.");
     }
 
-
     @When("I open the cart page")
     public void OpenCartPage() {
         new MenuPage(cucumberHook.getDriver()).goToCartPage();
@@ -112,5 +114,31 @@ public class CartPageSteps {
     @And("the cart should be empty")
     public void EmptyCartCheck() {
         Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getNoItemText(), "No coffee, go add some.", "the cart should be empty");
+    }
+
+    @And("the quantity of {string} in the cart should be {int}")
+    public void theQuantityOfItemInCartShouldBe(String coffeeName, int expectedQuantity) {
+        int actualQuantity = new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName(coffeeName).getQuantity();
+        Assert.assertEquals(actualQuantity, expectedQuantity,
+                "Quantity of '" + coffeeName + "' in cart does not match expected " + expectedQuantity);
+    }
+
+    @Then("the cart item {string} quantity should be {int}")
+    public void theCartItemQuantityShouldBe(String coffeeName, int expectedQuantity) {
+        theQuantityOfItemInCartShouldBe(coffeeName, expectedQuantity);
+    }
+
+    @When("I navigate back to the menu page")
+    public void iNavigateBackToTheMenuPage() {
+        new CartPage(cucumberHook.getDriver()).goToMenuPage();
+    }
+
+    @Then("the total price on the menu page should be {string}")
+    public void theTotalPriceOnMenuPageShouldBe(String expectedTotal) {
+        double expected = Double.parseDouble(expectedTotal);
+        Assert.assertEquals(
+                new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(),
+                expected,
+                "Total price does not match expected $" + expectedTotal);
     }
 }

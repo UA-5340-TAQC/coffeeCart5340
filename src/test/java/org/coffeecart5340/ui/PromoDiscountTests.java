@@ -135,22 +135,29 @@ public class PromoDiscountTests extends BaseUiTestRunner {
     @Description("TC-31: Verify that promo drink is added to cart after clicking agree button.")
     @Test(priority = 4)
     public void verifyPromoDrinkIsAddedToCartAfterClickingAgree() {
-        for (String coffeeName : THREE_COFFEES) {
-            menuPage.clickCoffeeCup(coffeeName);
-        }
 
-        softAssert.assertTrue(menuPage.getHeader().getCartText().contains("3"),
-                "Cart counter should display 3 after adding three coffees.");
+        Allure.step("Step 1: Add three coffees to trigger the promo and verify cart counter", () -> {
+            for (String coffeeName : THREE_COFFEES) {
+                menuPage.clickCoffeeCup(coffeeName);
+            }
+            softAssert.assertTrue(menuPage.getHeader().getCartText().contains("3"),
+                    "Cart counter should display 3 after adding three coffees.");
+        });
 
-        softAssert.assertTrue(menuPage.getDiscountModal().isDiscountMenuVisible(),
-                "Promotional pop-up should appear after adding the third coffee item.");
+        Allure.step("Step 2: Verify the promotional pop-up appears", () -> {
+            softAssert.assertTrue(menuPage.getDiscountModal().isDiscountMenuVisible(),
+                    "Promotional pop-up should appear after adding the third coffee item.");
+        });
 
-        menuPage.getDiscountModal().clickYesButton();
+        Allure.step("Step 3: Accept the promotional offer", () -> {
+            menuPage.getDiscountModal().clickYesButton();
+        });
 
-        softAssert.assertTrue(menuPage.getHeader().getCartText().contains("4"),
-                "Cart counter should display 4 after accepting promo Mocha.");
-
-        softAssert.assertAll();
+        Allure.step("Step 4: Verify cart counter updates to 4 (promo Mocha added) and assert all", () -> {
+            softAssert.assertTrue(menuPage.getHeader().getCartText().contains("4"),
+                    "Cart counter should display 4 after accepting promo Mocha.");
+            softAssert.assertAll();
+        });
     }
 
     @Story("Discounted Mocha restrictions")
