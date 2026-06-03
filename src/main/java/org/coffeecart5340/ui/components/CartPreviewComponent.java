@@ -42,6 +42,11 @@ public class CartPreviewComponent extends BaseComponent {
         return Integer.parseInt(amountText);
     }
 
+    public int getQuantity() {
+        String amountText = itemAmount.getText().replace("x", "").trim();
+        return Integer.parseInt(amountText);
+    }
+
     public CartPreviewComponent clickPlus() {
         waitAndClickElement(plusButton);
         return this;
