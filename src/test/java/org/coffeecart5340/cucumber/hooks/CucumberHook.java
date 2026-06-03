@@ -1,4 +1,4 @@
-package org.coffeecart5340.hooks;
+package org.coffeecart5340.cucumber.hooks;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -26,7 +26,7 @@ public class CucumberHook {
         WebDriverManager.chromedriver().setup();
     }
 
-    @Before(order = 1)
+    @Before
     public void setUp(Scenario scenario) {
         WebDriver driver = initChromeDriver();
         DriverManager.setDriver(driver);
@@ -34,7 +34,7 @@ public class CucumberHook {
         scenario.log("Scenario started: " + scenario.getName());
     }
 
-    @After(order = 2)
+    @After
     public void tearDown(Scenario scenario) {
         WebDriver driver = DriverManager.getDriver();
         if (driver != null) {
