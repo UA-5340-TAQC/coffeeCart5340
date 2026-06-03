@@ -7,13 +7,19 @@
     -->
     <test name="UI Tests">
         <classes>
-            <class name="org.coffeecart5340.ui.TestExample"/>
-            <class name="org.coffeecart5340.ui.CartItemRemovalItem"/>
-            <class name="org.coffeecart5340.ui.CheckoutEmailValidationTest"/>
-            <class name="org.coffeecart5340.ui.DiscountAfterThreeCupsTest"/>
+
+            <class name="org.coffeecart5340.ui.CartManagementTests"/>
+            <class name="org.coffeecart5340.ui.CartPreviewTests"/>
+            <class name="org.coffeecart5340.ui.CheckoutWithPromoTest"/>
+            <class name="org.coffeecart5340.ui.DiscountedItemIncreaseButtonDisabledTest"/>
+            <class name="org.coffeecart5340.ui.DoubleClickTranslatingTest"/>
+            <class name="org.coffeecart5340.ui.EmptyCartPageTests"/>
+            <class name="org.coffeecart5340.ui.HeaderNavigationTest"/>
             <class name="org.coffeecart5340.ui.PaymentModalCheckoutTest"/>
+            <class name="org.coffeecart5340.ui.PaymentModalOpenCloseTest"/>
             <class name="org.coffeecart5340.ui.PaymentModalPrefilledFieldsTest"/>
-            <class name="org.coffeecart5340.ui.TotalButtonMenuComponentTest"/>
+            <class name="org.coffeecart5340.ui.PromoDiscountTests"/>
+            <class name="org.coffeecart5340.ui.TestExample"/>
         </classes>
     </test>
 </suite>
