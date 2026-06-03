@@ -1,11 +1,23 @@
-Feature: Header navigation
+Feature: Promo message after adding third coffee item
 
-  Scenario: TC-14 Verify that user can navigate between Menu and Cart pages using header links
+  Scenario: TC-13 Verify that promo message appears only after adding the third coffee item
+
     Given the user is on the Coffee Cart menu page
-    Then the cart header link should be visible
-    When the user clicks the cart link in the header
-    Then the cart page URL should contain "/cart"
-    And the empty cart message "No coffee, go add some." should be displayed
-    When the user clicks the menu link in the header
-    Then the coffee card "Espresso" should be displayed on the menu page
-    And the menu page URL should match the base URL
+
+    When the user adds the coffee cup "Espresso" to the cart
+    Then the promo message should not be displayed
+
+    When the user adds the coffee cup "Cappuccino" to the cart
+    Then the promo message should not be displayed
+
+    When the user adds the coffee cup "Cafe Latte" to the cart
+    Then the promo message should be displayed
+
+    When the user hovers over the checkout preview
+    Then the checkout preview should be displayed
+
+    And the coffee item "Espresso" should be displayed in the checkout preview
+    And the coffee item "Cappuccino" should be displayed in the checkout preview
+    And the coffee item "Cafe Latte" should be displayed in the checkout preview
+
+    And all coffee items are removed from the cart

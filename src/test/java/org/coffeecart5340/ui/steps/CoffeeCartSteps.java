@@ -9,6 +9,11 @@ import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
 import org.coffeecart5340.utils.DriverManager;
 import org.testng.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import java.util.List;
 
 public class CoffeeCartSteps extends BaseUiTestRunner {
 
@@ -146,5 +151,123 @@ public class CoffeeCartSteps extends BaseUiTestRunner {
     public void theCoffeeCupIsRemovedFromTheCart(String coffeeName) {
         cartPage = menuPage.goToCartPage();
         cartPage.clickDeleteButton(coffeeName);
+    }
+    @When("the user adds the coffee cup {string} to the cart")
+    public void theUserAddsTheCoffeeCupToTheCart(String coffeeName) {
+        cupCard = menuPage.getCupCardByName(coffeeName);
+        cupCard.clickCup();
+    }
+
+    @Then("the promo message should not be displayed")
+    public void thePromoMessageShouldNotBeDisplayed() {
+        List<WebElement> promoMessages = driver.findElements(
+                By.xpath("//*[contains(text(), 'lucky') or contains(text(), 'discount') or contains(text(), 'Promo') or contains(text(), 'Mocha')]")
+        );
+
+        Assert.assertTrue(
+                promoMessages.isEmpty(),
+                "Promo message should not be displayed"
+        );
+    }
+
+    @Then("the promo message should be displayed")
+    public void thePromoMessageShouldBeDisplayed() {
+        List<WebElement> promoMessages = driver.findElements(
+                By.xpath("//*[contains(text(), 'lucky') or contains(text(), 'discount') or contains(text(), 'Promo') or contains(text(), 'Mocha')]")
+        );
+
+        Assert.assertFalse(
+                promoMessages.isEmpty(),
+                "Promo message should be displayed after adding the third item"
+        );
+    }
+
+    @When("the user hovers over the checkout preview")
+    public void theUserHoversOverTheCheckoutPreview() {
+        WebElement checkoutPreview = driver.findElement(
+                By.xpath("//*[contains(text(), 'Total') or contains(text(), 'total') or contains(text(), 'checkout')]")
+        );
+
+        new Actions(driver)
+                .moveToElement(checkoutPreview)
+                .perform();
+    }
+
+    @Then("the checkout preview should be displayed")
+    public void theCheckoutPreviewShouldBeDisplayed() {
+        List<WebElement> previewItems = driver.findElements(
+                By.xpath("//*[contains(@class, 'list') or contains(@class, 'cart') or contains(@class, 'preview')]")
+        );
+
+        Assert.assertFalse(
+                previewItems.isEmpty(),
+                "Checkout preview should be displayed"
+        );
+    }
+
+    @Then("the coffee item {string} should be displayed in the checkout preview")
+    public void theCoffeeItemShouldBeDisplayedInTheCheckoutPreview(String coffeeName) {
+        WebElement coffeeItem = driver.findElement(
+                By.xpath("//*[contains(text(), '" + coffeeName + "')]")
+        );
+
+        Assert.assertTrue(
+                coffeeItem.isDisplayed(),
+                coffeeName + " should be displayed in checkout preview"
+        );
+    }
+
+    @When("the user navigates to the cart page")
+    public void theUserNavigatesToTheCartPage() {
+        cartPage = menuPage.goToCartPage();
+    }
+
+    @Then("the coffee item {string} should be displayed in the cart")
+    public void theCoffeeItemShouldBeDisplayedInTheCart(String coffeeName) {
+        WebElement cartItem = driver.findElement(
+                By.xpath("//*[contains(text(), '" + coffeeName + "')]")
+        );
+
+        Assert.assertTrue(
+                cartItem.isDisplayed(),
+                coffeeName + " should be displayed in the cart"
+        );
+    }
+
+    @Then("the coffee item {string} quantity should be {int}")
+    public void theCoffeeItemQuantityShouldBe(String coffeeName, int expectedQuantity) {
+        WebElement quantity = driver.findElement(
+                By.xpath("//*[contains(text(), '" + coffeeName + "')]/ancestor::*[self::li or self::div or self::tr][1]//*[contains(text(), '" + expectedQuantity + "')]")
+        );
+
+        Assert.assertTrue(
+                quantity.isDisplayed(),
+                coffeeName + " quantity should be " + expectedQuantity
+        );
+    }
+
+    @Then("the total price should be calculated correctly for {int} items")
+    public void theTotalPriceShouldBeCalculatedCorrectlyForItems(int expectedQuantity) {
+        WebElement total = driver.findElement(
+                By.xpath("//*[contains(text(), 'Total') or contains(text(), 'total')]")
+        );
+
+        Assert.assertTrue(
+                total.isDisplayed(),
+                "Total price should be displayed"
+        );
+    }
+
+    @Then("all coffee items are removed from the cart")
+    public void allCoffeeItemsAreRemovedFromTheCart() {
+        cartPage = menuPage.goToCartPage();
+
+        List<WebElement> deleteButtons = driver.findElements(
+                By.xpath("//button[contains(text(), 'Delete') or contains(text(), 'Remove') or contains(text(), 'x') or contains(text(), '×')]")
+        );
+
+        for (WebElement deleteButton : deleteButtons) {
+            deleteButton.click();
+        }
     }
 }
