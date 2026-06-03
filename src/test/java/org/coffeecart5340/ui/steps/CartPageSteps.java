@@ -14,6 +14,11 @@ public class CartPageSteps {
     private MenuPage menuPage;
     private CartPage cartPage;
 
+    public CartPageSteps() {
+        menuPage = new MenuPage(DriverManager.getDriver());
+        cartPage = new CartPage(DriverManager.getDriver());
+    }
+
     @When("I open the cart page")
     public void OpenCartPage(){
         menuPage.goToCartPage();
