@@ -234,11 +234,7 @@ public class MenuPageSteps {
 
     @Then("the cart preview contains a discounted promo cup")
     public void theCartPreviewContainsADiscountedPromoCup() {
-        boolean found = new MenuPage(cucumberHook.getDriver())
-                .getTotalButtonMenuComponent()
-                .getCartPreviewItems()
-                .stream()
-                .anyMatch(item -> item.getItemName().toLowerCase().contains("discounted"));
+        boolean found = new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getCartPreviewItems().stream().anyMatch(item -> item.getItemName().toLowerCase().contains("discounted"));
         Assert.assertTrue(found,
                 "Expected a discounted promo cup in the cart preview, but none was found.");
     }
@@ -246,8 +242,7 @@ public class MenuPageSteps {
     @Then("the header cart counter should display {int}")
     public void countDrink(int expectedCount) {
         Assert.assertEquals(
-                new MenuPage(cucumberHook.getDriver()).getHeader().getCartCount(),
-                expectedCount,
+                new MenuPage(cucumberHook.getDriver()).getHeader().getCartCount(), expectedCount,
                 "Cart counter in header does not match expected quantity."
         );
     }

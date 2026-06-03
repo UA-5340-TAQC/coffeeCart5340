@@ -57,9 +57,7 @@ public class CartPageSteps {
     @Then("the total price is successfully updated to {string}")
     public void theTotalPriceIsSuccessfullyUpdated(String expectedTotal) {
         double expectedPrice = Double.parseDouble(expectedTotal);
-        Assert.assertEquals(
-                new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(),
-                expectedPrice,
+        Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(), expectedPrice,
                 "Total price did not update correctly after adding items."
         );
     }
