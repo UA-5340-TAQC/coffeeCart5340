@@ -1,8 +1,0 @@
-"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
-"0","Coffee Cart Application","0","Payment Modal Prefilled Fields","3","0","","0"
-"2","","0","Payment Modal validations and submission","0","1","","0"
-"0","Coffee Cart Application","1","Discount System","0","0","Discount appears after 3 cups","0"
-"0","Coffee Cart Application","0","Checkout Validation","4","0","Invalid email validation","0"
-"1","","0","","1","0","","0"
-"0","Coffee Cart Application","0","Cart Functionality","1","0","Removing item from cart","0"
-"0","Coffee Cart Application","0","Total Button Menu Component","1","0","Cart preview visibility when cart is empty","0"
