@@ -80,4 +80,20 @@ public class AddToCartModal extends BaseModal {
     public String getDescription() {
         return description.getText();
     }
+
+    public boolean isButtonYesDisplayed(){
+        try {
+            return yesButton.isDisplayed();
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    public boolean isButtonNoDisplayed(){
+        try {
+            return noButton.isDisplayed();
+        } catch (Exception e){
+            return false;
+        }
+    }
 }

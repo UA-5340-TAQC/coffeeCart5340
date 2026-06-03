@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @Feature("Cart")
-public class TC03_PaymentModalOpenCloseTest extends BaseUiTestRunner {
+public class PaymentModalOpenCloseTest extends BaseUiTestRunner {
 
     private static final String COFFEE_NAME = "Espresso";
 
