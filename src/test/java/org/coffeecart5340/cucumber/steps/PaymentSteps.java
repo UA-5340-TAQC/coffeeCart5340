@@ -1,4 +1,4 @@
-package org.coffeecart5340.ui.stepdefinitions;
+package org.coffeecart5340.cucumber.steps;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
