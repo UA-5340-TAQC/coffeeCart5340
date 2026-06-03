@@ -14,7 +14,7 @@ public enum CoffeeType {
     private final String coffee;
     private final String chineseCoffee;
 
-     CoffeeType(String coffee, String chineseCoffee) {
+    CoffeeType(String coffee, String chineseCoffee) {
         this.coffee = coffee;
         this.chineseCoffee = chineseCoffee;
     }
@@ -29,6 +29,6 @@ public enum CoffeeType {
 
     @Override
     public String toString(){
-         return coffee;
+        return coffee;
     }
 }
