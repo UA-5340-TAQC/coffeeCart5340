@@ -7,6 +7,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.coffeecart5340.ui.components.CartItemComponent;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
+import org.coffeecart5340.ui.components.CupCardComponent;
 import org.coffeecart5340.ui.components.TotalButtonMenuComponent;
 import org.coffeecart5340.ui.modals.AddToCartModal;
 import org.coffeecart5340.ui.pages.CartPage;
@@ -194,6 +195,48 @@ public class CartManagementTests extends BaseUiTestRunner {
         softAssert.assertEquals(cartPage.getCartItemList().getCalculatedTotalPrice(), (double) price, "Total price is incorrect");
 
         cartPage.getCartItemList().clearCart();
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyEspressoMacchiatoCupIsDisplayedWithCorrectDataAndCanBeAddedToCart() {
+
+        String productName = "Espresso Macchiato";
+
+        MenuPage menuPage = new MenuPage(driver);
+
+        CupCardComponent espressoMacchiatoCup =
+                menuPage.getCupCardByName(productName);
+
+        softAssert.assertTrue(
+                espressoMacchiatoCup.isCupDisplayed(),
+                "Espresso Macchiato cup should be visible on the page"
+        );
+
+        softAssert.assertEquals(
+                espressoMacchiatoCup.getCupName(),
+                productName,
+                "Cup name should be displayed as Espresso Macchiato"
+        );
+
+        softAssert.assertEquals(
+                espressoMacchiatoCup.getCupPriceText(),
+                "$12.00",
+                "Cup price should be displayed as $12.00"
+        );
+
+        espressoMacchiatoCup.clickCup();
+
+        softAssert.assertEquals(
+                menuPage.getHeader().getCartText(),
+                "cart (1)",
+                "Cart counter should display cart (1)"
+        );
+
+        // Postcondition
+        CartPage cartPage = menuPage.goToCartPage();
+        cartPage.clickDeleteButton(productName);
+
         softAssert.assertAll();
     }
 }

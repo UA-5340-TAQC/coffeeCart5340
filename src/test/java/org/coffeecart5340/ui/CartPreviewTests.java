@@ -2,6 +2,7 @@ package org.coffeecart5340.ui;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
@@ -97,6 +98,7 @@ public class CartPreviewTests extends BaseUiTestRunner {
 
     @Test(priority = 3)
     @Description("Verify that hovering over the Total button shows the cart preview with correct items")
+    @Flaky
     public void testTotalButtonPreviewOnHover() {
         MenuPage menuPage = new MenuPage(driver);
 
