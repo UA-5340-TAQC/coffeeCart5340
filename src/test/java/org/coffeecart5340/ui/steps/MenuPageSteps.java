@@ -38,9 +38,9 @@ public class MenuPageSteps {
         Assert.assertTrue(menuPage.getDiscountModal().isDiscountMenuVisible(),"the promotional banner should be displayed");
     }
 
-    @Then("the promotional banner should not be displayed")
+    `@Then`("the promotional banner should not be displayed")
     public void PromoBannerNotEnabled(){
-        Assert.assertFalse(menuPage.getDiscountModal().isDiscountMenuVisible(),"the promotional banner should be displayed");
+        Assert.assertFalse(menuPage.getDiscountModal().isDiscountMenuVisible(),"the promotional banner should not be displayed");
     }
 
     @When("I click the {string} button")
