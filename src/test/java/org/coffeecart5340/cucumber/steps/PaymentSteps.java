@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.coffeecart5340.cucumber.hooks.CucumberHook;
 import org.coffeecart5340.ui.modals.PaymentModal;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.utils.DriverManager;
@@ -14,7 +15,10 @@ public class PaymentSteps {
     private final MenuPage menuPage;
     private PaymentModal paymentModal;
 
-    public PaymentSteps() {
+    private final CucumberHook cucumberHook;
+
+    public PaymentSteps(CucumberHook cucumberHook) {
+        this.cucumberHook = cucumberHook;
         menuPage = new MenuPage(DriverManager.getDriver());
     }
 
@@ -23,7 +27,7 @@ public class PaymentSteps {
         menuPage.clickCoffeeCup(coffeeName);
     }
 
-    @And("the user navigates to the Cart Page")
+    @When("the user navigates to the Cart Page")
     public void theUserNavigatesToTheCartPage() {
         menuPage.goToCartPage();
     }
@@ -43,6 +47,12 @@ public class PaymentSteps {
         paymentModal.clickSubmit();
     }
 
+    @Then("I verify that the payment modal is displayed")
+    public void i_verify_that_the_payment_modal_is_displayed() {
+        Assert.assertTrue(new PaymentModal(cucumberHook.getDriver()).isDisplayed(),
+                "Payment modal should be displayed after clicking Checkout.");
+    }
+
     @Then("a browser validation error is expected for the empty Name field")
     public void expectedErrorForEmptyNameField() {
         Assert.assertFalse(paymentModal.getNameValidationMessage().isEmpty(),
@@ -59,6 +69,73 @@ public class PaymentSteps {
     public void expectedErrorForEmptyEmailField() {
         Assert.assertFalse(paymentModal.getEmailValidationMessage().isEmpty(),
                 "Expected browser validation error on empty Email field.");
+    }
+    @When("I fill in the name field with {string}")
+    public void i_fill_in_the_name_field_with(String string) {
+        new PaymentModal(cucumberHook.getDriver()).enterName(string);
+    }
+
+
+    @When("I click on the submit button")
+    public void i_click_on_the_submit_button() {
+        new PaymentModal(cucumberHook.getDriver()).clickSubmit();
+    }
+
+    @Then("I verify that {string} is displayed in the name field")
+    public void i_verify_that_name_is_displayed_in_the_name_field(String string) {
+        Assert.assertEquals(string,
+                new PaymentModal(cucumberHook.getDriver()).getNameValue(),
+                "Expected name field to contain the entered value.");
+    }
+
+    @When("I fill in the email field with {string}")
+    public void i_fill_in_the_email_field_with(String string) {
+        new PaymentModal(cucumberHook.getDriver()).enterEmail(string);
+    }
+
+    @Then("I verify that {string} is displayed in the email field")
+    public void i_verify_that_email_is_displayed_in_the_email_field(String string) {
+        Assert.assertEquals(string,
+                new PaymentModal(cucumberHook.getDriver()).getEmailValue(),
+                "Expected email field to contain the entered value.");
+    }
+
+    @When("I click on the confirmation checkbox")
+    public void i_click_on_the_confirmation_checkbox() {
+        new PaymentModal(cucumberHook.getDriver()).clickPromotionCheckbox();
+    }
+
+    @Then("I verify that the checkbox is selected")
+    public void i_verify_that_the_checkbox_is_selected() {
+        Assert.assertTrue(new PaymentModal(cucumberHook.getDriver()).isPromotionCheckboxChecked(),
+                "Expected promotion checkbox to be selected after clicking.");
+    }
+
+    @When("I click on the close button of the payment modal")
+    public void i_click_on_the_close_button_of_the_payment_modal() {
+        new PaymentModal(cucumberHook.getDriver()).clickCloseButton();
+    }
+
+    @Then("I verify that the payment modal is closed")
+    public void i_verify_that_the_payment_modal_is_closed() {
+        Assert.assertFalse(new PaymentModal(cucumberHook.getDriver()).isDisplayed(),
+                "Payment modal should be closed after clicking the close button.");
+    }
+
+    @Then("the name field should be empty")
+    public void the_name_field_should_be_empty() {
+        Assert.assertTrue(new PaymentModal(cucumberHook.getDriver()).getNameValue().isEmpty(),
+                "Expected name field to be empty after closing the modal.");
+    }
+    @Then("the email field should be empty")
+    public void the_email_field_should_be_empty() {
+        Assert.assertTrue(new PaymentModal(cucumberHook.getDriver()).getEmailValue().isEmpty(),
+                "Expected email field to be empty after closing the modal.");
+    }
+    @Then("the confirmation checkbox should not be selected")
+    public void the_confirmation_checkbox_should_not_be_selected() {
+        Assert.assertFalse(new PaymentModal(cucumberHook.getDriver()).isPromotionCheckboxChecked(),
+                "Expected promotion checkbox to be unselected after closing the modal.");
     }
 
     @When("the user enters the email {string} and clicks Submit")

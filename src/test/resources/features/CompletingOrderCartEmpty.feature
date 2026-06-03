@@ -6,23 +6,28 @@ Feature: After completing an order, the cart should be empty.
     And I have an empty cart
 
   @Smoke @P240 @Regression @Dmytro-Syadro
-  Scenario: Verify that the cart is empty after completing an order
+  Scenario Outline: Verify that the cart is empty after completing an order
     When I click on the coffee cups:
         | Espresso  |
         | Americano |
-    Then I verify that the cart contains 2 selected products
-    When I click on the Checkout button
-    Then I verify that the purchase modal is displayed
-    When I fill in the name field with "test"
-    Then I verify that name is displayed in the name field
-    When I fill in the email field with "test@gmail.com"
-    Then I verify that email is displayed in the email field
+    Then I verify that the coffee cup is added to the cart with quantity 2
+    When I click on the total checkout button
+    Then I verify that the payment modal is displayed
+    When I fill in the name field with '<name>'
+    Then I verify that '<name>' is displayed in the name field
+    When I fill in the email field with '<gmail>'
+    Then I verify that '<gmail>' is displayed in the email field
     When I click on the confirmation checkbox
     Then I verify that the checkbox is selected
-    When I click on the "Submit" button
+    When I click on the submit button
     Then I verify that the order confirmation message is displayed
-    When I click the cart icon
+    When I navigate to the cart page
     Then I verify that the cart is empty
+
+    Examples:
+      | name  | gmail           |
+      | Test1 | test@gmail.com  |
+      | Test2 | test2@gmail.com |
 
 
 

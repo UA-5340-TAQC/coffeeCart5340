@@ -1,3 +1,5 @@
+Feature: Promo discount after three items
+
 When the user adds the coffee cup {string} to the cart
 Then the promo message should not be displayed
 Then the promo message should be displayed
