@@ -17,7 +17,7 @@ Feature: Impossibility of adding an extra discounted Mocha to the cart
     When I hover over the total checkout button
     Then I verify that checkout menu appears with added items
     And I verify that the + button is disabled for the "Mocha" coffee cup
-    And I verify that 3 cups of coffee are added to the cart
+    And I verify that 3 cups of coffee and 1 discounted Mocha are added to the cart
     When I navigate to the cart page
     Then I verify that added 2 types of coffee including discounted Mocha are present in the cart
     And I verify that the total checkout is counted correctly with 0.5 discount for the Mocha

@@ -215,7 +215,7 @@ public class PromoDiscountTests extends BaseUiTestRunner {
     @Story("Discount appears after 3 cups")
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that a discount section appears automatically after adding three cups of the same coffee to the cart.")
-    @Issue("https://github.com/UA-5340-TAQC/coffeeCart5340/issues/48")
+    @Issue("48")
     @Tag("Regression")
     @Tag("Smoke")
     @Test(priority = 1)

@@ -137,8 +137,8 @@ public class MenuPageSteps {
                 "The + button should be disabled for the " + string + " coffee cup after purchase!");
     }
 
-    @Then("I verify that {int} cups of coffee are added to the cart")
-    public void i_verify_that_cups_of_coffee_are_added_to_the_cart(Integer int1) {
+    @Then("I verify that {int} cups of coffee and {int} discounted Mocha are added to the cart")
+    public void i_verify_that_cups_of_coffee_are_added_to_the_cart(Integer int1, Integer int2) {
         var previewItems = new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getCartPreviewItems();
         var discountedMochaPreviewItem = previewItems.stream()
                 .filter(item -> item.getItemName().contains("Mocha"))
@@ -149,8 +149,8 @@ public class MenuPageSteps {
                 .filter(item -> item.getItemName().contains("Espresso"))
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Espresso not found in cart preview"));
-        Assert.assertEquals(espressoPreviewItem.getItemAmount(), 3, "Espresso quantity should be 3 in preview");
-        Assert.assertEquals(discountedMochaPreviewItem.getItemAmount(), 1, "Mocha quantity should be 1 in preview");
+        Assert.assertEquals(espressoPreviewItem.getItemAmount(), int1, "Espresso quantity should be 3 in preview");
+        Assert.assertEquals(discountedMochaPreviewItem.getItemAmount(), int2, "Mocha quantity should be 1 in preview");
     }
 
     @When("I perform a double-click action exactly on the text of the coffee title")
