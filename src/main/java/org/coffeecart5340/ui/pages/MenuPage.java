@@ -128,5 +128,12 @@ public class MenuPage extends BasePage {
         return this;
     }
 
+    public boolean isSnackbarVisible() {
+        try {
+            return snackbar.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 
 }
