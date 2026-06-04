@@ -113,4 +113,134 @@ public class CartPageSteps {
     public void EmptyCartCheck() {
         Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getNoItemText(), "No coffee, go add some.", "the cart should be empty");
     }
+
+    @Then("the cart item {string} displays unit description {string}")
+    public void cartItemDisplaysUnitDescription(String itemName, String expectedUnitDesc) {
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getUnitDescText(),
+                expectedUnitDesc,
+                "Unit description mismatch for: " + itemName
+        );
+    }
+
+    @Then("the cart item {string} displays subtotal {string}")
+    public void cartItemDisplaysSubtotal(String itemName, String expectedSubtotal) {
+        float expected = Float.parseFloat(expectedSubtotal.replace("$", "").trim());
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getTotalPrice(),
+                expected,
+                "Subtotal mismatch for: " + itemName
+        );
+    }
+
+    @Then("the cart total displays {string}")
+    public void cartTotalDisplays(String expectedTotalText) {
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver())
+                        .getTotalButton().getCheckoutButton().getText(),
+                expectedTotalText,
+                "Cart total button text mismatch"
+        );
+    }
+
+    @When("I click the plus button {int} times for {string}")
+    public void clickPlusButtonTimes(int times, String itemName) {
+        new CartPage(cucumberHook.getDriver()).clickPlusButtonMultiply(times, itemName);
+    }
+
+    @When("I click the minus button {int} times for {string}")
+    public void clickMinusButtonTimes(int times, String itemName) {
+        new CartPage(cucumberHook.getDriver()).clickMinusButtonMultiply(times, itemName);
+    }
+
+    @Then("the cart item {string} has increment button visible")
+    public void cartItemHasIncrementButton(String itemName) {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getPlusButton().isDisplayed(),
+                "Increment (+) button not visible for: " + itemName
+        );
+    }
+
+    @Then("the cart item {string} has decrement button visible")
+    public void cartItemHasDecrementButton(String itemName) {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getMinusButton().isDisplayed(),
+                "Decrement (-) button not visible for: " + itemName
+        );
+    }
+
+    @Then("the cart item {string} has delete button visible")
+    public void cartItemHasDeleteButton(String itemName) {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getDeleteButton().isDisplayed(),
+                "Delete (x) button not visible for: " + itemName
+        );
+    }
+
+    @Then("the Total button is visible")
+    public void totalButtonIsVisible() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getTotalButton().getCheckoutButton().isDisplayed(),
+                "Total button should be visible"
+        );
+    }
+
+    @Then("the Total button is enabled")
+    public void totalButtonIsEnabled() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getTotalButton().getCheckoutButton().isEnabled(),
+                "Total button should be enabled"
+        );
+    }
+
+    @When("the user clicks the checkout button")
+    public void userClicksCheckoutButton() {
+        new CartPage(cucumberHook.getDriver()).getTotalButton().clickCheckoutButton();
+    }
+
+    @Then("the payment modal is visible")
+    public void paymentModalIsVisible() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver()).isPaymentModalDisplayed(),
+                "Payment modal should be visible"
+        );
+    }
+
+    @Then("the payment modal is not visible")
+    public void paymentModalIsNotVisible() {
+        Assert.assertFalse(
+                new CartPage(cucumberHook.getDriver()).isPaymentModalDisplayed(),
+                "Payment modal should not be visible"
+        );
+    }
+
+    @Then("the payment modal title is {string}")
+    public void paymentModalTitleIs(String expectedTitle) {
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver()).getPaymentModalTitle(),
+                expectedTitle,
+                "Payment modal title mismatch"
+        );
+    }
+
+    @Then("the payment modal close button is visible")
+    public void paymentModalCloseButtonIsVisible() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver()).isPaymentModalCloseButtonDisplayed(),
+                "Payment modal close button should be visible"
+        );
+    }
+
+    @When("the user closes the payment modal")
+    public void userClosesPaymentModal() {
+        new CartPage(cucumberHook.getDriver()).clickPaymentModalCloseButton();
+    }
+
 }

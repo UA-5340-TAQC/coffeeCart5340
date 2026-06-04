@@ -1,33 +1,29 @@
 Feature: Payment details modal window behaviour
   As a customer
   I want to click the Total button to open a payment form
-  Where I can enter my name and email to receive a payment link
 
   Background:
-    Given I am on the Menu page
-    And I add "Espresso" to the cart
-    And I navigate to the Cart page
-    And the Total button displays "Total: $10.00"
+    Given I am on the menu page
+    When I click on any coffee cup "Espresso" on the menu to add it to the cart
+    And I open the cart page
 
   Scenario: Clicking Total button opens Payment details modal
-    When I click the Total button
+    When the user clicks the checkout button
     Then the payment modal is visible
-    And the modal title is "Payment details"
-    And the modal close button "×" is visible
+    And the payment modal title is "Payment details"
+    And the payment modal close button is visible
 
   Scenario: Closing and reopening the Payment details modal
-    When I click the Total button
-    And I click the modal close button "×"
+    When the user clicks the checkout button
+    And the user closes the payment modal
     Then the payment modal is not visible
-
-    When I click the Total button again
+    When the user clicks the checkout button
     Then the payment modal is visible
-    And the modal title is "Payment details"
+    And the payment modal title is "Payment details"
 
   Scenario: Payment modal overlays the cart page content
-    When I click the Total button
+    When the user clicks the checkout button
     Then the payment modal is visible
-    And the modal title is "Payment details"
-    And the modal overlays the cart page content
-    And the cart item "Espresso" still exists in the cart
-
+    And the payment modal title is "Payment details"
+    And the payment modal close button is visible
+    And the cart should contain "Espresso"

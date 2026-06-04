@@ -9,6 +9,7 @@ import org.coffeecart5340.cucumber.hooks.CucumberHook;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.components.CupCardComponent;
 import org.coffeecart5340.ui.pages.MenuPage;
+import org.coffeecart5340.utils.TestValueProvider;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -25,9 +26,10 @@ public class MenuPageSteps {
         this.cucumberHook = cucumberHook;
     }
 
+    private final TestValueProvider testValueProvider = new TestValueProvider();
     @Given("I am on the menu page")
     public void i_am_on_the_menu_page() {
-        cucumberHook.getDriver().get("/");
+        cucumberHook.getDriver().get(testValueProvider.getBaseUrl());
     }
 
     @Given("I have an empty cart")
