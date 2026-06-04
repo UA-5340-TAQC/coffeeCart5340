@@ -56,8 +56,9 @@ public class CartPageSteps {
 
     @Then("the total price is successfully updated to {string}")
     public void theTotalPriceIsSuccessfullyUpdated(String expectedTotal) {
-        BigDecimal expectedPrice = new BigDecimal(expectedTotal);
-        Assert.assertEquals(new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(), expectedPrice,
+        double expectedPrice = Double.parseDouble(expectedTotal);
+        double actualPrice = new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice();
+        Assert.assertEquals(actualPrice, expectedPrice, 
                 "Total price did not update correctly after adding items.");
     }
 
@@ -112,5 +113,17 @@ public class CartPageSteps {
     @And("the cart should be empty")
     public void EmptyCartCheck() {
         Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getNoItemText(), "No coffee, go add some.", "the cart should be empty");
+    }
+
+    @When("I navigate to the menu page")
+    public void iNavigateToTheMenuPage() {
+        new CartPage(cucumberHook.getDriver()).goToMenuPage();
+    }
+
+    @Then("the quantity of {string} on the cart page should be {int}")
+    public void theQuantityOnTheCartPageShouldBe(String coffeeName, int expectedQuantity) {
+        int actualQuantity = new CartPage(cucumberHook.getDriver())
+                .getCartItemList().getItemByName(coffeeName).getQuantity();
+        Assert.assertEquals(actualQuantity, expectedQuantity, "Cart quantity mismatch for " + coffeeName);
     }
 }

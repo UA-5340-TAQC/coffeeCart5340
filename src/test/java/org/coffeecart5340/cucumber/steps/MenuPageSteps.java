@@ -1,5 +1,7 @@
 package org.coffeecart5340.cucumber.steps;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -20,6 +22,8 @@ public class MenuPageSteps {
     private final CucumberHook cucumberHook;
 
     private CupCardComponent targetCup;
+    private String firstPromoCup;
+    private String secondPromoCup;
 
     public MenuPageSteps(CucumberHook cucumberHook) {
         this.cucumberHook = cucumberHook;
@@ -27,7 +31,7 @@ public class MenuPageSteps {
 
     @Given("I am on the menu page")
     public void i_am_on_the_menu_page() {
-        cucumberHook.getDriver().get("/");
+        cucumberHook.getDriver().get(new org.coffeecart5340.utils.TestValueProvider().getBaseUrl());
     }
 
     @Given("I have an empty cart")
@@ -227,4 +231,61 @@ public class MenuPageSteps {
 
     }
 
+    @When("I dynamically accept the first promotional offer")
+    public void iDynamicallyAcceptTheFirstPromotionalOffer() {
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        String promoText = menuPage.getDiscountModal().getDiscountText();
+        firstPromoCup = extractCoffeeNameFromPromo(promoText);
+        menuPage.getDiscountModal().clickYesButton();
+    }
+
+    @When("I dynamically accept the second promotional offer")
+    public void iDynamicallyAcceptTheSecondPromotionalOffer() {
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        String promoText = menuPage.getDiscountModal().getDiscountText();
+        secondPromoCup = extractCoffeeNameFromPromo(promoText);
+        menuPage.getDiscountModal().clickYesButton();
+    }
+
+    @Then("the first saved promotional cup is displayed in the cart preview")
+    public void theFirstSavedPromoCupIsDisplayed() {
+        verifyPromoCupInPreview(firstPromoCup, "First");
+    }
+
+    @Then("the second saved promotional cup is displayed in the cart preview")
+    public void theSecondSavedPromoCupIsDisplayed() {
+        verifyPromoCupInPreview(secondPromoCup, "Second");
+    }
+
+    /**
+     * Reusable helper to verify a dynamic cup name using local SoftAssert
+     */
+    private void verifyPromoCupInPreview(String promoCupName, String order) {
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        List<String> previewItemNames = menuPage.getTotalButtonMenuComponent().getCartPreviewItems()
+                .stream()
+                .map(CartPreviewComponent::getItemName)
+                .toList();
+
+        SoftAssert softAssert = new SoftAssert();
+        boolean found = previewItemNames.stream().anyMatch(name -> name.contains(promoCupName));
+        softAssert.assertTrue(found, order + " promo cup (" + promoCupName + ") is missing from the cart preview.");
+        softAssert.assertAll();
+    }
+
+    /**
+     * Regex extractor incorporating AI improvements
+     */
+    private String extractCoffeeNameFromPromo(String promoText) {
+        Pattern pattern = Pattern.compile("extra (.*?) for", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(promoText);
+
+        if (matcher.find()) {
+            String extractedName = matcher.group(1).trim();
+            return extractedName.replace("cup of ", "").trim();
+        }
+
+        Assert.fail("Could not extract coffee name from promotional text: " + promoText);
+        return null;
+    }
 }
