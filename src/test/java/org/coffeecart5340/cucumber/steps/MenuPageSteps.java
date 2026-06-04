@@ -27,7 +27,8 @@ public class MenuPageSteps {
 
     @Given("I am on the menu page")
     public void i_am_on_the_menu_page() {
-        cucumberHook.getDriver().get("/");
+        String baseUrl = new org.coffeecart5340.utils.TestValueProvider().getBaseUrl();
+        cucumberHook.getDriver().get(baseUrl);
     }
 
     @Given("I have an empty cart")
