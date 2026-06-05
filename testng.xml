@@ -23,7 +23,7 @@
         </classes>
     </test>
 
-    <test name="Cucumber Tests" parallel="none">
+    <test name="Cucumber Tests" parallel="data-providers" thread-count="2">
         <classes>
             <class name="org.coffeecart5340.cucumber.TestRunnerCucumber"/>
         </classes>
