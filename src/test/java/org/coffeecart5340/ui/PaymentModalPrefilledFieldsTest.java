@@ -27,7 +27,7 @@ public class PaymentModalPrefilledFieldsTest extends BaseUiTestRunner {
 
     @Description("Verify that payment modal fields remain pre-filled after closing and reopening the modal.Also verify that all entered values are cleared after page refresh.")
     @Severity(SeverityLevel.NORMAL)
-    @Issue("https://github.com/UA-5340-TAQC/coffeeCart5340/issues/10")
+    @Issue("10")
     @Tag("Regression")
     @Test(priority = 1, dataProvider = "PrefilledData")
     public void verifyThatAllDetailFieldsRemainPreFilledAfterClosingThePaymentModal(String coffeeName, String name, String email){
