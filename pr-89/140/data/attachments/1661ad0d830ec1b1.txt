@@ -1,1 +1,0 @@
-Scenario failed: Verify adding a cup of coffee to the cart using right-click on the card
