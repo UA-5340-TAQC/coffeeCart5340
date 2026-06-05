@@ -1,4 +1,4 @@
-Feature: ToDo
+Feature: Promo discount after three items
 
   Scenario: ToDo
     When the user adds the coffee cup {string} to the cart
