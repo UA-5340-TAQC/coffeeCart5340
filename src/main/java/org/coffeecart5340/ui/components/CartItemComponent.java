@@ -93,15 +93,27 @@ public class CartItemComponent extends BaseComponent {
     }
 
     public boolean isPlusButtonDisplayed() {
-        return plusButton.isDisplayed();
+        try {
+            return plusButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
     public boolean isMinusButtonDisplayed() {
-        return minusButton.isDisplayed();
+        try {
+            return minusButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
     public boolean isDeleteButtonDisplayed() {
-        return deleteButton.isDisplayed();
+        try {
+            return deleteButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
     public boolean isPlusButtonEnabled() {

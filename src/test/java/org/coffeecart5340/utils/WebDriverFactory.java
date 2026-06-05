@@ -18,7 +18,6 @@ public final class WebDriverFactory {
         if (headless) {
             options.addArguments("--headless=new");
         }
-        options.addArguments("--window-size=2560,1440");
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
         options.addArguments("--no-sandbox");

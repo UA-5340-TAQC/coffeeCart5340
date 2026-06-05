@@ -123,7 +123,13 @@ public class CartPage extends BasePage {
         return !driver.findElements(MODAL).isEmpty();
     }
 
+    /**
+     * @throws NoSuchElementException when payment modal title is not visible.
+     */
     public String getPaymentModalTitle() {
+        if (driver.findElements(MODAL_TITLE).isEmpty()) {
+            throw new NoSuchElementException("Payment modal title is not visible");
+        }
         return driver.findElement(MODAL_TITLE).getText().trim();
     }
 
