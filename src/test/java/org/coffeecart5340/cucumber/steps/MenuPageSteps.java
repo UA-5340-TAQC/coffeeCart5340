@@ -289,5 +289,4 @@ public class MenuPageSteps {
         Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "the cart preview should not be displayed");
 
     }
-
 }
