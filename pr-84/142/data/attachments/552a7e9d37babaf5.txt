@@ -1,0 +1,1 @@
+Scenario started: Display quick cart preview when hovering over the Total button
