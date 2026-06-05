@@ -52,7 +52,7 @@ public class DiscountedItemIncreaseButtonDisabledTest extends BaseUiTestRunner {
         );
 
         softAssert.assertFalse(
-                discountedItem.getPlusButton().isEnabled(),
+                discountedItem.isPlusButtonEnabled(),
                 "Increase quantity button should be disabled for discounted item"
         );
 

@@ -29,7 +29,7 @@ public class BaseAllureListener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        attachFailureArtifacts();
+        // Intentionally no attachments for skipped tests to reduce report noise.
     }
 
     private void attachFailureArtifacts() {

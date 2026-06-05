@@ -227,7 +227,7 @@ public class MenuPageSteps {
     }
 
     @When("I add {int} {string} to the cart")
-    public void AddCuptoTheCart(String coffeeName, int quantity) {
+    public void AddCuptoTheCart(int quantity, String coffeeName) {
         new MenuPage(cucumberHook.getDriver()).clickCupMultiply(coffeeName, quantity);
     }
 
@@ -253,7 +253,7 @@ public class MenuPageSteps {
 
     @When("I click the {string} button")
     public void ClickPromoButton(String choice) {
-        if (choice == "Yes, of course!") {
+        if ("Yes, of course!".equals(choice)) {
             new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickYesButton();
         } else new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickNoButton();
     }
@@ -300,7 +300,9 @@ public class MenuPageSteps {
         Assert.assertTrue(new MenuPage(cucumberHook.getDriver())
                 .getTotalButtonMenuComponent()
                 .getCartPreviewItems()
-                .contains(coffeeName), "the quick cart preview should contain");
+                .stream()
+                .map(CartPreviewComponent::getItemName)
+                .anyMatch(name -> name.contains(coffeeName)), "the quick cart preview should contain");
     }
 
     @When("I move the cursor away from the Total button and the preview area")

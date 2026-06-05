@@ -3,7 +3,6 @@ package org.coffeecart5340.ui.pages;
 import io.qameta.allure.Step;
 import org.coffeecart5340.ui.components.*;
 import org.coffeecart5340.ui.modals.PaymentModal;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,7 +32,6 @@ public class MenuPage extends BasePage {
 
 
     private DiscountComponent discountComponent;
-    private TotalButtonComponent totalButton;
     private PaymentModal paymentModal;
 
 
@@ -49,15 +47,15 @@ public class MenuPage extends BasePage {
     }
 
     public DiscountComponent getDiscountModal() {
-        if(discountComponent == null){
-            return new DiscountComponent(driver, discountModalRoot);
+        if (discountComponent == null) {
+            discountComponent = new DiscountComponent(driver, discountModalRoot);
         }
         return discountComponent;
     }
 
     public PaymentModal getPaymentModal() {
-        if(paymentModal == null){
-            return new PaymentModal(driver);
+        if (paymentModal == null) {
+            paymentModal = new PaymentModal(driver);
         }
         return paymentModal;
     }
@@ -122,7 +120,7 @@ public class MenuPage extends BasePage {
     }
 
     public MenuPage clickCupMultiply(String name, int times) {
-        for(int iii = 1; iii <= times; iii++) {
+        for (int iii = 1; iii <= times; iii++) {
             getCupCardByName(name).clickCup();
         }
         return this;

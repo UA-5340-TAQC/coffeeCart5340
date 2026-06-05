@@ -1,21 +1,15 @@
 package org.coffeecart5340.ui.pages;
 
 import io.qameta.allure.Step;
-import org.coffeecart5340.ui.components.CartItemComponent;
+import org.coffeecart5340.ui.components.CartItemListComponent;
 import org.coffeecart5340.ui.components.DiscountComponent;
 import org.coffeecart5340.ui.components.TotalButtonComponent;
 import org.coffeecart5340.ui.modals.PaymentModal;
-import org.coffeecart5340.ui.components.CartItemListComponent;
-import org.openqa.selenium.NoSuchElementException;
-import org.coffeecart5340.ui.components.TotalButtonComponent;
-import org.coffeecart5340.ui.modals.PaymentModal;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CartPage extends BasePage {
 
@@ -55,22 +49,22 @@ public class CartPage extends BasePage {
     }
 
     public TotalButtonComponent getTotalButton() {
-        if(totalButton == null){
-            return new TotalButtonComponent(driver, totalButtonContainer);
+        if (totalButton == null) {
+            totalButton = new TotalButtonComponent(driver, totalButtonContainer);
         }
         return totalButton;
     }
 
     public PaymentModal getPaymentModal() {
-        if(paymentModal == null){
-            return new PaymentModal(driver);
+        if (paymentModal == null) {
+            paymentModal = new PaymentModal(driver);
         }
         return paymentModal;
     }
 
     public DiscountComponent getDiscount() {
-        if(discountComponent == null){
-            return new DiscountComponent(driver, discountModalRoot);
+        if (discountComponent == null) {
+            discountComponent = new DiscountComponent(driver, discountModalRoot);
         }
         return discountComponent;
     }
@@ -78,36 +72,36 @@ public class CartPage extends BasePage {
 
     @Step("Clicking plus button {quantity} times for item: {name}")
     public CartPage clickPlusButtonMultiply(int quantity, String name){
-        for(int iii = 1; iii <= quantity; iii++) {
+        for (int iii = 1; iii <= quantity; iii++) {
             getCartItemList().getItemByName(name).clickPlusButton();
         }
-        return new CartPage(driver);
+        return this;
     }
 
     @Step("Clicking minus button {quantity} times for item: {name}")
     public CartPage clickMinusButtonMultiply(int quantity, String name){
-        for(int iii = 1; iii <= quantity; iii++){
+        for (int iii = 1; iii <= quantity; iii++) {
             getCartItemList().getItemByName(name).clickMinusButton();
         }
-        return new CartPage(driver);
+        return this;
     }
 
     @Step("Clicking total delete button for item: {name}")
     public CartPage clickDeleteButton(String name){
         getCartItemList().getItemByName(name).clickDeleteButton();
-        return new CartPage(driver);
+        return this;
     }
 
     @Step("Clicking plus button for item: {name}")
     public CartPage clickPlusButtonByName(String name){
         getCartItemList().getItemByName(name).clickPlusButton();
-        return new CartPage(driver);
+        return this;
     }
 
     @Step("Clicking minus button for item: {name}")
     public CartPage clickMinusButtonByName(String name){
         getCartItemList().getItemByName(name).clickMinusButton();
-        return new CartPage(driver);
+        return this;
     }
 
     @Step("Navigating to GitHub page")
@@ -126,19 +120,19 @@ public class CartPage extends BasePage {
     }
 
     public boolean isPaymentModalDisplayed() {
-        return driver.findElement(MODAL).isDisplayed();
+        return !driver.findElements(MODAL).isEmpty();
     }
 
     public String getPaymentModalTitle() {
-        return driver.findElement(MODAL_TITLE).getText();
+        return driver.findElement(MODAL_TITLE).getText().trim();
     }
 
     public boolean isPaymentModalCloseButtonDisplayed() {
-        return driver.findElement(MODAL_CLOSE).isDisplayed();
+        return !driver.findElements(MODAL_CLOSE).isEmpty();
     }
 
     public void clickPaymentModalCloseButton() {
-        driver.findElement(MODAL_CLOSE).click();
+        waitAndClickElement(MODAL_CLOSE);
     }
 
 }
