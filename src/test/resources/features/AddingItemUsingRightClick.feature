@@ -12,9 +12,9 @@ Feature: Adding an item to the cart using right-click context menu
     When I hover over the Yes button
     Then I verify that the Yes button is highlighted
     When I click the Yes button
-    Then I verify that the quantity increases by "1" next to the Cart button
+    Then I verify that the coffee cup is added to the cart with quantity 1
     When I navigate to the cart page
     Then I verify that the "Espresso" coffee cup is added to the cart with quantity 1
-    And I verify that the total price is updated accordingly
+    And I verify that the total price is updated to 10.00
     And I verify that item is present in the list of items in the cart
 

@@ -1,5 +1,6 @@
 package org.coffeecart5340.cucumber.steps;
 
+import io.cucumber.java.da.Men;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import org.coffeecart5340.cucumber.hooks.CucumberHook;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.components.CupCardComponent;
+import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.coffeecart5340.utils.TestValueProvider;
 import org.testng.Assert;
@@ -22,11 +24,13 @@ public class MenuPageSteps {
 
     private CupCardComponent targetCup;
 
+    @Getter
+    private static TestValueProvider testValueProvider = new TestValueProvider();
+
     public MenuPageSteps(CucumberHook cucumberHook) {
         this.cucumberHook = cucumberHook;
     }
 
-    private final TestValueProvider testValueProvider = new TestValueProvider();
     @Given("I am on the menu page")
     public void i_am_on_the_menu_page() {
         cucumberHook.getDriver().get(testValueProvider.getBaseUrl());
@@ -89,6 +93,63 @@ public class MenuPageSteps {
     @Then("I verify the initial language of the coffee title is {string}")
     public void verifyInitialLanguageOfCoffeeTitle(String expectedTitle) {
         Assert.assertEquals(targetCup.getCupTitleText(), expectedTitle, "Initial coffee title is incorrect!");
+    }
+
+    @When("I click on the {string} coffee cup")
+    public void i_click_on_the_coffee_cup(String string) {
+        new MenuPage(cucumberHook.getDriver()).clickCoffeeCup(string);
+    }
+
+    @Then("I verify that the coffee cup is added to the cart with quantity {int}")
+    public void i_verify_that_the_coffee_cup_is_added_to_the_cart_with_quantity(Integer int1) {
+        Assert.assertEquals((
+                new MenuPage(cucumberHook.getDriver()).getHeader().getCartCount()),
+                int1,
+                "Cart badge count did not increase after adding an item");
+    }
+
+    @When("I click on the total checkout button")
+    public void i_click_on_the_total_checkout_button() {
+        new MenuPage(cucumberHook.getDriver()).getTotalButton().clickCheckoutButton();
+    }
+    @When("I refresh the page")
+    public void i_refresh_the_page() {
+        cucumberHook.getDriver().navigate().refresh();
+    }
+
+    @Then("I verify that the order confirmation message is displayed")
+    public void i_verify_that_the_order_confirmation_message_is_displayed() {
+        String expectedSuccessMessage = "Thanks for your purchase. Please check your email for payment.";
+        Assert.assertEquals(
+                new MenuPage(cucumberHook.getDriver()).getSnackbarText(),
+                expectedSuccessMessage,
+                "Success message text is incorrect or missing!"
+        );
+
+    }
+
+    @Then("I verify that the + button is disabled for the {string} coffee cup")
+    public void i_verify_that_the_button_is_disabled_for_the_coffee_cup(String string) {
+        new CartPage(cucumberHook.getDriver()).getTotalButton().clickCheckoutButton();
+        Assert.assertFalse(new MenuPage(cucumberHook.getDriver())
+                .getCartPreviewItemByName(string).isPlusButtonAvailable(),
+                "The + button should be disabled for the " + string + " coffee cup after purchase!");
+    }
+
+    @Then("I verify that {int} cups of coffee and {int} discounted Mocha are added to the cart")
+    public void i_verify_that_cups_of_coffee_are_added_to_the_cart(Integer int1, Integer int2) {
+        var previewItems = new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getCartPreviewItems();
+        var discountedMochaPreviewItem = previewItems.stream()
+                .filter(item -> item.getItemName().contains("Mocha"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Discounted Mocha not found in cart preview"));
+
+        var espressoPreviewItem = previewItems.stream()
+                .filter(item -> item.getItemName().contains("Espresso"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Espresso not found in cart preview"));
+        Assert.assertEquals(espressoPreviewItem.getItemAmount(), int1, "Espresso quantity should be 3 in preview");
+        Assert.assertEquals(discountedMochaPreviewItem.getItemAmount(), int2, "Mocha quantity should be 1 in preview");
     }
 
     @When("I perform a double-click action exactly on the text of the coffee title")
@@ -228,5 +289,4 @@ public class MenuPageSteps {
         Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "the cart preview should not be displayed");
 
     }
-
 }
