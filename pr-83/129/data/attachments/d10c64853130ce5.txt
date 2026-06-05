@@ -1,0 +1,1 @@
+Scenario passed: Clicking Total button opens Payment details modal
