@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  BASE_URL: ${{ secrets.BASE_URL }}
+  HEADLESS: ${{ secrets.HEADLESS }}
+
 permissions:
   contents: write
   pull-requests: write
@@ -35,10 +39,10 @@ jobs:
       - name: Run tests
         run: mvn test
         continue-on-error: true
-        env:
-          BASE_URL: ${{ secrets.BASE_URL }}
-          HEADLESS: ${{ secrets.HEADLESS }}
 
+      - name: Run Cucumber tests
+        run: mvn test -Dtest=org.coffeecart5340.cucumber.TestRunnerCucumber
+        continue-on-error: true
 
       - name: Get Allure history
         uses: actions/checkout@v4
