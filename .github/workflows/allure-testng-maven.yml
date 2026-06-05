@@ -39,12 +39,8 @@ jobs:
       - name: Build and Compile Project
         run: mvn test-compile
 
-      - name: Run tests
+      - name: Run all tests (UI & Cucumber)
         run: mvn test
-        continue-on-error: true
-
-      - name: Run Cucumber tests
-        run: mvn test -Dtest=org.coffeecart5340.cucumber.TestRunnerCucumber -Dcucumber.features.fail-on-undefined-steps=false -Dallure.results.suite.name="Cucumber BDD Tests"
         continue-on-error: true
 
       - name: Get Allure history
