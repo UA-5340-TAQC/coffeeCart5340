@@ -124,7 +124,7 @@ public class CartManagementTests extends BaseUiTestRunner {
             CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(coffeeName);
             softAssert.assertEquals(cartItem.getQuantity(), 3, "Quantity should be 3");
             softAssert.assertEquals(cartItem.getTotalPrice(), 30.0f, "Item subtotal should be $30.00");
-            softAssert.assertEquals(cartPage.getTotalButton().getTotalPrice(), new BigDecimal("30.00"), "Cart total should be $30.00");
+            softAssert.assertEquals(cartPage.getTotalButton().getTotalPrice(), 30.00, "Cart total should be $30.00");
         });
 
         Allure.step("Step 2: Click '-' once — quantity should become 2", () -> {
@@ -132,7 +132,7 @@ public class CartManagementTests extends BaseUiTestRunner {
             CartItemComponent cartItem = cartPage.getCartItemList().getItemByName(coffeeName);
             softAssert.assertEquals(cartItem.getQuantity(), 2, "Quantity should be 2");
             softAssert.assertEquals(cartItem.getTotalPrice(), 20.0f, "Item subtotal should be $20.00");
-            softAssert.assertEquals(cartPage.getTotalButton().getTotalPrice(), new BigDecimal("20.00"), "Cart total should be $20.00");
+            softAssert.assertEquals(cartPage.getTotalButton().getTotalPrice(), 20.00, "Cart total should be $20.00");
         });
 
         softAssert.assertAll();

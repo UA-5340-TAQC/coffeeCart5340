@@ -5,6 +5,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Attachment;
+import lombok.Getter;
 import org.coffeecart5340.utils.DriverManager;
 import org.coffeecart5340.utils.TestValueProvider;
 import org.openqa.selenium.Dimension;

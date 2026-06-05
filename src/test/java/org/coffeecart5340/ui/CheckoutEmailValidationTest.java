@@ -44,7 +44,7 @@ public class CheckoutEmailValidationTest extends BaseUiTestRunner {
 
     @Story("Invalid email validation")
     @Severity(SeverityLevel.CRITICAL)
-    @Issue("https://github.com/UA-5340-TAQC/coffeeCart5340/issues/47")
+    @Issue("47")
     @Description("Verify checkout email validation behavior when invalid email formats are used.")
     @Tag("Regression")
     @Test(priority = 1, dataProvider = "invalidEmailProvider")
