@@ -3,7 +3,7 @@ Feature: Quick Cart Preview
 
   Background:
     Given I am on the menu page
-    And I have got an empty cart
+    And I have an empty cart
 
   @TC-20 @Petro-Derlytsia
   Scenario: Verify that hovering over the Total button displays the quick cart preview on Desktop

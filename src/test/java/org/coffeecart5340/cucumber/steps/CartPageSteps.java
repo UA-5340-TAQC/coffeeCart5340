@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.coffeecart5340.cucumber.hooks.CucumberHook;
 import org.coffeecart5340.ui.components.CartItemListComponent;
+import org.coffeecart5340.ui.enumData.CoffeeType;
 import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.testng.Assert;
@@ -113,6 +114,61 @@ public class CartPageSteps {
     public void EmptyCartCheck() {
         Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getNoItemText(), "No coffee, go add some.", "the cart should be empty");
     }
+    @Then("I verify that the {string} coffee cup is added to the cart with quantity {int}")
+    public void i_verify_that_the_coffee_cup_is_added_to_the_cart_with_quantity(String string, Integer int1) {
+        Assert.assertEquals((int) int1,
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName(string).getQuantity(), "Item quantity does not match expected value");
+    }
+
+    @Then("I verify that the total price is updated to {double}")
+    public void i_verify_that_the_total_price_is_updated_to(Double double1) {
+        Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getCartItemList().getCalculatedTotalPrice(), CoffeeType.ESPRESSO.getPrice(),
+                "Total price is incorrect");
+    }
+
+    @Then("I verify that item is present in the list of items in the cart")
+    public void i_verify_that_item_is_present_in_the_list_of_items_in_the_cart() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getAllItemNames().contains("Espresso"),
+                "Espresso is missing from the cart items list"
+        );
+    }
+
+    @Then("I verify that added {int} types of coffee including discounted Mocha are present in the cart")
+    public void i_verify_that_added_types_of_coffee_including_discounted_mocha_are_present_in_the_cart(Integer int1) {
+        var cartItems = new CartPage(cucumberHook.getDriver()).getCartItemList().getAllItems();
+        Assert.assertEquals(cartItems.size(),
+                int1,
+                "There should be exactly 2 distinct item types in the main cart list");
+
+        var discountedMochaCartItem = new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName("(Discounted) Mocha");
+        var espressoCartItem = new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName("Espresso");
+
+        Assert.assertNotNull(discountedMochaCartItem, "Discounted Mocha should be present in the cart list");
+        Assert.assertNotNull(espressoCartItem, "Espresso should be present in the cart list");
+    }
+
+    @Then("I verify that the total checkout is counted correctly with {double} discount for the Mocha")
+    public void i_verify_that_the_total_checkout_is_counted_correctly_with_discount_for_the_mocha(Double discount) {
+        double expectedTotal = CoffeeType.ESPRESSO.getPrice() * 3 + CoffeeType.MOCHA.getPrice() * discount;
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getCalculatedTotalPrice(),
+                expectedTotal,
+                "Total price calculation is incorrect"
+        );
+    }
+
+    @Then("I verify that the adding feature is disabled for the {string} coffee cup on the Cart page")
+    public void i_verify_that_the_adding_feature_is_disabled_for_the_coffee_cup_on_the_cart_page(String string) {
+        Assert.assertFalse(
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName(string).isPlusButtonAvailable(),
+                "Plus button should be disabled for " + string + " in the cart"
+        );
+    }
+
+
+
+
 
     @Then("the cart item {string} displays unit description {string}")
     public void cartItemDisplaysUnitDescription(String itemName, String expectedUnitDesc) {
