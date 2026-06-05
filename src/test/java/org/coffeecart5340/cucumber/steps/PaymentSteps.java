@@ -1,6 +1,5 @@
 package org.coffeecart5340.cucumber.steps;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,9 +12,8 @@ import org.testng.Assert;
 public class PaymentSteps {
 
     private final MenuPage menuPage;
-    private PaymentModal paymentModal;
-
     private final CucumberHook cucumberHook;
+    private PaymentModal paymentModal;
 
     public PaymentSteps(CucumberHook cucumberHook) {
         this.cucumberHook = cucumberHook;
@@ -70,6 +68,7 @@ public class PaymentSteps {
         Assert.assertFalse(paymentModal.getEmailValidationMessage().isEmpty(),
                 "Expected browser validation error on empty Email field.");
     }
+
     @When("I fill in the name field with {string}")
     public void i_fill_in_the_name_field_with(String string) {
         new PaymentModal(cucumberHook.getDriver()).enterName(string);
@@ -83,8 +82,7 @@ public class PaymentSteps {
 
     @Then("I verify that {string} is displayed in the name field")
     public void i_verify_that_name_is_displayed_in_the_name_field(String string) {
-        Assert.assertEquals(string,
-                new PaymentModal(cucumberHook.getDriver()).getNameValue(),
+        Assert.assertEquals(string, new PaymentModal(cucumberHook.getDriver()).getNameValue(),
                 "Expected name field to contain the entered value.");
     }
 
@@ -95,8 +93,7 @@ public class PaymentSteps {
 
     @Then("I verify that {string} is displayed in the email field")
     public void i_verify_that_email_is_displayed_in_the_email_field(String string) {
-        Assert.assertEquals(string,
-                new PaymentModal(cucumberHook.getDriver()).getEmailValue(),
+        Assert.assertEquals(string, new PaymentModal(cucumberHook.getDriver()).getEmailValue(),
                 "Expected email field to contain the entered value.");
     }
 
@@ -127,11 +124,13 @@ public class PaymentSteps {
         Assert.assertTrue(new PaymentModal(cucumberHook.getDriver()).getNameValue().isEmpty(),
                 "Expected name field to be empty after closing the modal.");
     }
+
     @Then("the email field should be empty")
     public void the_email_field_should_be_empty() {
         Assert.assertTrue(new PaymentModal(cucumberHook.getDriver()).getEmailValue().isEmpty(),
                 "Expected email field to be empty after closing the modal.");
     }
+
     @Then("the confirmation checkbox should not be selected")
     public void the_confirmation_checkbox_should_not_be_selected() {
         Assert.assertFalse(new PaymentModal(cucumberHook.getDriver()).isPromotionCheckboxChecked(),
@@ -146,8 +145,7 @@ public class PaymentSteps {
 
     @Then("a browser validation error is expected due to invalid Email format")
     public void expectedErrorForInvalidEmailFormat() {
-        Assert.assertFalse(paymentModal.getEmailValidationMessage().isEmpty(),
-                "Expected browser validation error on invalid Email format.");
+        Assert.assertFalse(paymentModal.getEmailValidationMessage().isEmpty(), "Expected browser validation error on invalid Email format.");
     }
 
     @When("the user fills in payment details with name {string}, email {string}, leaves the promo checkbox unchecked, and submits the form")
@@ -158,8 +156,7 @@ public class PaymentSteps {
     @Then("a success snackbar appears containing the text {string}")
     public void successSnackbarAppears(String expectedMessage) {
         String snackbarText = menuPage.getSnackbarText();
-        Assert.assertTrue(snackbarText.contains(expectedMessage),
-                "Expected success snackbar message to appear after valid checkout.");
+        Assert.assertTrue(snackbarText.contains(expectedMessage), "Expected success snackbar message to appear after valid checkout.");
     }
 
     @When("the user fills in payment details with name {string}, email {string}, checks the promo checkbox, and submits the form")
