@@ -1,1 +1,0 @@
-Scenario failed: Verify that the cart is empty after completing an order

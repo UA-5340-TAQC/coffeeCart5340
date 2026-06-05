@@ -1,1 +1,0 @@
-Scenario failed: Verify that all detail fields remain pre-filled after clicking on the close button of the purchase modal
