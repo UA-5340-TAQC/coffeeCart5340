@@ -1,0 +1,1 @@
+Scenario passed: Verify that double-clicking on a coffee title translates it to Chinese
