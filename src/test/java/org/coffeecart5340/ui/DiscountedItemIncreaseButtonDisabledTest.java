@@ -1,5 +1,7 @@
 package org.coffeecart5340.ui;
 
+import io.qameta.allure.Issue;
+import io.qameta.allure.Description;
 import org.coffeecart5340.ui.components.CartItemComponent;
 import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.MenuPage;
@@ -9,6 +11,10 @@ import org.testng.annotations.Test;
 public class DiscountedItemIncreaseButtonDisabledTest extends BaseUiTestRunner {
 
     @Test
+    @Issue("BUG-2")
+    @Description("Known bug: '+' button for discounted item is not disabled on Cart page. " +
+            "Expected: increase quantity button should be disabled for '(Discounted) Mocha'. " +
+            "Actual: button remains enabled after accepting discount offer.")
     public void verifyIncreaseQuantityButtonIsDisabledForDiscountedItems() {
         String productName = "Espresso";
         String discountedProductName = "(Discounted) Mocha";

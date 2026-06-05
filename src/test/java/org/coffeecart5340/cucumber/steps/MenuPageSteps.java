@@ -33,7 +33,7 @@ public class MenuPageSteps {
 
     @Given("I am on the menu page")
     public void i_am_on_the_menu_page() {
-        cucumberHook.getDriver().get(testValueProvider.getBaseUrl() + "/");
+        cucumberHook.getDriver().get(testValueProvider.getBaseUrl());
     }
 
     @Given("I have an empty cart")
@@ -289,5 +289,4 @@ public class MenuPageSteps {
         Assert.assertFalse(new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().isCartPreviewVisible(), "the cart preview should not be displayed");
 
     }
-
 }
