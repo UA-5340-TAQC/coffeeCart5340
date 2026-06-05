@@ -83,23 +83,33 @@ public class CartManagementTests extends BaseUiTestRunner {
         String coffeeName = "Espresso";
         MenuPage menuPage = new MenuPage(driver);
 
-        menuPage.clickCoffeeCup(coffeeName);
-        softAssert.assertTrue(menuPage.getHeader().getCartText().contains("1"), "Cart should display 1");
+        Allure.step("Step 1: Add the first cup of " + coffeeName + " and verify cart counter", () -> {
+            menuPage.clickCoffeeCup(coffeeName);
+            softAssert.assertTrue(menuPage.getHeader().getCartText().contains("1"), "Cart should display 1");
+        });
 
-        menuPage.clickCoffeeCup(coffeeName);
-        softAssert.assertTrue(menuPage.getHeader().getCartText().contains("2"), "Cart should display 2");
+        Allure.step("Step 2: Add the second cup of " + coffeeName + " and verify cart counter updates", () -> {
+            menuPage.clickCoffeeCup(coffeeName);
+            softAssert.assertTrue(menuPage.getHeader().getCartText().contains("2"), "Cart should display 2");
+        });
 
+        Allure.step("Step 3: Navigate to the Cart page");
         CartPage cartPage = menuPage.goToCartPage();
-        CartItemComponent espressoItem = cartPage.getCartItemList().getItemByName(coffeeName);
 
-        softAssert.assertEquals(espressoItem.getQuantity(), 2, "Quantity should be 2");
+        Allure.step("Step 4: Verify item quantity and correct total price calculation", () -> {
+            CartItemComponent espressoItem = cartPage.getCartItemList().getItemByName(coffeeName);
 
-        float expectedTotal = espressoItem.getOneItemPrice() * 2;
-        softAssert.assertEquals(espressoItem.getTotalPrice(), expectedTotal, 0.01f, "Item total price is incorrect");
-        softAssert.assertEquals(cartPage.getTotalButton().getTotalPrice(), expectedTotal, 0.01f, "Checkout total is incorrect");
+            softAssert.assertEquals(espressoItem.getQuantity(), 2, "Quantity should be 2");
 
-        cartPage.clickDeleteButton(coffeeName);
-        softAssert.assertAll();
+            float expectedTotal = espressoItem.getOneItemPrice() * 2;
+            softAssert.assertEquals(espressoItem.getTotalPrice(), expectedTotal, 0.01f, "Item total price is incorrect");
+            softAssert.assertEquals(cartPage.getTotalButton().getTotalPrice(), expectedTotal, 0.01f, "Checkout total is incorrect");
+        });
+
+        Allure.step("Step 5: Delete item and assert all", () -> {
+            cartPage.clickDeleteButton(coffeeName);
+            softAssert.assertAll();
+        });
     }
 
     @Test(priority = 3)
