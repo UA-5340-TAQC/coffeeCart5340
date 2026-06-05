@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.coffeecart5340.cucumber.hooks.CucumberHook;
 import org.coffeecart5340.ui.components.CartItemListComponent;
+import org.coffeecart5340.ui.enumData.CoffeeType;
 import org.coffeecart5340.ui.pages.CartPage;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.testng.Assert;
@@ -58,7 +59,7 @@ public class CartPageSteps {
     public void theTotalPriceIsSuccessfullyUpdated(String expectedTotal) {
         double expectedPrice = Double.parseDouble(expectedTotal);
         double actualPrice = new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice();
-        Assert.assertEquals(actualPrice, expectedPrice, 0.01, 
+        Assert.assertEquals(actualPrice, expectedPrice, 0.01,
                 "Total price did not update correctly after adding items.");
     }
 
@@ -91,7 +92,6 @@ public class CartPageSteps {
                 "Cart preview item count does not match expected quantity.");
     }
 
-
     @When("I open the cart page")
     public void OpenCartPage() {
         new MenuPage(cucumberHook.getDriver()).goToCartPage();
@@ -113,6 +113,216 @@ public class CartPageSteps {
     @And("the cart should be empty")
     public void EmptyCartCheck() {
         Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getNoItemText(), "No coffee, go add some.", "the cart should be empty");
+    }
+    @Then("I verify that the {string} coffee cup is added to the cart with quantity {int}")
+    public void i_verify_that_the_coffee_cup_is_added_to_the_cart_with_quantity(String string, Integer int1) {
+        Assert.assertEquals((int) int1,
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName(string).getQuantity(), "Item quantity does not match expected value");
+    }
+
+    @Then("I verify that the total price is updated to {double}")
+    public void i_verify_that_the_total_price_is_updated_to(Double double1) {
+        Assert.assertEquals(new CartPage(cucumberHook.getDriver()).getCartItemList().getCalculatedTotalPrice(), CoffeeType.ESPRESSO.getPrice(),
+                "Total price is incorrect");
+    }
+
+    @Then("I verify that item is present in the list of items in the cart")
+    public void i_verify_that_item_is_present_in_the_list_of_items_in_the_cart() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getAllItemNames().contains("Espresso"),
+                "Espresso is missing from the cart items list"
+        );
+    }
+
+    @Then("I verify that added {int} types of coffee including discounted Mocha are present in the cart")
+    public void i_verify_that_added_types_of_coffee_including_discounted_mocha_are_present_in_the_cart(Integer int1) {
+        var cartItems = new CartPage(cucumberHook.getDriver()).getCartItemList().getAllItems();
+        Assert.assertEquals(cartItems.size(),
+                int1,
+                "There should be exactly 2 distinct item types in the main cart list");
+
+        var discountedMochaCartItem = new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName("(Discounted) Mocha");
+        var espressoCartItem = new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName("Espresso");
+
+        Assert.assertNotNull(discountedMochaCartItem, "Discounted Mocha should be present in the cart list");
+        Assert.assertNotNull(espressoCartItem, "Espresso should be present in the cart list");
+    }
+
+    @Then("I verify that the total checkout is counted correctly with {double} discount for the Mocha")
+    public void i_verify_that_the_total_checkout_is_counted_correctly_with_discount_for_the_mocha(Double discount) {
+        double expectedTotal = CoffeeType.ESPRESSO.getPrice() * 3 + CoffeeType.MOCHA.getPrice() * discount;
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getCalculatedTotalPrice(),
+                expectedTotal,
+                "Total price calculation is incorrect"
+        );
+    }
+
+    @Then("I verify that the adding feature is disabled for the {string} coffee cup on the Cart page")
+    public void i_verify_that_the_adding_feature_is_disabled_for_the_coffee_cup_on_the_cart_page(String string) {
+        Assert.assertFalse(
+                new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName(string).isPlusButtonAvailable(),
+                "Plus button should be disabled for " + string + " in the cart"
+        );
+    }
+
+
+
+
+
+    @Then("the cart item {string} displays unit description {string}")
+    public void cartItemDisplaysUnitDescription(String itemName, String expectedUnitDesc) {
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getUnitDescText(),
+                expectedUnitDesc,
+                "Unit description mismatch for: " + itemName
+        );
+    }
+
+    @Then("the cart item {string} displays subtotal {string}")
+    public void cartItemDisplaysSubtotal(String itemName, String expectedSubtotal) {
+        float expected = Float.parseFloat(expectedSubtotal.replace("$", "").trim());
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getTotalPrice(),
+                expected,
+                "Subtotal mismatch for: " + itemName
+        );
+    }
+
+    @Then("the cart total displays {string}")
+    public void cartTotalDisplays(String expectedTotalText) {
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver())
+                        .getTotalButton().getCheckoutButton().getText(),
+                expectedTotalText,
+                "Cart total button text mismatch"
+        );
+    }
+
+    @When("I click the plus button {int} times for {string}")
+    public void clickPlusButtonTimes(int times, String itemName) {
+        new CartPage(cucumberHook.getDriver()).clickPlusButtonMultiply(times, itemName);
+    }
+
+    @When("I click the minus button {int} times for {string}")
+    public void clickMinusButtonTimes(int times, String itemName) {
+        new CartPage(cucumberHook.getDriver()).clickMinusButtonMultiply(times, itemName);
+    }
+
+    @Then("the cart item {string} has increment button visible")
+    public void cartItemHasIncrementButton(String itemName) {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getPlusButton().isDisplayed(),
+                "Increment (+) button not visible for: " + itemName
+        );
+    }
+
+    @Then("the cart item {string} has decrement button visible")
+    public void cartItemHasDecrementButton(String itemName) {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getMinusButton().isDisplayed(),
+                "Decrement (-) button not visible for: " + itemName
+        );
+    }
+
+    @Then("the cart item {string} has delete button visible")
+    public void cartItemHasDeleteButton(String itemName) {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getCartItemList().getItemByName(itemName).getDeleteButton().isDisplayed(),
+                "Delete (x) button not visible for: " + itemName
+        );
+    }
+
+    @Then("the Total button is visible")
+    public void totalButtonIsVisible() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getTotalButton().getCheckoutButton().isDisplayed(),
+                "Total button should be visible"
+        );
+    }
+
+    @Then("the Total button is enabled")
+    public void totalButtonIsEnabled() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver())
+                        .getTotalButton().getCheckoutButton().isEnabled(),
+                "Total button should be enabled"
+        );
+    }
+
+    @When("the user clicks the checkout button")
+    public void userClicksCheckoutButton() {
+        new CartPage(cucumberHook.getDriver()).getTotalButton().clickCheckoutButton();
+    }
+
+    @Then("the payment modal is visible")
+    public void paymentModalIsVisible() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver()).isPaymentModalDisplayed(),
+                "Payment modal should be visible"
+        );
+    }
+
+    @Then("the payment modal is not visible")
+    public void paymentModalIsNotVisible() {
+        Assert.assertFalse(
+                new CartPage(cucumberHook.getDriver()).isPaymentModalDisplayed(),
+                "Payment modal should not be visible"
+        );
+    }
+
+    @Then("the payment modal title is {string}")
+    public void paymentModalTitleIs(String expectedTitle) {
+        Assert.assertEquals(
+                new CartPage(cucumberHook.getDriver()).getPaymentModalTitle(),
+                expectedTitle,
+                "Payment modal title mismatch"
+        );
+    }
+
+    @Then("the payment modal close button is visible")
+    public void paymentModalCloseButtonIsVisible() {
+        Assert.assertTrue(
+                new CartPage(cucumberHook.getDriver()).isPaymentModalCloseButtonDisplayed(),
+                "Payment modal close button should be visible"
+        );
+    }
+
+    @When("the user closes the payment modal")
+    public void userClosesPaymentModal() {
+        new CartPage(cucumberHook.getDriver()).clickPaymentModalCloseButton();
+    }
+
+    @And("the quantity of {string} in the cart should be {int}")
+    public void theQuantityOfItemInCartShouldBe(String coffeeName, int expectedQuantity) {
+        int actualQuantity = new CartPage(cucumberHook.getDriver()).getCartItemList().getItemByName(coffeeName).getQuantity();
+        Assert.assertEquals(actualQuantity, expectedQuantity,
+                "Quantity of '" + coffeeName + "' in cart does not match expected " + expectedQuantity);
+    }
+
+    @Then("the cart item {string} quantity should be {int}")
+    public void theCartItemQuantityShouldBe(String coffeeName, int expectedQuantity) {
+        theQuantityOfItemInCartShouldBe(coffeeName, expectedQuantity);
+    }
+
+    @When("I navigate back to the menu page")
+    public void iNavigateBackToTheMenuPage() {
+        new CartPage(cucumberHook.getDriver()).goToMenuPage();
+    }
+
+    @Then("the total price on the menu page should be {string}")
+    public void theTotalPriceOnMenuPageShouldBe(String expectedTotal) {
+        double expected = Double.parseDouble(expectedTotal);
+        Assert.assertEquals(
+                new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice(),
+                expected,
+                "Total price does not match expected $" + expectedTotal);
     }
 
     @When("I navigate to the menu page")

@@ -8,16 +8,16 @@ Feature: Prefilled Fields After Closing the payment modal
   @Smoke @P145 @Regression @Dmytro-Syadro
     Scenario Outline: Verify that all detail fields remain pre-filled after clicking on the close button of the purchase modal
     When I click on the '<coffee>' coffee cup
-    Then I verify that the product adds to the total checkout
+    Then I verify that the coffee cup is added to the cart with quantity 1
     When I click on the total checkout button
     Then I verify that the payment modal is displayed
     When I fill in the name field with '<name>'
-    Then I verify that name is displayed in the name field
+    Then I verify that '<name>' is displayed in the name field
     When I fill in the email field with '<email>'
-    Then I verify that email is displayed in the email field
+    Then I verify that '<email>' is displayed in the email field
     When I click on the confirmation checkbox
     Then I verify that the checkbox is selected
-    When I click on the "Close" button of the payment modal
+    When I click on the close button of the payment modal
     Then I verify that the payment modal is closed
     When I refresh the page
     And I click on the total checkout button

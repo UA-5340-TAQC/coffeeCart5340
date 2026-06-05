@@ -3,6 +3,7 @@ package org.coffeecart5340.ui;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
+import io.qameta.allure.Issue;
 import org.coffeecart5340.ui.components.CartPreviewComponent;
 import org.coffeecart5340.ui.components.TotalButtonMenuComponent;
 import org.coffeecart5340.ui.pages.MenuPage;
@@ -121,6 +122,8 @@ public class CartPreviewTests extends BaseUiTestRunner {
     }
 
     @Test
+    @Issue("BUG-1")
+    @Description("Verify discount disappears after decreasing quantity below threshold")
     public void verifyDiscountIsNoLongerAvailableAfterDecreasingCartQuantity() {
         String productName = "Espresso";
 
@@ -128,6 +131,9 @@ public class CartPreviewTests extends BaseUiTestRunner {
 
         menuPage.clickCupMultiply(productName, 3);
 
+        // BUG: Discount modal remains visible after clickMinus() in cart preview
+        // Expected: isDiscountMenuVisible() == false when quantity < 3
+        // Actual: modal stays visible — app bug, not test issue
         softAssert.assertTrue(
                 menuPage.getDiscountModal().isDiscountMenuVisible(),
                 "Discount should appear after adding 3 Espresso cups"
