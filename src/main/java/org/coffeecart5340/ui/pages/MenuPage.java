@@ -110,7 +110,7 @@ public class MenuPage extends BasePage {
 
     public CartPreviewComponent getCartPreviewItemByName(String name) {
         return getCartPreviews().stream()
-                .filter(item -> item.getItemName().equals(name))
+                .filter(item -> item.getItemName().contains(name))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Cart preview item not found: " + name));
     }
