@@ -1,7 +1,6 @@
 package org.coffeecart5340.ui;
 
 import io.qameta.allure.Step;
-import lombok.Getter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,7 +16,6 @@ import java.util.List;
 
 public abstract class Base {
 
-    @Getter
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected JavascriptExecutor js;

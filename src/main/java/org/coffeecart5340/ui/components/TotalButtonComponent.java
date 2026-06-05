@@ -6,13 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
-import lombok.Getter;
-
-import java.math.BigDecimal;
 
 public class TotalButtonComponent extends BaseComponent {
 
-    @Getter
     @FindBy(css = "button[data-test='checkout']")
     private WebElement checkoutButton;
 
@@ -45,5 +41,17 @@ public class TotalButtonComponent extends BaseComponent {
 
     public boolean isTotalButtonEnabled() {
         return checkoutButton.isEnabled();
+    }
+
+    public boolean isCheckoutButtonDisplayed() {
+        return checkoutButton.isDisplayed();
+    }
+
+    public boolean isCheckoutButtonEnabled() {
+        return checkoutButton.isEnabled();
+    }
+
+    public String getCheckoutButtonText() {
+        return checkoutButton.getText().trim();
     }
 }

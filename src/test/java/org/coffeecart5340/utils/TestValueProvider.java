@@ -2,33 +2,55 @@ package org.coffeecart5340.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Properties;
 
 public class TestValueProvider {
-    private Properties properties;
+    private static final String ENV_FILE = "src/test/resources/env.properties";
+    private static final String BASE_URL_PROPERTY = "baseUrl";
+    private static final String HEADLESS_PROPERTY = "headless";
+
+    private final Properties properties;
 
     public TestValueProvider() {
-        try (FileInputStream fis = new FileInputStream("src/test/resources/env.properties")) {
-            properties = new Properties();
+        properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(ENV_FILE)) {
             properties.load(fis);
         } catch (IOException err) {
             System.err.println("Could not load env.properties file: " + err.getMessage());
-            System.err.println("Use system properties");
+            System.err.println("Falling back to environment variables");
         }
     }
 
     public String getBaseUrl() {
-        if (properties != null) {
-            return properties.getProperty("baseUrl");
+        String baseUrl = readStringValue(BASE_URL_PROPERTY, "BASE_URL");
+        if (baseUrl == null || baseUrl.isBlank()) {
+            throw new IllegalStateException("Missing required base URL in " + ENV_FILE + " (baseUrl) or BASE_URL environment variable");
         }
-        return System.getenv("BASE_URL");
+        return baseUrl;
     }
 
-    public Boolean isHeadless() {
-        if (properties != null) {
-            return Boolean.parseBoolean(properties.getProperty("headless", "true"));
+    public boolean isHeadless() {
+        String value = readStringValue(HEADLESS_PROPERTY, "HEADLESS");
+        if (value == null || value.isBlank()) {
+            return true;
         }
-        return Boolean.parseBoolean(System.getenv("HEADLESS"));
+        return switch (value.trim().toLowerCase(Locale.ROOT)) {
+            case "true", "1", "yes" -> true;
+            case "false", "0", "no" -> false;
+            default -> throw new IllegalArgumentException("Invalid boolean value for headless/HEADLESS: " + value);
+        };
     }
 
+    private String readStringValue(String propertyKey, String envKey) {
+        String propertyValue = properties.getProperty(propertyKey);
+        if (propertyValue != null && !propertyValue.isBlank()) {
+            return propertyValue.trim();
+        }
+        String envValue = System.getenv(envKey);
+        if (envValue != null && !envValue.isBlank()) {
+            return envValue.trim();
+        }
+        return null;
+    }
 }

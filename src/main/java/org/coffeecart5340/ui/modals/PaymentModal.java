@@ -1,7 +1,6 @@
 package org.coffeecart5340.ui.modals;
 
 import io.qameta.allure.Step;
-import lombok.Getter;
 import lombok.NonNull;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,23 +13,18 @@ public class PaymentModal extends BaseModal {
     @FindBy(xpath = "//div[contains(@class, 'modal')]")
     private WebElement rootElement;
 
-    @Getter
     @FindBy(id = "name")
     private WebElement nameInput;
 
-    @Getter
     @FindBy(id = "email")
     private WebElement emailInput;
 
-    @Getter
     @FindBy(id = "promotion")
     private WebElement promotionCheckbox;
 
-    @Getter
     @FindBy(id = "submit-payment")
     private WebElement submitButton;
 
-    @Getter
     @FindBy(xpath = ".//button[@class='close']")
     private WebElement closeButton;
 

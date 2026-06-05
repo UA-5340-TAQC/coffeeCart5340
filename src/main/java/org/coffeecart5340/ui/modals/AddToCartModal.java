@@ -1,7 +1,6 @@
 package org.coffeecart5340.ui.modals;
 
 import io.qameta.allure.Step;
-import lombok.Getter;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,15 +11,12 @@ public class AddToCartModal extends BaseModal {
     @FindBy(xpath = "//dialog[@data-cy='add-to-cart-modal']")
     private WebElement rootElement;
 
-    @Getter
     @FindBy(xpath = ".//button[text()='Yes']")
     private WebElement yesButton;
 
-    @Getter
     @FindBy(xpath = ".//button[text()='No']")
     private WebElement noButton;
 
-    @Getter
     @FindBy(xpath = ".//p/strong")
     private WebElement coffeeName;
 
@@ -32,7 +28,7 @@ public class AddToCartModal extends BaseModal {
     }
 
     @Override
-    public WebElement getRootElement(){
+    protected WebElement getRootElement(){
         return rootElement;
     }
 

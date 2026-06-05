@@ -16,7 +16,6 @@ import org.coffeecart5340.ui.testrunners.BaseUiTestRunner;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Feature("Cart Management")
@@ -67,11 +66,11 @@ public class CartManagementTests extends BaseUiTestRunner {
             softAssert.assertEquals(cartItem.getQuantity(), 1, "Quantity should be 1");
             softAssert.assertEquals(cartItem.getTotalPrice(), expectedPrice, "Item total price should match");
 
-            softAssert.assertTrue(cartItem.getPlusButton().isDisplayed(), "(+) button should be visible");
-            softAssert.assertTrue(cartItem.getMinusButton().isDisplayed(), "(-) button should be visible");
-            softAssert.assertTrue(cartItem.getDeleteButton().isDisplayed(), "(x) delete button should be visible");
+            softAssert.assertTrue(cartItem.isPlusButtonDisplayed(), "(+) button should be visible");
+            softAssert.assertTrue(cartItem.isMinusButtonDisplayed(), "(-) button should be visible");
+            softAssert.assertTrue(cartItem.isDeleteButtonDisplayed(), "(x) delete button should be visible");
 
-            softAssert.assertTrue(cartPage.getTotalButton().getCheckoutButton().isEnabled(), "Checkout button should be enabled");
+            softAssert.assertTrue(cartPage.getTotalButton().isCheckoutButtonEnabled(), "Checkout button should be enabled");
         });
 
         softAssert.assertAll();

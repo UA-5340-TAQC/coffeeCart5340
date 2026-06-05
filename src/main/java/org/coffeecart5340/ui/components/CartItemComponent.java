@@ -1,6 +1,5 @@
 package org.coffeecart5340.ui.components;
 
-import lombok.Getter;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,23 +12,18 @@ public class CartItemComponent extends BaseComponent {
     @FindBy(xpath = ".//*[@class='unit-controller']/parent::*/following-sibling::div[1]")
     private WebElement priceText;
 
-    @Getter
     @FindBy(xpath = ".//button[text()='+']")
     private WebElement plusButton;
 
-    @Getter
     @FindBy(xpath = ".//button[text()='-']")
     private WebElement minusButton;
 
-    @Getter
     @FindBy(xpath = ".//div[not(@class)][1]")
     private WebElement itemName;
 
-    @Getter
     @FindBy(xpath = ".//span[@class='unit-desc']")
     private WebElement unitDesc;
 
-    @Getter
     @FindBy(xpath = ".//button[contains(@aria-label,'Remove one')]")
     private WebElement deleteButton;
 
@@ -96,5 +90,33 @@ public class CartItemComponent extends BaseComponent {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    public boolean isPlusButtonDisplayed() {
+        try {
+            return plusButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isMinusButtonDisplayed() {
+        try {
+            return minusButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isDeleteButtonDisplayed() {
+        try {
+            return deleteButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isPlusButtonEnabled() {
+        return plusButton.isEnabled();
     }
 }
