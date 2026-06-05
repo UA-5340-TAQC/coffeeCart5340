@@ -1,0 +1,1 @@
+Scenario started: Verify item removal and total recalculation when decreasing quantity to zero via minus button
