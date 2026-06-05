@@ -1,13 +1,15 @@
 package org.coffeecart5340.utils;
 
 import io.qameta.allure.Allure;
-import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogType;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 public class BaseAllureListener implements ITestListener {
 
@@ -34,28 +36,23 @@ public class BaseAllureListener implements ITestListener {
         WebDriver driver = DriverManager.getDriver();
         if (driver == null) return;
 
-        saveScreenshot(driver);
-        savePageSource(driver);
-        saveBrowserLogs(driver);
-
-    }
-
-    @Attachment(value = "Screenshot", type = "image/png", fileExtension = ".png")
-    public byte[] saveScreenshot(WebDriver driver) {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
-
-    @Attachment(value = "Page source", type = "text/html", fileExtension = ".html")
-    public String savePageSource(WebDriver driver) {
-        return driver.getPageSource();
-    }
-
-    @Attachment(value = "Browser logs", type = "text/plain", fileExtension = ".log")
-    public String saveBrowserLogs(WebDriver driver) {
         try {
-            return driver.manage().logs().get(LogType.BROWSER).getAll().toString();
+            // 1. Скріншот
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            Allure.addAttachment("Screenshot", "image/png", new ByteArrayInputStream(screenshot), ".png");
+
+            // 2. Page Source
+            String pageSource = driver.getPageSource();
+            Allure.addAttachment("Page source", "text/html", pageSource, ".html");
+
+            // 3. Browser Logs
+            String logs = driver.manage().logs().get(LogType.BROWSER).getAll().stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining("\n"));
+            Allure.addAttachment("Browser logs", "text/plain", logs, ".log");
+
         } catch (Exception e) {
-            return "No browser logs";
+            Allure.addAttachment("Error gathering artifacts", "text/plain", e.getMessage(), ".txt");
         }
     }
 }
