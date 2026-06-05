@@ -64,7 +64,7 @@ public class EmptyCartPageTests extends BaseUiTestRunner {
 
     @Story("Removing item from cart")
     @Severity(SeverityLevel.CRITICAL)
-    @Issue("https://github.com/UA-5340-TAQC/coffeeCart5340/issues/7")
+    @Issue("7")
     @Tag("Regression")
     @Description("Verify that removing the only product from the cart updates the cart state to empty and displays the appropriate message.")
     @Test(priority = 1)
