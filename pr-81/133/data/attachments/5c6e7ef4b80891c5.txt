@@ -1,0 +1,1 @@
+Scenario passed: Adding Espresso to cart updates cart contents and total

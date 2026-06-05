@@ -1,0 +1,1 @@
+Scenario passed: Clicking Espresso on Menu page immediately adds it to cart
