@@ -1,0 +1,1 @@
+Scenario failed: Verify impossibility of adding extra discounted Mocha after adding 3 cups of coffee to the cart
