@@ -1,1 +1,0 @@
-Scenario passed: Verify successful checkout with promotional checkbox selected
