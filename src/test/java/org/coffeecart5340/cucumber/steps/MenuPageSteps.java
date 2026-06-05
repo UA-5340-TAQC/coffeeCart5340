@@ -131,7 +131,6 @@ public class MenuPageSteps {
 
     @Then("I verify that the + button is disabled for the {string} coffee cup")
     public void i_verify_that_the_button_is_disabled_for_the_coffee_cup(String string) {
-        new CartPage(cucumberHook.getDriver()).getTotalButton().clickCheckoutButton();
         Assert.assertFalse(new MenuPage(cucumberHook.getDriver())
                 .getCartPreviewItemByName(string).isPlusButtonAvailable(),
                 "The + button should be disabled for the " + string + " coffee cup after purchase!");
