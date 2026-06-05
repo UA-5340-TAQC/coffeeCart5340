@@ -1,0 +1,1 @@
+Scenario failed: Display quick cart preview when hovering over the Total button

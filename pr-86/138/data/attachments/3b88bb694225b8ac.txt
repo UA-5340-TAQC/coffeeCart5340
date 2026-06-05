@@ -1,0 +1,1 @@
+Scenario started: Verify that the Cart Preview accurately reflects the added item and its quantity upon hover
