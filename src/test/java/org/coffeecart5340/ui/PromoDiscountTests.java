@@ -157,7 +157,7 @@ public class PromoDiscountTests extends BaseUiTestRunner {
     @Severity(SeverityLevel.CRITICAL)
     @Tag("Regression")
     @Description("Verify that adding a discounted Mocha via promo cannot be increased beyond 1, and total price is calculated correctly.")
-    @Issue("https://github.com/UA-5340-TAQC/coffeeCart5340/issues/48")
+    @Issue("11")
     @Test(priority = 1)
     @Muted
     public void verifyImpossibilityOfAddingExtraDiscountedMochaAfterPromo() {

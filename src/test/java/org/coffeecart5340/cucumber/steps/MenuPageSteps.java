@@ -25,11 +25,10 @@ public class MenuPageSteps {
     private CupCardComponent targetCup;
 
     @Getter
-    private TestValueProvider testValueProvider = new TestValueProvider();
+    private static TestValueProvider testValueProvider = new TestValueProvider();
 
     public MenuPageSteps(CucumberHook cucumberHook) {
         this.cucumberHook = cucumberHook;
-
     }
 
     @Given("I am on the menu page")
