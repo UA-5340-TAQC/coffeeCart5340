@@ -1,0 +1,1 @@
+Scenario passed: TC-43 Verify that Espresso Macchiato cup is displayed with correct data and can be added to the cart
