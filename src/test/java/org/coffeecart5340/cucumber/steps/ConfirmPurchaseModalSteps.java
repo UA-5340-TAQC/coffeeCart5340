@@ -35,10 +35,8 @@ public class ConfirmPurchaseModalSteps {
     @Then("I verify that the confirmation modal appears with Yes and No buttons")
     public void i_verify_that_the_confirmation_modal_appears_with_yes_and_no_buttons() {
         AddToCartModal addToCartModal = new AddToCartModal(cucumberHook.getDriver());
-        Assert.assertTrue(addToCartModal.isButtonYesDisplayed(),
-                "Yes button is not displayed in the confirmation modal");
-        Assert.assertTrue(addToCartModal.isButtonNoDisplayed(),
-                "No button is not displayed in the confirmation modal");
+        Assert.assertTrue(addToCartModal.isButtonYesDisplayed(), "Yes button is not displayed in the confirmation modal");
+        Assert.assertTrue(addToCartModal.isButtonNoDisplayed(), "No button is not displayed in the confirmation modal");
     }
 
     @Then("I verify that the Yes button is highlighted")
