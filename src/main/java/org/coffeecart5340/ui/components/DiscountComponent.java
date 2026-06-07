@@ -7,6 +7,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class DiscountComponent extends BaseComponent {
 
@@ -75,6 +76,11 @@ public class DiscountComponent extends BaseComponent {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    @Step("Wait until discount modal disappears")
+    public void waitUntilInvisible() {
+        wait.until(ExpectedConditions.invisibilityOf(rootElement));
     }
 
 }

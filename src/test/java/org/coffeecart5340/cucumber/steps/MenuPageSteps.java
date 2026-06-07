@@ -260,11 +260,7 @@ public class MenuPageSteps {
     public void clickButton(String buttonName) {
         if (buttonName.equals("Yes, of course!")) {
             new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickYesButton();
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            new MenuPage(cucumberHook.getDriver()).getDiscountModal().waitUntilInvisible();
         } else if (buttonName.equals("Nah, I'll skip")) {
             new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickNoButton();
         }
@@ -465,15 +461,11 @@ public class MenuPageSteps {
         new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickPromotionCheckbox();
     }
 
-    @When("I submit the payment form")
-    public void submitPaymentForm() {
-        new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickSubmitButton();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+@When("I submit the payment form")
+public void submitPaymentForm() {
+    new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickSubmitButton();
+    new MenuPage(cucumberHook.getDriver()).getPaymentModal().waitUntilInvisible();
+}
 
     @Then("a success message should appear")
     public void successMessageShouldAppear() {
