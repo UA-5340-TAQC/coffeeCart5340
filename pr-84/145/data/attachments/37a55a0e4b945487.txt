@@ -1,0 +1,1 @@
+Scenario started: TC-54 Verify item removal and total recalculation for Mocha

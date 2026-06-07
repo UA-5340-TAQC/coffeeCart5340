@@ -1,0 +1,1 @@
+Scenario failed: Successful end-to-end checkout after accepting promo offer and modifying cart
