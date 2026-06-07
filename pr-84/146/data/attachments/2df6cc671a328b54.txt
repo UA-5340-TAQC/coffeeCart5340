@@ -1,0 +1,1 @@
+Scenario passed: Increasing and decreasing Espresso quantity in the cart

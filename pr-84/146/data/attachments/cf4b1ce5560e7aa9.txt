@@ -1,0 +1,1 @@
+Scenario passed: Verify that hovering over the Total button shows the cart preview with correct items
