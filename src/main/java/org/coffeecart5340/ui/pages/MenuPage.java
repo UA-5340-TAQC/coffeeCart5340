@@ -8,6 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -60,6 +61,10 @@ public class MenuPage extends BasePage {
             return new PaymentModal(driver);
         }
         return paymentModal;
+    }
+
+    public WebElement getSnackbar() {
+        return snackbar;
     }
 
     public List<CartPreviewComponent> getCartPreviews() {
@@ -134,6 +139,10 @@ public class MenuPage extends BasePage {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    public void waitUntilElementIsVisible(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
 }

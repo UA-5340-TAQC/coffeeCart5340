@@ -461,16 +461,17 @@ public class MenuPageSteps {
         new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickPromotionCheckbox();
     }
 
-@When("I submit the payment form")
-public void submitPaymentForm() {
-    new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickSubmitButton();
-    new MenuPage(cucumberHook.getDriver()).getPaymentModal().waitUntilInvisible();
-}
+    @When("I submit the payment form")
+    public void submitPaymentForm() {
+        new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickSubmitButton();
+        new MenuPage(cucumberHook.getDriver()).getPaymentModal().waitUntilInvisible();
+    }
 
     @Then("a success message should appear")
     public void successMessageShouldAppear() {
-        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).isSnackbarVisible(),
-                "Success message should appear");
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        menuPage.waitUntilElementIsVisible(menuPage.getSnackbar());
+        Assert.assertTrue(menuPage.isSnackbarVisible(), "Success message should appear");
     }
 
     @Then("the success message should be {string}")
