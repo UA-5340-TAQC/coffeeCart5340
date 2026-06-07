@@ -476,12 +476,9 @@ public class MenuPageSteps {
 
     @Then("the success message should be {string}")
     public void successMessageShouldBe(String expectedMessage) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String actualMessage = new MenuPage(cucumberHook.getDriver()).getSnackbarText();
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        menuPage.waitUntilElementIsVisible(menuPage.getSnackbar());
+        String actualMessage = menuPage.getSnackbarText();
         Assert.assertEquals(actualMessage, expectedMessage,
                 "Success message should be: " + expectedMessage);
     }
