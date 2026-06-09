@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.coffeecart5340.ui.pages.MenuPage;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class PaymentModal extends BaseModal {
 
@@ -132,5 +134,18 @@ public class PaymentModal extends BaseModal {
         }
 
         clickSubmit();
+    }
+
+    public boolean isModalDisplayed() {
+        try {
+            return rootElement.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    @Step("Wait until payment modal disappears")
+    public void waitUntilInvisible() {
+        wait.until(ExpectedConditions.invisibilityOf(rootElement));
     }
 }

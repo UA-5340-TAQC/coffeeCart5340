@@ -43,6 +43,11 @@ public class MenuPageSteps {
                 "cart preview should be empty before adding any items");
     }
 
+    @When("I add {string} to cart")
+    public void iAddToCart(String coffeeName) {
+        new MenuPage(cucumberHook.getDriver()).clickCoffeeCup(coffeeName);
+    }
+
     @When("I right-click on the {string} coffee cup")
     public void i_right_click_on_the_coffee_cup(String string) {
         new MenuPage(cucumberHook.getDriver()).getCupCardByName(string).rightClickCup();
@@ -252,10 +257,13 @@ public class MenuPageSteps {
     }
 
     @When("I click the {string} button")
-    public void ClickPromoButton(String choice) {
-        if (choice == "Yes, of course!") {
+    public void clickButton(String buttonName) {
+        if (buttonName.equals("Yes, of course!")) {
             new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickYesButton();
-        } else new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickNoButton();
+            new MenuPage(cucumberHook.getDriver()).getDiscountModal().waitUntilInvisible();
+        } else if (buttonName.equals("Nah, I'll skip")) {
+            new MenuPage(cucumberHook.getDriver()).getDiscountModal().clickNoButton();
+        }
     }
 
     @Then("the beverage list should be empty")
@@ -404,4 +412,75 @@ public class MenuPageSteps {
         Assert.fail("Could not extract coffee name from promotional text: " + promoText);
         return null;
     }
+
+
+    @Then("the total button should display {string}")
+    public void totalButtonShouldDisplay(String expectedPrice) {
+        double expected = Double.parseDouble(expectedPrice.replace("$", ""));
+        double actual = new MenuPage(cucumberHook.getDriver()).getTotalButton().getTotalPrice();
+        Assert.assertEquals(actual, expected, 0.01,
+                "Total button should display " + expectedPrice + " but displayed $" + actual);
+    }
+
+    @Then("the cart preview should contain {int} items")
+    public void cartPreviewShouldContainItems(int expectedCount) {
+        int actualCount = new MenuPage(cucumberHook.getDriver()).getTotalButtonMenuComponent().getCartPreviewItemCount();
+        Assert.assertEquals(actualCount, expectedCount,
+                "Cart preview should contain " + expectedCount + " items, but found " + actualCount);
+    }
+
+    @When("I remove {string} from the cart preview")
+    public void removeFromCartPreview(String coffeeName) {
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        menuPage.getCartPreviewItemByName(coffeeName).clickMinus();
+    }
+
+    @When("I click the total button")
+    public void clickTotalButton() {
+        new MenuPage(cucumberHook.getDriver()).getTotalButton().clickCheckoutButton();
+    }
+
+    @Then("the payment details modal should appear")
+    public void paymentDetailsModalShouldAppear() {
+        Assert.assertTrue(new MenuPage(cucumberHook.getDriver()).getPaymentModal().isModalDisplayed(),
+                "Payment details modal should appear");
+    }
+
+    @When("I fill name {string} in the payment form")
+    public void fillNameInPaymentForm(String name) {
+        new MenuPage(cucumberHook.getDriver()).getPaymentModal().enterName(name);
+    }
+
+    @When("I fill email {string} in the payment form")
+    public void fillEmailInPaymentForm(String email) {
+        new MenuPage(cucumberHook.getDriver()).getPaymentModal().enterEmail(email);
+    }
+
+    @When("I check the promotional messages checkbox")
+    public void checkPromotionalMessagesCheckbox() {
+        new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickPromotionCheckbox();
+    }
+
+    @When("I submit the payment form")
+    public void submitPaymentForm() {
+        new MenuPage(cucumberHook.getDriver()).getPaymentModal().clickSubmitButton();
+        new MenuPage(cucumberHook.getDriver()).getPaymentModal().waitUntilInvisible();
+    }
+
+    @Then("a success message should appear")
+    public void successMessageShouldAppear() {
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        menuPage.waitUntilElementIsVisible(menuPage.getSnackbar());
+        Assert.assertTrue(menuPage.isSnackbarVisible(), "Success message should appear");
+    }
+
+    @Then("the success message should be {string}")
+    public void successMessageShouldBe(String expectedMessage) {
+        MenuPage menuPage = new MenuPage(cucumberHook.getDriver());
+        menuPage.waitUntilElementIsVisible(menuPage.getSnackbar());
+        String actualMessage = menuPage.getSnackbarText();
+        Assert.assertEquals(actualMessage, expectedMessage,
+                "Success message should be: " + expectedMessage);
+    }
+
 }
