@@ -1,1 +1,0 @@
-Scenario failed: Promo drink is not added to cart after declining the offer

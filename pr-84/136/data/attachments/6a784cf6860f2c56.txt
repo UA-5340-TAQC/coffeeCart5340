@@ -1,1 +1,0 @@
-Scenario failed: Promotional Mocha disappears when all qualifying products are removed

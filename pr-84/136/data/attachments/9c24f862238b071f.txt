@@ -1,1 +1,0 @@
-Scenario passed: TC-13 Verify that promo message appears only after adding the third coffee item

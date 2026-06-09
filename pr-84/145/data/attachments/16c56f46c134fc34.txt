@@ -1,1 +1,0 @@
-Scenario started: Payment modal overlays the cart page content

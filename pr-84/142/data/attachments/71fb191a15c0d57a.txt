@@ -1,1 +1,0 @@
-Scenario passed: TC-12 Verify that adding the same coffee multiple times updates quantity in Cart

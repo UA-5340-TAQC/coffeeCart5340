@@ -1,1 +1,0 @@
-Scenario failed: Verify promotional offer triggers again if cart quantity falls below threshold and reaches multiple of 3 again

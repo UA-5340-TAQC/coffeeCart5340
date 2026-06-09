@@ -1,1 +1,0 @@
-Scenario passed: Verify promotional offers trigger after 3 initial cups and 2 subsequent cups, and validate cart preview updates

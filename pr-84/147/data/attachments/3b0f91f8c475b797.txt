@@ -1,1 +1,0 @@
-Scenario passed: Closing and reopening the Payment details modal

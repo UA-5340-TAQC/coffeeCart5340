@@ -1,1 +1,0 @@
-Scenario failed: Cart becomes empty after removing all added coffee items

@@ -1,1 +1,0 @@
-Scenario passed: Verify payment form validation and successful submission without promo
